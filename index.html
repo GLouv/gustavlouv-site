@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://gustavlouv.com/">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Gustav Louv">
+<meta property="og:description" content="Iværksætter i København. Stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.">
+<meta property="og:url" content="https://gustavlouv.com/">
+<meta property="og:image" content="https://gustavlouv.com/portraet-gustav-louv.jpg">
+<meta property="og:locale" content="da_DK">
+<title>Gustav Louv</title>
+<meta name="description" content="Gustav Louv (Gustav-Emil Leen Louv) er iværksætter i København og stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #F5F6F3;
+    --surface: #ECEEEA;
+    --ink: #15191C;
+    --muted: #5B6570;
+    --rule: #D6DAD5;
+    --accent: #1F5C4A;
+    --accent-soft: #DDE8E3;
+    --display: "Familjen Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #101416;
+      --surface: #171D20;
+      --ink: #E7ECEA;
+      --muted: #98A4AD;
+      --rule: #2A3336;
+      --accent: #7BC0A6;
+      --accent-soft: #1C2B27;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #101416;
+    --surface: #171D20;
+    --ink: #E7ECEA;
+    --muted: #98A4AD;
+    --rule: #2A3336;
+    --accent: #7BC0A6;
+    --accent-soft: #1C2B27;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    padding-inline: 20px;
+    padding-block: 0;
+  }
+  .page {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding-block: clamp(3rem, 9vw, 6rem) 3rem;
+    display: grid;
+    gap: 3rem;
+  }
+
+  header { display: grid; gap: 1.1rem; justify-items: start; }
+  .portraet {
+    width: 128px; height: 160px; object-fit: cover; border-radius: 6px;
+    border: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0;
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 9vw, 4.25rem);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .lede {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 34rem;
+    text-wrap: pretty;
+  }
+
+  .register {
+    margin: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+  }
+  .register div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 1rem;
+    padding-block: 0.7rem;
+    border-top: 1px solid var(--rule);
+  }
+  .register div:first-child { border-top: 0; }
+  .register dt {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+    padding-top: 0.15rem;
+  }
+  .register dd { margin: 0; }
+
+  h2 {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+  }
+
+  .work { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.4rem; }
+  .work li { display: grid; gap: 0.25rem; }
+  .work a.name {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+    text-decoration: none;
+    width: fit-content;
+    border-bottom: 2px solid var(--accent);
+  }
+  .work a.name:hover { color: var(--accent); }
+  .work .host {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-left: 0.5rem;
+  }
+  .work p { margin: 0; color: var(--ink); }
+
+  .before p { margin: 0; max-width: 36rem; }
+
+  .links { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 0; padding: 0; }
+  .links a {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    background: var(--accent-soft);
+    text-decoration: none;
+    padding: 0.45rem 0.75rem;
+    border-radius: 4px;
+  }
+  .links a:hover { text-decoration: underline; }
+
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  footer {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  @media (max-width: 30rem) {
+    .register div { grid-template-columns: 1fr; gap: 0.1rem; }
+    .work .host { display: block; margin-left: 0; }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Gustav Louv",
+  "alternateName": ["Gustav-Emil Leen Louv", "Gustav-Emil Louv"],
+  "url": "https://gustavlouv.com/",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://gustavlouv.com/portraet-gustav-louv.jpg",
+    "width": 800,
+    "height": 1000,
+    "caption": "Gustav Louv, stifter af Agent360",
+    "creditText": "Agent360"
+  },
+  "jobTitle": "Stifter og administrerende direktør",
+  "worksFor": { "@type": "Organization", "name": "Agent360 Group ApS", "url": "https://www.agent360.dk" },
+  "homeLocation": { "@type": "Place", "name": "København" },
+  "nationality": "Danish",
+  "sameAs": [
+    "https://www.linkedin.com/in/gustavlouv",
+    "https://github.com/GLouv",
+    "https://www.instagram.com/gustav.louv/",
+    "https://www.agent360.dk/om/gustav-louv",
+    "https://forbrugeragenten.dk/pressekit/founder-bio/"
+  ]
+}
+</script>
+</head>
+<body>
+<main class="page">
+  <header>
+    <img class="portraet" src="portraet-gustav-louv.jpg" width="800" height="1000" alt="Gustav Louv, stifter af Agent360">
+    <p class="eyebrow">Iværksætter · København</p>
+    <h1>Gustav Louv</h1>
+    <p class="lede">Stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.</p>
+  </header>
+
+  <dl class="register" aria-label="Fakta">
+    <div><dt>Navn</dt><dd>Gustav Louv</dd></div>
+    <div><dt>Fulde navn</dt><dd>Gustav-Emil Leen Louv</dd></div>
+    <div><dt>By</dt><dd>København</dd></div>
+    <div><dt>Selskab</dt><dd>Agent360 Group ApS, stifter og direktør</dd></div>
+  </dl>
+
+  <section aria-labelledby="nu">
+    <h2 id="nu">Det bygger han nu</h2>
+    <ul class="work">
+      <li>
+        <div><a class="name" href="https://www.agent360.dk">Agent360</a><span class="host">agent360.dk</span></div>
+        <p>AI-infrastruktur til danske virksomheder: ét internt system oven på de systemer, virksomheden allerede har.</p>
+      </li>
+      <li>
+        <div><a class="name" href="https://forbrugeragenten.dk">Forbrugeragenten</a><span class="host">forbrugeragenten.dk</span></div>
+        <p>En gratis agent, der skriver til dine el-, mobil- og bredbåndsselskaber og samler tilbuddene ét sted. Du logger ind med MitID.</p>
+      </li>
+      <li>
+        <div><a class="name" href="https://browsermcp.dev">Browser MCP</a><span class="host">browsermcp.dev</span></div>
+        <p>Et gratis, åbent browserværktøj til AI-assistenter. Det stopper og spørger dig, når det møder en 2FA-kode eller en CAPTCHA.</p>
+      </li>
+      <li>
+        <div><a class="name" href="https://computermcp.dev">Computer MCP</a><span class="host">computermcp.dev</span></div>
+        <p>Lader en AI-assistent bruge din Mac, mens du laver noget andet. Gratis, til macOS.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section class="before" aria-labelledby="foer">
+    <h2 id="foer">Før Agent360</h2>
+    <p>Gustav har bygget virksomheder siden 2020: biludlejning på Tenerife fra 2020 til 2023, forskellige webshops, og i 2023 ecommercebot.com, en AI-chatbot til Shopify-butikker. Fra 2021 til 2025 drev han sit eget konsulentselskab, som han solgte i juli 2025.</p>
+  </section>
+
+  <section aria-labelledby="find">
+    <h2 id="find">Find ham</h2>
+    <ul class="links">
+      <li><a href="https://www.linkedin.com/in/gustavlouv">LinkedIn</a></li>
+      <li><a href="https://github.com/GLouv">GitHub</a></li>
+      <li><a href="https://www.instagram.com/gustav.louv/">Instagram</a></li>
+      <li><a href="https://www.agent360.dk/om/gustav-louv">Profil hos Agent360</a></li>
+      <li><a href="https://forbrugeragenten.dk/pressekit/founder-bio/">Pressekit</a></li>
+      <li><a href="mailto:gustav@agent360.dk">gustav@agent360.dk</a></li>
+    </ul>
+  </section>
+
+  <footer>gustavlouv.com</footer>
+</main>
+</body>
+</html>
