@@ -66,11 +66,20 @@
     gap: 3rem;
   }
 
-  header { display: grid; gap: 1.1rem; justify-items: start; }
-  .portraet {
-    width: 128px; height: 160px; object-fit: cover; border-radius: 6px;
-    border: 1px solid var(--rule);
+  .hero { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+  .hero-text { display: grid; gap: 0.9rem; justify-items: start; min-width: 0; }
+  .avatar {
+    width: 168px; height: 168px; border-radius: 50%; display: block;
+    border: 1px solid var(--rule); background: #0F172A;
+    box-shadow: 0 0 0 6px var(--accent-soft);
   }
+  .avatar-note { margin: 0; font-size: 0.95rem; color: var(--muted); max-width: 22rem; }
+  .avatar-note a { color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px solid currentColor; }
+  .avatar-note a:hover { color: var(--ink); }
+  a { transition: color .15s ease, background-color .15s ease, transform .1s ease; }
+  .links a:active, .work a.name:active, .avatar-note a:active { transform: scale(.97); }
+  @media (prefers-reduced-motion: reduce) { a { transition: none; } .links a:active, .work a.name:active, .avatar-note a:active { transform: none; } }
+  @media (max-width: 34rem) { .hero { grid-template-columns: 1fr; gap: 1.25rem; } .avatar { width: 120px; height: 120px; } }
   .eyebrow {
     font-family: var(--mono);
     font-size: 0.75rem;
@@ -219,11 +228,14 @@
 </head>
 <body>
 <main class="page">
-  <header>
-    <img class="portraet" src="portraet-gustav-louv.jpg" width="800" height="1000" alt="Gustav Louv, stifter af Agent360">
-    <p class="eyebrow">Iværksætter · København</p>
-    <h1>Gustav Louv</h1>
-    <p class="lede">Stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.</p>
+  <header class="hero">
+    <img class="avatar" src="avatar-gustav-louv-640.jpg" width="640" height="640" alt="Tegnet avatar af Gustav Louv">
+    <div class="hero-text">
+      <p class="eyebrow">Iværksætter · København</p>
+      <h1>Gustav Louv</h1>
+      <p class="lede">Stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.</p>
+      <p class="avatar-note">Tegningen er mig, lavet med AI. Vil du se, hvordan jeg ser ud i virkeligheden, så find mig på <a href="https://www.linkedin.com/in/gustavlouv" rel="me">LinkedIn</a>.</p>
+    </div>
   </header>
 
   <dl class="register" aria-label="Fakta">
@@ -257,7 +269,7 @@
 
   <section class="before" aria-labelledby="foer">
     <h2 id="foer">Før Agent360</h2>
-    <p>Gustav har bygget virksomheder siden 2020: biludlejning på Tenerife fra 2020 til 2023, forskellige webshops, og i 2023 ecommercebot.com, en AI-chatbot til Shopify-butikker. Fra 2021 til 2025 drev han sit eget konsulentselskab, som han solgte i juli 2025.</p>
+    <p>Gustav har bygget virksomheder siden 2020: biludlejning på Tenerife fra 2020 til 2023, forskellige webshops og i 2023 EcommerceBot, en AI-platform til Shopify-butikker, der samlede kundechat, test af annoncer og sociale medier ét sted. Han førte den ikke videre, fordi han så Shopify selv levere de værktøjer, butikkerne har brug for, og fordi EcommerceBot ellers ville ende som konkurrent til Shopify. Fra 2021 til 2025 drev han sit eget konsulentselskab, som han solgte i juli 2025.</p>
   </section>
 
   <section aria-labelledby="find">
@@ -273,7 +285,7 @@
   </section>
 
   <footer>
-    <a class="gh" href="https://github.com/GLouv" rel="me"><img src="avatar-gustav-louv.jpg" width="40" height="40" alt="Tegnet avatar af Gustav Louv" loading="lazy">Open source på GitHub · @GLouv</a>
+    <a class="gh" href="https://github.com/GLouv" rel="me"><img src="avatar-gustav-louv.jpg" width="40" height="40" alt="" loading="lazy">Open source på GitHub · @GLouv</a>
   </footer>
 </main>
 </body>
