@@ -1,0 +1,8 @@
+# Gustav Louv
+
+> Gustav Louv (Gustav-Emil Leen Louv) er iværksætter i København og stifter af Agent360, der bygger AI-infrastruktur til danske virksomheder.
+
+- [Profil](https://gustavlouv.com/): kort bio, nuværende projekter og links
+- [LinkedIn](https://www.linkedin.com/in/gustavlouv): foto og erhvervshistorik
+- [Agent360](https://www.agent360.dk/om/gustav-louv): profil hos Agent360
+- [GitHub](https://github.com/GLouv): open source (Browser MCP, Computer MCP)
