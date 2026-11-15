@@ -1,0 +1,1553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- ANKOMST (runde 25): et anker udefra springes ikke til; siden glider langsomt derned (runde6.py) -->
+<script>(function(){try{var h=location.hash;if(!/^#[a-z][a-z0-9-]*$/.test(h)||!history.replaceState)return;window.__ankomst=h;history.replaceState(null,'',location.pathname+location.search);var k={ArrowDown:1,ArrowUp:1,PageDown:1,PageUp:1,Home:1,End:1,' ':1};var s=null;['wheel','touchstart','touchmove','keydown'].forEach(function(n){addEventListener(n,function(e){var m=e.target||{},t=e.touches&&e.touches[0];if(e.type==='touchstart'){s=t?[t.clientX,t.clientY]:null;return}if(e.type==='touchmove'&&t&&s&&Math.abs(t.clientX-s[0])+Math.abs(t.clientY-s[1])<=10)return;if(e.type==='keydown'&&(!k[e.key]||m.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(m.tagName||'')))return;window.__ankomstRoert=true},{passive:true})})}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://gustavlouv.com/en/">
+<link rel="alternate" hreflang="da" href="https://gustavlouv.com/">
+<link rel="alternate" hreflang="en" href="https://gustavlouv.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://gustavlouv.com/en/">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Gustav Louv">
+<meta property="og:description" content="Entrepreneur in Copenhagen. Founder of Agent360, which builds AI infrastructure for Danish companies.">
+<meta property="og:url" content="https://gustavlouv.com/en/">
+<meta property="og:image" content="https://gustavlouv.com/portraet-gustav-louv.jpg">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="da_DK">
+<title>Gustav Louv</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="Gustav Louv (Gustav-Emil Leen Louv) is an entrepreneur in Copenhagen and the founder of Agent360, which builds AI infrastructure for Danish companies.">
+<meta name="theme-color" content="#011128">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: hero-bånd i avatarens navy, hvor tegningens netværk forbinder Gustav med Agent360, Forbrugeragenten og de to open source-projekter;
+   lige under står Agent360 og Forbrugeragenten som en illustration i samme navy på lyst blueprint-papir, der stopper ved valget. Resten er roligt papir. */
+:root{
+  /* Altid mørkt: hero og kontrolrum, nøjagtig avatarens baggrund */
+  --hero:#011128;
+  --hero-ink:#E8EEFC;
+  --hero-muted:#93A3C8;
+  --hero-dim:#7D8FB8;
+  --hero-line:rgba(96,140,255,.30);
+  --hero-surface:rgba(3,22,54,.82);
+  --hero-link:#9DB8FF;
+  --net:#2F6BFF;
+  --warm:#E8A877;
+  --warm-ink:#2A1404;
+  /* Siden under hero (lyst blueprint) */
+  --paper:#F3F6FC;
+  --surface:#FBFCFF;
+  --ink:#0A1430;
+  --muted:#56658A;
+  --line:#C7D3EC;
+  --accent:#2F6BFF;
+  --accent-ink:#1F55E6;
+  --glow:rgba(47,107,255,.45);
+  /* Typografi */
+  --display:"Host Grotesk","Helvetica Neue",Arial,sans-serif;
+  --mono:"Azeret Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --gl:max(16px, env(safe-area-inset-left, 0px));
+  --gr:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#050D20;
+    --surface:#0A1631;
+    --ink:#E6ECFA;
+    --muted:#97A6C8;
+    --line:#1E2E55;
+    --accent:#4F84FF;
+    --accent-ink:#8FB0FF;
+    --glow:rgba(79,132,255,.55);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#050D20;
+  --surface:#0A1631;
+  --ink:#E6ECFA;
+  --muted:#97A6C8;
+  --line:#1E2E55;
+  --accent:#4F84FF;
+  --accent-ink:#8FB0FF;
+  --glow:rgba(79,132,255,.55);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--display);
+  font-size:1.0625rem;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.wrap{max-width:1312px;margin-inline:auto;padding-left:var(--gl);padding-right:var(--gr)}
+h1,h2,h3{text-wrap:balance;margin:0}
+p,ol,ul,dl{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;background:var(--hero);color:var(--hero-ink);overflow:hidden;isolation:isolate;border-bottom:1px solid var(--hero-line)}
+.sprog{position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 12px);right:max(12px,calc(env(safe-area-inset-right,0px) + 12px));display:flex;align-items:center;gap:.15rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--hero-muted)}
+.sprog span[aria-current],.sprog a{display:inline-flex;align-items:center;min-height:32px;min-width:32px;justify-content:center;padding:0 .35rem;border-radius:6px}
+.sprog span[aria-current]{color:var(--hero-ink);font-weight:600}
+.sprog a{color:var(--hero-muted);text-decoration:none}
+.sprog a:hover{color:var(--hero-ink);background:rgba(255,255,255,.08)}
+
+/* ---------- Runde 28: bookingvinduet ---------- */
+.book{width:min(560px,calc(100% - 24px));max-height:min(92dvh,860px);padding:0;border:1px solid var(--line);border-radius:18px;background:var(--surface);color:var(--ink);box-shadow:0 30px 80px rgba(1,17,40,.45)}
+.book::backdrop{background:rgba(1,17,40,.62)}
+.book[open]{display:flex;flex-direction:column}
+.book > *{padding-inline:22px}
+.book-hoved{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-top:20px;padding-bottom:6px}
+.book h2{font-family:var(--display);font-size:1.35rem;line-height:1.2;margin:0}
+.book-under{margin:.25rem 0 0;color:var(--muted);font-size:.95rem}
+.book-luk{flex:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:1.4rem;line-height:1;cursor:pointer}
+.book-luk:hover{background:var(--paper)}
+.book-status{margin:0;min-height:0;color:var(--muted);font-size:.92rem}
+.book-status:not(:empty){padding-block:8px}
+.book-trin{padding-block:12px;border-top:1px solid var(--line)}
+.book-trin:last-child{padding-bottom:22px}
+.book h3{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:1rem}
+.book-nr{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:999px;background:var(--accent);color:#fff;font-size:.8rem;font-family:var(--mono)}
+.book-tz{margin-left:auto;font-weight:400;font-size:.8rem;color:var(--muted);font-family:var(--mono)}
+.book-dage{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
+.book-dag{flex:none;scroll-snap-align:start;display:grid;gap:2px;min-width:74px;padding:10px 10px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
+.book-dag b{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.book-dag span{font-size:1.05rem;font-weight:600}
+.book-dag small{font-size:.75rem;color:var(--muted)}
+.book-dag[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.book-dag[aria-pressed="true"] b,.book-dag[aria-pressed="true"] small{color:rgba(255,255,255,.85)}
+.book-tider{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
+.book-tid{min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-family:var(--mono);font-size:.95rem;cursor:pointer}
+.book-tid[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.book-dag:hover:not([aria-pressed="true"]),.book-tid:hover:not([aria-pressed="true"]){border-color:var(--accent)}
+.book-valgt{margin:0 0 12px;font-weight:600}
+.book-felter{display:grid;gap:6px}
+.book-felter label{font-size:.9rem;font-weight:600;margin-top:6px}
+.book-valgfri{font-weight:400;color:var(--muted)}
+.book-felter input,.book-felter textarea{font:inherit;font-size:1rem;padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink)}
+.book-felter textarea{resize:vertical}
+.book-felter [aria-invalid="true"]{border-color:#C5221F}
+.book-fejl{margin:10px 0 0;color:#C5221F;font-size:.92rem}
+.book-fejl:empty{display:none}
+:root:not([data-theme="light"]) .book-fejl,:root[data-theme="dark"] .book-fejl{color:#FF8A80}
+.book-knap{margin-top:14px;width:100%;min-height:48px;border:0;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:1rem;cursor:pointer}
+.book-knap:disabled{opacity:.6;cursor:progress}
+.book-fine{margin:12px 0 0;font-size:.82rem;color:var(--muted);line-height:1.5}
+.book-ok-h{font-family:var(--display);font-size:1.3rem;font-weight:600;margin:0 0 6px}
+.book-ok p{margin:.2rem 0}
+.book :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:560px){.book{width:100%;max-width:none;margin:auto 0 0;border-radius:18px 18px 0 0;max-height:94dvh;padding-bottom:env(safe-area-inset-bottom,0px)}}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+.hero :focus-visible{outline-color:var(--hero-ink)}
+.hero-grid{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 260px minmax(0,440px);
+  grid-template-areas:"intro hub net";
+  column-gap:clamp(40px,4.6vw,84px);
+  align-items:center;
+  padding-block:clamp(40px,5vw,72px);
+}
+.intro{grid-area:intro;display:grid;gap:18px;justify-items:start}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--hero-muted)}
+h1{font-size:clamp(3rem,5.4vw,5rem);font-weight:700;line-height:.94;letter-spacing:-.035em}
+.lede{font-size:clamp(1.125rem,1.5vw,1.3125rem);line-height:1.45;max-width:28ch;color:var(--hero-ink)}
+.fullname{font-family:var(--mono);font-size:.8125rem;color:var(--hero-ink);display:flex;flex-wrap:wrap;gap:4px 10px}
+.fullname span{color:var(--hero-muted)}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-top:6px}
+/* Hovedfokus (Gustav 13/11): Agent360 til virksomheder og Forbrugeragenten til dig, over LinkedIn */
+.focus{display:grid;gap:10px;width:100%;max-width:460px;padding-top:4px}
+.fbtn{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;padding:14px 16px 14px 18px;border:1px solid var(--hero-line);border-radius:16px;background:var(--hero-surface)}
+.fbtn .ft{display:grid;gap:3px;min-width:9.5rem}
+.fbtn .fk{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-muted)}
+.fbtn .fn{font-size:1.25rem;font-weight:650;letter-spacing:-.015em;line-height:1.2}
+.pbtn{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:#2B63F5;color:#fff;font-weight:600;font-size:.95rem;line-height:1.2;text-decoration:none;white-space:nowrap;transition:background .2s,box-shadow .2s}
+.pbtn:hover{background:#255DE8;box-shadow:0 0 0 6px rgba(47,107,255,.18)}
+/* Forbrugeragentens officielle app-knap (DownloadCta) skaleret til 46 px: samme proportioner, logoer og typografi */
+.dl{display:inline-flex;align-items:center;gap:11px;height:46px;padding:0 15px 0 12px;border:1px solid #A6A6A6;border-radius:8px;background:#000;color:#fff;text-decoration:none;box-shadow:0 3px 8px rgba(0,0,0,.3);transition:background .2s,transform .2s}
+.dl:hover{background:#111;transform:translateY(-1px)}
+.dl:active{transform:scale(.98)}
+.dl-logos{display:flex;align-items:center;gap:10px}
+.dl-apple{width:24px;height:30px;margin-top:-2px;fill:currentColor}
+.dl-split{width:1px;height:26px;background:rgba(255,255,255,.25)}
+.dl-play{width:22px;height:25px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHIAAACACAYAAADXhz1vAAAIKElEQVR4nO3de1BUVRwH8N+ysshDBV/RLiXZMOUDqTaGssZRMbOcMhV7jKV/6BQ6Te+xdNTKNKvx1tiM6aSWj2kaCHSYaswHqJNjMYYWYCqOCAErKi8VYd1luc1ZvXhdF9jHPfee37n3+xcwyN65H8/53d/vLAOAESNG2Ikp2H+QMnHMXsvAaLtlcHRCxGALdDa4wNXQ3uxqai85XVT6BJ3LNKIIJMHrPzZxkie1X6/fay67ApcP1+8zUBmDtK9+SvQMjwn6B5sr26Bk8a6gV7yR0GLqaRXGvpYyCcKMubgFSr4sNEApx0QTUYq51QPOXeeaj+cVD1TqZxrpBVJpRHki613QUlBt1E81IO2bnxM9cWagGfJAVLJyj7HdKphbbqZ96WQxkCdTxV58fyMc23DAAFUgEfJP1EQkEScM8u4AI6bay1V9YQ7TtRoezB4vkhurVUj9PPLmz8bqDDFdNy59y0zRHQ2ax6ifYW6tQ5ufBhZCtvcHcmaKo7IymrS+FpSQ0U3DweZgA5MkclZSAqmfpB3S+lrQQNrHTTvLIiZpg0hPS8aEWl8LCsjIqJi7pC+whklCZr1kuyUPZFpfC4r2g2VMebti1M8AIVnGJNstqZ/pa58Rhz86YqvW18M8JMuYJO5EC/R/a+QcMo0CIz1Dso4pb1dS5zyma9BeITFgkpinJup63BcQJBZMT5wZouYkjyL1E3SWgCGxYEr1k2y39ncydQMaFCQmTBJPRrxuxn1BQ2LD1Mu4LyRIjJgeadzHabsSMqSEmVw5GyI9FsASz412hbdxX1iQJH3aEsBWPQsVJo/jvrAhMWN6OBr3KQKJGZOXcZ9ikNgxsY/7FIXkARPruE9xSF4wPTfGfVjenUAFkhdM+bsTWB/3UYPkCRPDuI8qJG+YJFK7wtq4jzokj5juRIt33Dd59RRRV5A8YpK8n9YM7n0DxdULx4i6geQNU+hXC+Msp70fvzejFury7xZnTx0h6gKSF0xBhihl6IBW2PL2eTi6+X4xI23YRu4hsWMKfhDlSR12AQ4JV+bnrFB3u9UEEium0AuiPDPG1nrr54Ks0SLXkNgwhSAQ5fk62+Gtn9Mm3uf9/RouIbFgCiEiyutn3pKLyXu/Gk2tfmoOyTqmECaiPONTHd76SaNdYQKSVUxBQUR5pHZFyfrJDCRrmAIlRPl2S+onaVcyH7m3kCtIVjAFyoi+7cpvK5snhtuuMAepNaagIqK/duWDuakiN5BaYQoaIcrzySt1IY37mIVUG1NgADGccR/TkGphCgwh+hv3rV/Ue/1kHpI2psAoojzzJ19vV9BD0sIUECDKt9ueMNFAKo0pIEIMBBMVpFKYAkJEOaa/nhMdZLiYAmJEec/pe5qCEjJUTIEDRCkfzjYlcwEZLKbAEaLUmnADGSimwBmiFPnpCXrI3jAFThFJxo+5yccFZHeYPCOSpNhc/EH6Yr7qGcw1om+d5ApSwvz4WALMjy8APYU7yGxHLqQfPQKtuUkgurR/pwHNXLgUxydktiMX0qr+8n7sqTFxj3noeDx/kNkyRCm8Yx47I/IFme0HUQ+YR061FXED2RMiz5ikPhb+eSaTC8hAEHnFXPlj/1s+j9ADIm+YZdVDYX1euQk9ZCiIPGE+NO/kbX8MLkJPiDxgZn06pMrf1yP0hogZkyAWFJ26BzWkkojYMElNfPzdfpu6QyTpAzpF9MWMe74WTJabpwmstBjk6dT3wQbliqSJyPLKXLMjCWwz/zMFgsg8pBqIrGEeKLN6t9HF35QG9WeKmd1a1UT0xYyZVQvmKJfq2+jCddFVBUXl3dZBdJBaIMox235SF/ONDdaA6iCqrVVLRF/MDifdbXbTniSInNQUcB1EA8kCohyzPS8J3M6+QKudWPBFcHUQxdbKEqIc05lnBchyQGRfJyhRBxd9Fws//HpCMUCmViSLiL6Y19qjIJws227zthM0EJmAZBlRjunKt0F7e/Db7I7D1+vgZ1vLqAAyAYkBUY7ZkW8NGJPUwSlLE4peWK5cHWSyRmJClGNCvhVapzsgLtYZ9lgN/YrEiCjHFHda4fLVaAh3rIYaEjOiHNO0884uTKkOBjtWQ7u18oAox6zNTYSPzrVWFRSVhjRWQwnJE2IjAKxtuQrrC//VbAVqAskTYo7LA6//fpQZQNVqJC+IxZ0iPHu2fhuLiNRXJA+IjQCw+HyLY2f5aRswHGqQPCAuJ3WwhJ06qDokdsTdHZ3w8sESFIDUaiRmxAoAbx3Ehqj4isSK2AgAqxquwPZ/bn8Ht+4gsSKuaXXC58V0TybQQGJE3I2wDlKtkdgQKwDgpbqGgzwhhr0iMSE2SmM1JO2EapCYEDe2u2HJ4b+5BAxra8WCuLuj09tO8I4Y0orEgFhBnkYRjNU0g2QdsZHzOqgIJOuIOYweLzFVI1lGZP14iZkVySoiluMlJiBZRcR0vKQ5JIuIvI3VFK+R7mttNSwjYj5eUitdNyZr2X6RNUQejpc02VpZQtTDWI0K5IuV30Na/QnQOkYdDLOPrDhbClqG1+MltXLLTbuYma7Yn1MPNHoeq1GrkWRbe7KPer/XY9RB5XLbKjiZmS4OAroh/2HW1VzY9kdlzVzKL6XfgQAZe317R7yVxovp8XhJrfitSwvsI8UV8bGKvpAxVqObbh8wpo9OqVNiZer9eEmt9HqDf5nwsJgRYQrpeGlV9XmjDqqUgITI6pw3ZIA1EFACuPniJaMOqpyglxpBTYyKtI6K6QvxESZo6RTheJsT6q+5DTwjRowYAZL/Aaoc19fbKdJ7AAAAAElFTkSuQmCC) center/contain no-repeat}
+.dl-t{display:grid;text-align:left;line-height:1}
+.dl-k{font-size:8px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;color:rgba(255,255,255,.85)}
+.dl-n{font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:11px 20px;border-radius:999px;background:transparent;border:1px solid rgba(157,184,255,.55);color:var(--hero-ink);font-weight:600;font-size:.95rem;text-decoration:none;transition:border-color .2s,box-shadow .2s}
+.cta:hover{border-color:var(--hero-ink);box-shadow:0 0 0 6px rgba(47,107,255,.14)}
+.mail{font-family:var(--mono);font-size:.875rem;overflow-wrap:anywhere;color:var(--hero-ink);text-underline-offset:4px;text-decoration-color:rgba(232,238,252,.35)}
+.mail:hover{text-decoration-color:var(--hero-ink)}
+
+.hub{grid-area:hub;margin:0;display:grid;gap:14px;justify-items:start}
+.avatar{display:block;width:260px;max-width:100%;aspect-ratio:1;border-radius:22px}
+.avatar img{
+  display:block;width:100%;height:100%;border-radius:22px;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%),linear-gradient(180deg,transparent 0,#000 6%,#000 94%,transparent 100%);
+  mask-composite:intersect;
+}
+.avatar:focus-visible{outline-offset:6px;border-radius:24px}
+.note{font-family:var(--mono);font-size:.75rem;line-height:1.55;color:var(--hero-muted);max-width:260px}
+.note a{color:var(--hero-ink);text-underline-offset:3px}
+
+.net{grid-area:net;display:grid;gap:16px;align-content:center}
+.net-label{font-family:var(--mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--hero-muted)}
+.thesis{font-size:.98rem;line-height:1.5;color:var(--hero-ink);max-width:42ch;opacity:.9}
+.nodes{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:10px}
+.nodes li:nth-child(2){margin-left:28px}
+.nodes--oss{margin-top:0}
+.oss-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-muted);margin:4px 0 -6px}
+.node{
+  display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 14px;
+  width:100%;max-width:340px;padding:12px 16px 12px 18px;
+  border:1px solid var(--hero-line);border-radius:12px;
+  background:rgba(1,17,40,.74);color:var(--hero-ink);
+  font:inherit;text-align:left;cursor:pointer;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+.node .n{font-weight:600;font-size:1.0625rem;letter-spacing:-.01em}
+.node .d{font-family:var(--mono);font-size:.72rem;color:var(--hero-muted)}
+.node:hover{border-color:rgba(127,166,255,.7)}
+.node[aria-pressed="true"]{border-color:var(--net);background:rgba(47,107,255,.17);transform:translateX(4px)}
+.node[aria-pressed="true"] .d{color:#BFD0FF}
+/* Ét panel for alle fire: visningerne ligger oven i hinanden, så højden aldrig skifter */
+.panel{display:grid;max-width:440px;padding:18px 20px;border:1px solid var(--hero-line);border-radius:14px;background:var(--hero-surface)}
+.pv{grid-area:1 / 1;display:grid;gap:8px;align-content:start}
+.pv.off{visibility:hidden}
+.pm{font-family:var(--mono);font-size:.72rem;letter-spacing:.02em;color:var(--hero-muted)}
+.pn{font-size:1.375rem;font-weight:650;letter-spacing:-.015em;line-height:1.2}
+.pd{font-size:.95rem;line-height:1.55;color:#C9D4EE}
+.pc{display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:44px;margin-top:6px}
+
+@media (max-width:1179px){
+  .hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"hub net" "intro net";row-gap:32px;align-items:start}
+  .avatar{width:220px}
+}
+@media (max-width:759px){
+  .hero-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"hub" "intro" "net";row-gap:28px;padding-block:40px 48px}
+  .avatar{width:200px}
+  .net{gap:14px}
+  .nodes{padding-left:28px;margin-top:18px}
+  .nodes li:nth-child(2){margin-left:0}
+  .oss-label{margin-left:28px}
+  .node{max-width:none}
+  .node[aria-pressed="true"]{transform:none}
+  .panel{max-width:none;margin-left:28px}
+  .focus{max-width:none}
+}
+
+/* ---------- Sektioner ---------- */
+main{display:block}
+.sec{padding-block:clamp(56px,8vw,104px)}
+.sec + .sec{border-top:1px solid var(--line)}
+.sec-head{display:grid;gap:10px;margin-bottom:clamp(28px,4vw,44px);max-width:62ch}
+h2{font-size:clamp(1.75rem,3.2vw,2.625rem);font-weight:680;letter-spacing:-.025em;line-height:1.08}
+.sub{color:var(--muted);max-width:60ch}
+
+/* ---------- Projekterne: kontrolrummet ---------- */
+.room{
+  display:grid;gap:14px;padding:16px;
+  border:1px solid var(--hero-line);border-radius:20px;
+  background-color:var(--hero);
+  background-image:
+    linear-gradient(rgba(47,107,255,.055) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(47,107,255,.055) 1px,transparent 1px);
+  background-size:24px 24px;
+  color:var(--hero-ink);
+  box-shadow:0 40px 120px -60px rgba(47,107,255,.55);
+}
+.room :focus-visible{outline-color:var(--hero-ink)}
+.room-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;padding:2px 4px 0;font-family:var(--mono);font-size:.75rem;color:var(--hero-muted)}
+.room-title{display:flex;align-items:center;gap:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-ink)}
+.play{flex:none;width:0;height:0;border-left:7px solid var(--net);border-top:4.5px solid transparent;border-bottom:4.5px solid transparent}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend span::before{content:"";width:8px;height:8px;border-radius:50%}
+.lg-du{color:var(--warm)}
+.lg-du::before{background:var(--warm)}
+.lg-ag{color:#BFD0FF}
+.lg-ag::before{background:var(--net)}
+.room-sub{padding:0 4px;font-size:.95rem;line-height:1.5;color:#C9D4EE;max-width:70ch}
+
+.lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lane{
+  display:grid;grid-template-rows:auto auto 1fr auto;gap:14px;
+  padding:20px 20px 14px;
+  background:var(--hero-surface);
+  border:1px solid rgba(96,140,255,.2);border-radius:14px;
+  transition:border-color .3s,box-shadow .3s;
+}
+.lane:focus:not(:focus-visible){outline:none}
+.lane:focus-visible{outline:2px solid var(--hero-ink);outline-offset:4px}
+.lane[data-state="vent"]{border-color:rgba(232,168,119,.62);box-shadow:0 0 0 1px rgba(232,168,119,.16),0 18px 48px -26px rgba(232,168,119,.6)}
+.lane-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:8px 12px}
+.lane-h h3{font-size:1.375rem;font-weight:650;letter-spacing:-.015em;line-height:1.2;display:flex;align-items:center;gap:10px}
+.lane-h h3::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--net);box-shadow:0 0 10px rgba(47,107,255,.9)}
+.lane-meta{display:flex;flex-wrap:wrap;gap:2px 12px;margin-top:6px;font-family:var(--mono);font-size:.72rem;color:var(--hero-muted)}
+.lane-meta a{color:var(--hero-link);text-underline-offset:3px}
+.lane-meta a:hover{color:var(--hero-ink)}
+.lane-d{font-size:.95rem;line-height:1.55;color:#C9D4EE;max-width:62ch}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;
+  padding:4px 10px;border-radius:999px;border:1px solid transparent;
+}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%}
+.pill[data-s="klar"]{color:var(--hero-muted);border-color:var(--hero-line)}
+.pill[data-s="klar"]::before{background:var(--hero-dim)}
+.pill[data-s="koer"]{color:#BFD0FF;border-color:rgba(47,107,255,.5);background:rgba(47,107,255,.12)}
+.pill[data-s="koer"]::before{background:var(--net)}
+.pill[data-s="vent"]{color:var(--warm);border-color:rgba(232,168,119,.55);background:rgba(232,168,119,.1)}
+.pill[data-s="vent"]::before{background:var(--warm)}
+.pill[data-s="faerdig"]{color:var(--hero-link);border-color:var(--hero-line)}
+.pill[data-s="faerdig"]::before{background:var(--hero-link)}
+
+/* Forløbet: alle trin står fra start. Kun farve og flueben skifter, så højden aldrig ændrer sig */
+.flow{list-style:none;padding:12px 0 0;margin:0;border-top:1px dashed rgba(96,140,255,.24);display:grid;gap:6px;align-content:start}
+.st{display:grid;grid-template-columns:1.75rem minmax(0,1fr) auto;align-items:center;gap:6px 12px;padding:10px 12px;border:1px solid transparent;border-radius:10px;background:rgba(1,17,40,.45);transition:background .3s,border-color .3s}
+.st .no{width:1.75rem;height:1.75rem;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:.72rem;font-variant-numeric:tabular-nums;color:var(--hero-muted);border:1px solid var(--hero-line);transition:background .3s,border-color .3s,color .3s}
+.st .bd{display:grid;gap:2px;min-width:0}
+.st .who{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+.st.ag .who{color:#9FB6F2}
+.st.du .who{color:var(--warm)}
+.st b{font-weight:600;font-size:.95rem;line-height:1.35;color:var(--hero-ink)}
+.st small{font-size:.84rem;line-height:1.45;color:var(--hero-muted)}
+.st .approve{visibility:hidden}
+.st.now{border-color:rgba(232,168,119,.62);background:rgba(232,168,119,.08)}
+.st.now .no{border-color:var(--warm);color:var(--warm)}
+.st.now .approve{visibility:visible}
+.st.run{border-color:rgba(47,107,255,.55);background:rgba(47,107,255,.1)}
+.st.run .no{border-color:var(--net);color:#fff;animation:pulse 1.1s ease-in-out infinite}
+.st.ok .no{background:#2B63F5;border-color:#2B63F5;color:#fff}
+.st.du.ok .no{background:var(--warm);border-color:var(--warm);color:var(--warm-ink)}
+.lane-f{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;min-height:40px}
+.status{font-family:var(--mono);font-size:.74rem;line-height:1.5;color:var(--hero-muted)}
+.again{font:600 .875rem/1 var(--display);color:var(--hero-ink);background:transparent;border:1px solid var(--hero-line);border-radius:999px;padding:10px 16px;cursor:pointer;transition:border-color .2s}
+.again:hover{border-color:var(--hero-link)}
+.again:focus-visible{outline:2px solid var(--hero-ink);outline-offset:2px}
+.approve{
+  font:600 .875rem/1 var(--display);color:var(--warm-ink);background:var(--warm);
+  border:0;border-radius:999px;padding:11px 18px;cursor:pointer;
+  transition:filter .2s,transform .2s;
+}
+.approve:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.approve:focus-visible{outline:2px solid var(--hero-ink);outline-offset:2px}
+
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* Hvem er */
+.who{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,6vw,96px);align-items:start}
+.who-a{display:grid;gap:22px}
+.answer{font-size:clamp(1.25rem,2vw,1.5rem);line-height:1.4;letter-spacing:-.01em;max-width:30ch}
+.facts{margin:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.facts div{display:grid;grid-template-columns:8.5rem minmax(0,1fr);gap:16px;padding-block:11px;border-bottom:1px solid var(--line)}
+.facts dt{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+.facts dd{margin:0}
+.who-b{display:grid;gap:16px;max-width:62ch}
+.who-b h3{font-size:1.25rem;font-weight:650;letter-spacing:-.01em}
+.who-b .lesson{display:grid;gap:8px;padding-top:6px}
+.who-b h4{margin:0;font-family:var(--mono);font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.who-b .lesson p{color:var(--muted)}
+
+/* Tidslinje som netværkssti */
+.tl{list-style:none;padding:0;position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));column-gap:20px}
+.tl::before{
+  content:"";position:absolute;left:0;right:0;top:calc(1.5rem + 14px + 9px - 3px);height:6px;
+  background:
+    radial-gradient(circle,var(--line) 1.6px,transparent 2.2px) 12px 50%/26px 6px repeat-x,
+    linear-gradient(90deg,var(--line) 0,var(--line) 78%,var(--accent) 100%) 0 50%/100% 1px no-repeat;
+}
+.tl li{position:relative;display:grid;grid-template-rows:1.5rem 18px auto;row-gap:14px}
+.tl .yr{font-family:var(--mono);font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums;align-self:end;white-space:nowrap}
+.tl .dot{width:18px;height:18px;display:grid;place-items:center}
+.tl .dot::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--paper);border:2px solid var(--accent);box-shadow:0 0 0 5px var(--paper)}
+.tl .open .dot::before{border-color:var(--muted);border-style:dashed}
+.tl .now .dot::before{width:16px;height:16px;background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 5px var(--paper),0 0 18px 3px var(--glow)}
+.tl .tx{font-size:.98rem;line-height:1.45;padding-right:6px}
+.tl .tx small{display:block;color:var(--muted);font-size:.875rem;margin-top:4px}
+.tl .now .tx{font-weight:500}
+.tl .now .tx span{display:block}
+
+/* Open source: to gratis projekter, hver med sine målte tal */
+.oss-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}
+.oss-card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2.6vw,32px);display:grid;gap:14px;align-content:start}
+.card-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 12px}
+.oss-card h3{font-size:1.5rem;font-weight:650;letter-spacing:-.018em}
+.oss-card .yr{font-family:var(--mono);font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.oss-card .meta{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:-6px}
+.nums{margin:4px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
+.nums div{display:flex;flex-direction:column-reverse;justify-content:flex-end;gap:6px;padding:16px 12px 14px 0;border-bottom:1px solid var(--line)}
+.nums dd{margin:0;font-size:clamp(2rem,3.4vw,2.75rem);font-weight:650;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.nums dt{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em}
+.oss-card .desc{max-width:62ch;color:var(--muted)}
+.card-links{display:flex;flex-wrap:wrap;gap:8px 24px}
+.src{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;font-family:var(--mono);font-size:.75rem;line-height:1.6;color:var(--muted)}
+.go{font-weight:600;color:var(--accent-ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.go:hover{border-bottom-color:currentColor}
+.src .go{font-family:var(--display);font-size:.9rem}
+
+/* Find mig */
+.links{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.links a{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-weight:500;background:var(--surface);transition:border-color .2s}
+.links a:hover{border-color:var(--accent)}
+.links a.primary{background:var(--accent-ink);border-color:var(--accent-ink);color:#fff}
+:root[data-theme="dark"] .links a.primary{color:#06102A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .links a.primary{color:#06102A}}
+.mailline{margin-top:20px;font-family:var(--mono);font-size:.9rem;color:var(--muted)}
+.mailline a{color:var(--ink);text-underline-offset:4px}
+
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-block:28px 40px;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+
+@media (max-width:900px){
+  .who,.oss-cards{grid-template-columns:minmax(0,1fr)}
+  .lanes{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:860px){
+  .tl{grid-template-columns:minmax(0,1fr);row-gap:22px}
+  .tl::before{left:6px;right:auto;top:6px;bottom:6px;width:6px;height:auto;
+    background:
+      radial-gradient(circle,var(--line) 1.6px,transparent 2.2px) 50% 10px/6px 26px repeat-y,
+      linear-gradient(180deg,var(--line) 0,var(--line) 80%,var(--accent) 100%) 50% 0/1px 100% no-repeat}
+  .tl li{grid-template-columns:18px minmax(0,1fr);grid-template-rows:auto auto;column-gap:16px;row-gap:2px}
+  .tl .dot{grid-column:1;grid-row:1 / 3;align-self:start;margin-top:2px}
+  .tl .yr{grid-column:2;grid-row:1;align-self:start}
+  .tl .tx{grid-column:2;grid-row:2}
+  .tl .open .yr{display:none}
+  .tl .open .tx{grid-row:1 / 3}
+}
+@media (max-width:640px){
+  .facts div{grid-template-columns:7rem minmax(0,1fr)}
+}
+@media (max-width:560px){
+  .room{padding:12px;border-radius:16px}
+  .lane{padding:18px 14px 12px}
+  .st{grid-template-columns:1.75rem minmax(0,1fr)}
+  .st .approve{grid-column:2;justify-self:start}
+}
+.oss-card.os-kort{grid-column:1/-1;border-style:dashed}
+.citat{margin:0;padding:8px 4px 4px;display:grid;gap:10px;max-width:62ch}
+.citat blockquote{margin:0}
+.citat blockquote p{margin:0;font-size:clamp(1.15rem,1.6vw,1.4rem);line-height:1.45;font-weight:500;color:var(--hero-ink);text-wrap:balance}
+.citat figcaption{font-size:.85rem;color:var(--hero-muted)}
+.os-kort{grid-template-columns:minmax(0,1fr) minmax(0,25rem);column-gap:32px;align-items:center}
+.os-kort>*:not(.os-billede){grid-column:1}
+.os-billede{grid-column:2;grid-row:1 / span 4;width:100%;height:auto;border-radius:12px;border:1px solid var(--line)}
+@media (max-width:900px){.os-kort{grid-template-columns:minmax(0,1fr)}.os-billede{grid-column:1;grid-row:auto}}
+.os-kort .desc{max-width:68ch}
+.cm-status{margin:-4px 0 0;font-size:.85rem;line-height:1.5;color:var(--muted)}
+.os-lead{margin:0;font-family:var(--display);font-size:clamp(1.15rem,1.7vw,1.35rem);font-weight:600;line-height:1.3;color:var(--ink);text-wrap:balance}
+.os-lag-h{margin:4px 0 -6px;font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.os-lag{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-width:68ch}
+.os-lag li{display:grid;grid-template-columns:9.5rem minmax(0,1fr);gap:4px 16px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.os-lag li.os-midt{border-color:var(--accent);background:var(--surface)}
+.os-lag b{font-weight:600;color:var(--ink)}
+.os-lag span{color:var(--muted);line-height:1.45}
+@media (max-width:560px){.os-lag li{grid-template-columns:minmax(0,1fr)}}
+.os-billede{grid-row:1 / span 8}
+@media (max-width:900px){.os-billede{grid-row:1}}  /* på telefonen står billedet øverst, som filmene på de andre kort */
+/* Klik-film: stor afspilknap midt på billedet, til filmen kører; så flytter knappen ned i hjørnet */
+.film.klik .film-f video{cursor:pointer}
+.film.klik:not([data-spiller]) .film-btn{right:auto;bottom:auto;left:50%;top:74%;transform:translate(-50%,-50%);width:72px;height:72px;font-size:1.4rem;background:rgba(1,17,40,.86);border-color:rgba(255,255,255,.7)}
+@media (max-width:560px){.film.klik:not([data-spiller]) .film-btn{width:52px;height:52px;top:84%;font-size:1.1rem}}
+/* ---------- Runde 6: én blok pr. projekt med film og forløb · Følg med ---------- */
+/* Blød rulning, når en knap fører længere ned på siden (Gustav 14/11). Ikke ved reduceret bevægelse */
+@media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
+section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
+.projs{display:grid;gap:20px}
+.doors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:0 4px}
+.door{display:grid;align-content:start;gap:6px;padding:14px 14px 16px;border:1px solid rgba(96,140,255,.22);border-radius:14px;background:var(--hero-surface);color:var(--hero-ink)}
+.door-k{margin:0;font:500 .7rem/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--hero-muted)}
+.door b{font-weight:650;font-size:1rem;line-height:1.35}
+.door span:not([aria-hidden]){font-size:.88rem;line-height:1.5;color:var(--hero-muted)}
+.door .pbtn,.door .go2{justify-self:start;margin-top:6px}
+.door-os{border-style:dashed}
+.proj-body:not(:has(.film)){grid-template-columns:minmax(0,1fr)}
+@media (max-width:900px){.doors{grid-template-columns:minmax(0,1fr)}}
+@media (min-width:901px){.built .built-g{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.built-g .kort{display:grid;gap:4px;height:100%;padding:8px 8px 12px;border:1px solid rgba(96,140,255,.2);border-radius:12px;background:var(--hero-surface);color:var(--hero-ink)}
+.built-g .kort img{display:block;width:100%;height:auto;aspect-ratio:360 / 223;object-fit:cover;object-position:top;border-radius:8px;background:#fff;margin-bottom:6px}
+.built-g .kort b{font-weight:600;font-size:.92rem;line-height:1.3}
+.built-g .kort span{font-size:.8rem;line-height:1.4;color:var(--hero-muted)}
+.built{display:grid;gap:12px;padding:6px 4px 0}
+.built-h{font:500 .7rem/1.2 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--hero-muted)}
+.built-g{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,12rem),1fr));gap:10px}
+.built-g a{display:grid;gap:4px;height:100%;padding:8px 8px 12px;border:1px solid rgba(96,140,255,.2);border-radius:12px;background:var(--hero-surface);color:var(--hero-ink);text-decoration:none;transition:border-color .2s,transform .2s}
+.built-g a:hover{border-color:var(--net);transform:translateY(-2px)}
+.built-g img{display:block;width:100%;height:auto;aspect-ratio:360 / 223;object-fit:cover;object-position:top;border-radius:8px;background:#fff;margin-bottom:6px}
+.built-g b{font-weight:600;font-size:.92rem;line-height:1.3}
+.built-g span{font-size:.8rem;line-height:1.4;color:var(--hero-muted)}
+.built-n{font-size:.8rem;color:var(--hero-muted)}
+.built-n a{color:var(--hero-link);text-underline-offset:3px}
+.proj{display:grid;gap:18px;padding:clamp(16px,2.2vw,24px);border:1px solid var(--hero-line);border-radius:20px;color:var(--hero-ink);
+  background-color:var(--hero);background-image:linear-gradient(rgba(47,107,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(47,107,255,.055) 1px,transparent 1px);background-size:24px 24px;
+  box-shadow:0 40px 120px -60px rgba(47,107,255,.55)}
+.proj :focus-visible{outline-color:var(--hero-ink)}
+.proj-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 28px;padding:4px 4px 0}
+.proj-id{display:grid;gap:4px}
+.proj-k{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--hero-muted)}
+.proj h3{font-size:clamp(1.625rem,2.6vw,2.125rem);font-weight:680;letter-spacing:-.02em;line-height:1.08}
+.proj-d{flex:1 1 22rem;max-width:58ch;font-size:1rem;line-height:1.5;color:#C9D4EE}
+.proj-top .pc{margin-top:0}
+.go2{font-weight:600;font-size:.9rem;color:var(--hero-link);text-underline-offset:4px}
+.proj-body{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:12px;align-items:start}
+.proj .lane{grid-template-rows:auto 1fr auto}
+.lane-h h4{margin:0;font-size:1.0625rem;font-weight:650;letter-spacing:-.01em;line-height:1.25;display:flex;align-items:center;gap:10px}
+.lane-h h4::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--net);box-shadow:0 0 10px rgba(47,107,255,.9)}
+.film{margin:0;display:grid;gap:8px}
+.proj .film{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+.film-f{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(96,140,255,.2);background:#000}
+.film video{display:block;width:100%;height:auto;aspect-ratio:16 / 10;object-fit:cover;background:#000}
+.film-btn{position:absolute;right:10px;bottom:10px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(1,17,40,.78);color:#fff;font-size:.85rem;cursor:pointer}
+.film-btn:hover{background:rgba(1,17,40,.92)}
+.film-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.film figcaption{font-family:var(--mono);font-size:.7rem;line-height:1.4;color:var(--hero-muted)}
+.oss-card .film figcaption{color:var(--muted)}
+.oss-card .film-f{border-color:var(--line)}
+.oss-card .film video{aspect-ratio:auto}
+.film.lodret{justify-self:center;width:100%;max-width:300px}
+.film.lodret video{aspect-ratio:9 / 16;object-fit:cover}
+.proj-body:has(.film.lodret){grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px}
+.follow .signup + .signup{margin-top:12px}
+.step2{grid-column:2}
+.s2-k{font:500 .7rem/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.s2-h{font-weight:650;font-size:1.05rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.step2 .row input{flex:1 1 10rem}
+.avatar{position:relative}
+.hub .note{display:grid;gap:12px;justify-items:start}
+.note a.li-pill{color:#0A1430;text-decoration:none}
+.li-pill{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;padding:7px 14px 7px 8px;border-radius:999px;background:#fff;color:#0A1430;font:600 .85rem/1 var(--display);box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform .2s}
+.li-pill:hover{transform:translateY(-2px)}
+.li-in{display:grid;place-items:center;width:20px;height:20px;border-radius:4px;background:#0A66C2;color:#fff;font:700 .8rem/1 Arial,sans-serif}
+@media (max-width:900px){.proj-body:has(.film.lodret){grid-template-columns:minmax(0,1fr)}.step2{grid-column:auto}}
+@media (max-width:900px){.proj-body{grid-template-columns:minmax(0,1fr)}.proj .film{position:static}}
+/* Slutteksten og «Se igen» har deres plads fra start, så forløbet aldrig vokser, når det er færdigt */
+.proj .lane-f{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:10px 16px}
+.proj .status{min-height:4.5em}
+.proj .again[hidden]{display:inline-block!important;visibility:hidden}
+.follow{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(24px,5vw,72px);align-items:start}
+.follow-a{display:grid;gap:14px}
+.topics{list-style:none;padding:0;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.topics li{padding:6px 12px;border:1px solid var(--line);border-radius:999px;background:var(--surface);font-size:.9rem}
+.signup{display:grid;gap:10px;padding:clamp(20px,2.6vw,28px);border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.signup label{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;color:var(--muted)}
+.signup .row{display:flex;flex-wrap:wrap;gap:10px}
+.signup input{flex:1 1 14rem;min-width:0;font:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink)}
+.signup input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.signup .pbtn{border:0;cursor:pointer;font-family:inherit}
+.fine{font-size:.875rem;line-height:1.5;color:var(--muted);max-width:52ch}
+.fine a{color:var(--accent-ink);text-underline-offset:3px}
+.msg{font-size:.95rem;color:var(--ink);min-height:1.5em}
+.consent{font-size:.9rem;line-height:1.5;color:var(--muted);max-width:56ch}
+.fold{border-top:1px solid var(--line);padding-top:10px}
+.fold>summary{cursor:pointer;font-weight:600;font-size:.95rem;color:var(--ink);list-style:none;display:flex;align-items:center;gap:8px}
+.fold>summary::-webkit-details-marker{display:none}
+.fold>summary::before{content:"▸";color:var(--accent-ink);transition:transform .2s}
+.fold[open]>summary::before{transform:rotate(90deg)}
+.fold>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+.fold>*:not(summary){margin-top:10px}
+.to-foelg{font-weight:600;font-size:.95rem;color:var(--hero-link);text-underline-offset:4px}
+.ok-box{display:flex;gap:10px;align-items:flex-start;font-size:.95rem;line-height:1.45;color:var(--ink);cursor:pointer}
+.ok-box input{margin-top:.2em;width:18px;height:18px;flex:none;accent-color:var(--accent)}
+@media (max-width:900px){.follow{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Gustav Louv",
+  "alternateName": ["Gustav-Emil Leen Louv", "Gustav-Emil Louv"],
+  "url": "https://gustavlouv.com/",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://gustavlouv.com/portraet-gustav-louv.jpg",
+    "width": 800,
+    "height": 1000,
+    "caption": "Gustav Louv, founder of Agent360",
+    "creditText": "Agent360"
+  },
+  "jobTitle": "Founder and CEO",
+  "worksFor": { "@type": "Organization", "name": "Agent360 Group ApS", "url": "https://www.agent360.dk" },
+  "homeLocation": { "@type": "Place", "name": "Copenhagen" },
+  "nationality": "Danish",
+  "sameAs": [
+    "https://www.linkedin.com/in/gustavlouv",
+    "https://github.com/GLouv",
+    "https://www.instagram.com/gustav.louv/"
+  ]
+}
+</script>
+</head>
+<body>
+<header class="hero">
+  <canvas aria-hidden="true"></canvas>
+  <nav class="sprog" aria-label="Language"><a href="/?sprog=da" hreflang="da" lang="da" data-sprog="da">DA<span class="sr"> Dansk</span></a><span aria-hidden="true">·</span><span aria-current="true">EN</span></nav>
+  <div class="wrap hero-grid">
+    <div class="intro">
+      <p class="eyebrow">Entrepreneur · Copenhagen</p>
+      <h1>Gustav Louv</h1>
+      <p class="lede">Founder of Agent360, which builds AI infrastructure for Danish companies.</p>
+      <p class="fullname"><span>Full name</span> Gustav-Emil Leen Louv</p>
+      <div class="focus">
+        <div class="fbtn"><span class="ft"><span class="fk">For companies</span><span class="fn">Agent360</span></span><a class="pbtn" href="https://www.agent360.dk/en" rel="noopener">See Agent360 <span aria-hidden="true">→</span></a></div>
+        <div class="fbtn"><span class="ft"><span class="fk">In Denmark · free</span><span class="fn">Forbrugeragenten</span></span><a class="dl" href="https://forbrugeragenten.dk/start/?utm_source=gustavlouv.com&amp;utm_medium=referral" rel="noopener"><span class="dl-logos" aria-hidden="true"><svg class="dl-apple" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.92-.19 1.8-.86 3.05-.79 1.5.12 2.63.71 3.38 1.8-3.1 1.86-2.36 5.93.61 7.18-.57 1.5-1.31 2.99-2.12 3.98ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg><span class="dl-split"></span><span class="dl-play"></span></span><span class="dl-t"><span class="dl-k">iPhone and Android</span><span class="dl-n">Get the app for free</span></span></a></div>
+      </div>
+      <div class="actions">
+        <a class="cta" href="https://www.linkedin.com/in/gustavlouv" rel="me noopener">Find me on LinkedIn <span aria-hidden="true">↗</span></a>
+        <a class="mail" href="mailto:gustav@agent360.dk">gustav@agent360.dk</a><!-- foelg-link:start --><a class="to-foelg" href="#foelg">Get my emails about AI <span aria-hidden="true">↓</span></a><!-- foelg-link:slut --><a class="to-foelg" href="https://www.agent360.dk/en/contact" data-book rel="noopener">Book a meeting <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <figure class="hub">
+      <a class="avatar" href="https://www.linkedin.com/in/gustavlouv" rel="me noopener" aria-label="See Gustav Louv on LinkedIn">
+        <img src="/avatar-gustav-louv-640.jpg" width="640" height="640" fetchpriority="high" alt="Drawn avatar of Gustav Louv">
+      </a>
+      <figcaption class="note"><span>The drawing is me, made with AI.</span><a class="li-pill" href="https://www.linkedin.com/in/gustavlouv" rel="me noopener"><span class="li-in" aria-hidden="true">in</span>See me on LinkedIn</a></figcaption>
+    </figure>
+
+    <div class="net">
+      <p class="net-label">What I’m building now</p>
+      <p class="thesis">What they have in common: AI agents that take the work off your hands, while the choices that are yours stay with you.</p>
+      <ul class="nodes" aria-label="Projects">
+        <li><button class="node" type="button" data-p="p-agent360" aria-pressed="true" aria-controls="panel"><span class="n">Agent360</span><span class="d">agent360.dk</span></button></li>
+        <li><button class="node" type="button" data-p="p-forbrugeragenten" aria-pressed="false" aria-controls="panel"><span class="n">Forbrugeragenten</span><span class="d">forbrugeragenten.dk</span></button></li>
+      </ul>
+      <p class="oss-label" id="oss-label">Open source · free</p>
+      <ul class="nodes nodes--oss" aria-labelledby="oss-label">
+        <li><button class="node node--oss" type="button" data-p="p-browsermcp" aria-pressed="false" aria-controls="panel"><span class="n">Browser MCP</span><span class="d">browsermcp.dev</span></button></li>
+        <li><button class="node node--oss" type="button" data-p="p-computermcp" aria-pressed="false" aria-controls="panel"><span class="n">Computer MCP</span><span class="d">computermcp.dev</span></button></li>
+      </ul>
+      <div class="panel" id="panel">
+        <div class="pv" data-p="p-agent360">
+          <p class="pm">agent360.dk · 2025 · for companies</p>
+          <p class="pn">Agent360</p>
+          <p class="pd">Agent360 builds AI solutions for companies and teaches people to build them themselves in a personal 1:1 mentoring programme. Our own internal operating system, Agent360 OS, is going open source.</p>
+          <div class="pc"><a class="pbtn" href="https://www.agent360.dk/en" rel="noopener">See Agent360 <span aria-hidden="true">→</span></a></div>
+        </div>
+        <div class="pv off" data-p="p-forbrugeragenten">
+          <p class="pm">forbrugeragenten.dk · 2026 · iPhone and Android</p>
+          <p class="pn">Forbrugeragenten</p>
+          <p class="pd">For people in Denmark: your own agent for electricity, mobile and internet. It gets offers from the providers in your categories and works only for you. Free, because the providers pay.</p>
+          <div class="pc"><a class="dl" href="https://forbrugeragenten.dk/start/?utm_source=gustavlouv.com&amp;utm_medium=referral" rel="noopener"><span class="dl-logos" aria-hidden="true"><svg class="dl-apple" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.92-.19 1.8-.86 3.05-.79 1.5.12 2.63.71 3.38 1.8-3.1 1.86-2.36 5.93.61 7.18-.57 1.5-1.31 2.99-2.12 3.98ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg><span class="dl-split"></span><span class="dl-play"></span></span><span class="dl-t"><span class="dl-k">iPhone and Android</span><span class="dl-n">Get the app for free</span></span></a></div>
+        </div>
+        <div class="pv off" data-p="p-browsermcp">
+          <p class="pm">browsermcp.dev · 2026 · free, open source</p>
+          <p class="pn">Browser MCP</p>
+          <p class="pd">A Chrome extension that lets your AI agent use your own Chrome, where you’re already logged in. Up to 20 agents can work at the same time.</p>
+          <div class="pc"><a class="pbtn" href="https://browsermcp.dev/#install" rel="noopener">Get started at browsermcp.dev <span aria-hidden="true">↗</span></a></div>
+        </div>
+        <div class="pv off" data-p="p-computermcp">
+          <p class="pm">computermcp.dev · 2026 · free, open source</p>
+          <p class="pn">Computer MCP</p>
+          <p class="pd">Work while you drive, walk or do the dishes. You talk to ChatGPT in your headset, and your Mac does the work. I use it myself today, and once version 0.5.0 is out, everyone can get it.</p>
+          <div class="pc"><a class="pbtn" href="https://github.com/Agent360dk/computerMCP" rel="noopener">See the code on GitHub <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<dialog class="book" id="book" aria-labelledby="book-titel" data-forbundet="ja" data-endpoint="https://api.agent360.dk">
+  <div class="book-hoved">
+    <div><h2 id="book-titel">Book a meeting with Gustav</h2><p class="book-under">20 minutes on Teams. Free.</p></div>
+    <button type="button" class="book-luk" data-luk aria-label="Close">×</button>
+  </div>
+  <p class="book-status" role="status" aria-live="polite"></p>
+  <section class="book-trin" aria-labelledby="book-dag-h">
+    <h3 id="book-dag-h"><span class="book-nr" aria-hidden="true">1</span> Choose a day</h3>
+    <div class="book-dage" role="group" aria-labelledby="book-dag-h"></div>
+  </section>
+  <section class="book-trin" aria-labelledby="book-tid-h" hidden>
+    <h3 id="book-tid-h"><span class="book-nr" aria-hidden="true">2</span> Choose a time <span class="book-tz">Copenhagen time</span></h3>
+    <div class="book-tider" role="group" aria-labelledby="book-tid-h"></div>
+  </section>
+  <form class="book-trin book-form" id="book-form" novalidate hidden>
+    <h3><span class="book-nr" aria-hidden="true">3</span> Your details</h3>
+    <p class="book-valgt"></p>
+    <div class="book-felter">
+      <label for="bk-navn">Name</label><input id="bk-navn" name="navn" autocomplete="name" required>
+      <label for="bk-mail">Email</label><input id="bk-mail" name="mail" type="email" autocomplete="email" required>
+      <label for="bk-tlf">Phone <span class="book-valgfri">optional</span></label><input id="bk-tlf" name="tlf" type="tel" autocomplete="tel">
+      <label for="bk-firma">Company <span class="book-valgfri">optional</span></label><input id="bk-firma" name="firma" autocomplete="organization">
+      <label for="bk-emne">What would you like to talk about? <span class="book-valgfri">optional</span></label><textarea id="bk-emne" name="emne" rows="3" maxlength="1500"></textarea>
+    </div>
+    <p class="book-fejl" aria-live="polite"></p>
+    <button type="submit" class="book-knap">Book the meeting</button>
+    <p class="book-fine">Your details go to Agent360 Group ApS, which runs the meeting. <a href="https://www.agent360.dk/en/privacy-policy">Agent360’s privacy policy</a>.</p>
+  </form>
+  <div class="book-trin book-ok" hidden>
+    <p class="book-ok-h">The meeting is booked.</p>
+    <p class="book-ok-tid"></p>
+    <p class="book-ok-mail"></p>
+    <button type="button" class="book-knap" data-luk>Close</button>
+  </div>
+</dialog>
+
+<main>
+  <section class="sec" aria-labelledby="projekter">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="projekter">The projects</h2>
+        <p class="sub">Watch the film, or click through the steps yourself. Orange marks the choices that are yours. Blue marks the work done for you.</p>
+      </div>
+      <div class="projs">
+      <article class="proj" id="p-agent360" aria-labelledby="h-a360">
+        <div class="proj-top">
+          <div class="proj-id"><p class="proj-k">For companies</p><h3 id="h-a360">Agent360</h3></div>
+          <p class="proj-d">Put AI to work for your company. We think it through with you, build it and stay on, alongside your own people.</p>
+          <div class="pc"><a class="pbtn" href="https://www.agent360.dk/en#beskedform" rel="noopener">Get your AI department <span aria-hidden="true">→</span></a><a class="go2" href="https://www.agent360.dk/en/ai-mentoring" rel="noopener">See the mentoring programme ↗</a></div>
+        </div>
+
+        <div class="proj-body">
+          <figure class="film"><div class="film-f"><video src="/film/gl-a360-en-v2.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Agent360 builds AI solutions for companies and teaches people to build them themselves. A small selection of what we’ve built, and our AI mentoring programme."></video><button class="film-btn" type="button" data-navn="Agent360" aria-label="Play the film about Agent360"><span aria-hidden="true">▶</span></button></div><figcaption>A small selection · no sound</figcaption></figure>
+          <article class="lane" id="l-a360" data-state="klar" tabindex="-1" aria-label="How we build">
+            <div class="lane-h"><h4>How we build</h4><span class="pill" data-s="klar">Ready</span></div>
+            <ol class="flow" aria-label="How we build, step by step">
+              <li class="st du now"><span class="no" aria-hidden="true">1</span><span class="bd"><span class="who">The company</span><b>Tells us where things stand</b><small>Describe the task or the idea. You don’t need to know the solution.</small></span><button class="approve" type="button">Start</button></li>
+              <li class="st ag"><span class="no" aria-hidden="true">2</span><span class="bd"><span class="who">Agent360</span><b>Finds the right place to start</b><small>We look at your work and the AI you use today, and point to what’s worth starting with.</small></span></li>
+              <li class="st du"><span class="no" aria-hidden="true">3</span><span class="bd"><span class="who">The company</span><b>Gets a quote before you commit</b><small>The task, success criteria and price are agreed in advance.</small></span><button class="approve" type="button">Say yes</button></li>
+              <li class="st ag"><span class="no" aria-hidden="true">4</span><span class="bd"><span class="who">Agent360</span><b>Builds on what you already have</b><small>We build the first solution around your data and workflow.</small></span></li>
+              <li class="st du"><span class="no" aria-hidden="true">5</span><span class="bd"><span class="who">The company</span><b>Decides what the AI is allowed to do</b><small>It acts only on what you’ve said yes to. You approve customer contact, money and changes to agreements.</small></span><button class="approve" type="button">Approve</button></li>
+              <li class="st ag"><span class="no" aria-hidden="true">6</span><span class="bd"><span class="who">Agent360</span><b>Tries it in your everyday work</b><small>We test the solution with your people. They learn to use it along the way.</small></span></li>
+              <li class="st ag"><span class="no" aria-hidden="true">7</span><span class="bd"><span class="who">Agent360</span><b>Keeps it under control</b><small>Tested, reviewed and in line with your rules for data. By arrangement, we maintain it and keep supporting your people.</small></span></li>
+            </ol>
+            <div class="lane-f"><p class="status" role="status" data-start="Press “Start” to see the process." data-slut="A solution your people can keep working with.">Press “Start” to see the process.</p><button class="again" type="button" hidden>Watch again</button></div>
+          </article>
+        </div>
+        <figure class="citat"><blockquote><p>“It is probably the most professional and effective collaboration I have experienced in my 34 years with IFO.”</p></blockquote><figcaption>Palle Klinke Hansen, Managing Director, IFO - <span lang="da">Instituttet for Opinionsanalyse</span> ApS · translated from Danish</figcaption></figure>
+        <div class="built"><p class="built-h">A small selection of what we’ve built.</p><ul class="built-g"><li><a href="https://www.agent360.dk/en#bygget-moeder" rel="noopener"><img src="/bygget/en/umoeder.jpg" alt="" width="360" height="224" loading="lazy"><b>Meetings that turn into tasks</b><span>The meeting is transcribed. You choose which promises become tasks.</span></a></li><li><div class="kort"><img src="/bygget/en/ucallcenter.jpg" alt="" width="360" height="224" loading="lazy"><b>Quality assurance of 3,000 calls a day</b><span>Our own speech model checks every call and flags the ones someone should listen to.</span></div></li><li><a href="https://www.agent360.dk/en#bygget-kundecockpit" rel="noopener"><img src="/bygget/en/ukundecrm.jpg" alt="" width="360" height="224" loading="lazy"><b>A customer CRM that updates itself</b><span>Emails, meetings and tasks are filed under the right customer automatically.</span></a></li><li><a href="https://www.agent360.dk/en#bygget-indbakke" rel="noopener"><img src="/bygget/en/uindbakke.jpg" alt="" width="360" height="224" loading="lazy"><b>The inbox, sorted</b><span>AI sorts the emails into three piles and writes a draft.</span></a></li><li><a href="https://www.agent360.dk/en#bygget-henvisning" rel="noopener"><img src="/bygget/en/uhenvisning.jpg" alt="" width="360" height="224" loading="lazy"><b>Referral platform</b><span>Employees recommend through a personal link.</span></a></li><li><a href="https://www.agent360.dk/en#bygget-seo" rel="noopener"><img src="/bygget/en/uindhold.jpg" alt="" width="360" height="224" loading="lazy"><b>The content machine</b><span>AI writes with sources. Another AI reads it through.</span></a></li><li><a href="https://www.agent360.dk/en#bygget-deltagersystem" rel="noopener"><img src="/bygget/en/udeltager.jpg" alt="" width="360" height="224" loading="lazy"><b>Participant system for Berlingske’s annual Image Analysis</b><span>Only humans count as participants.</span></a></li><li><div class="kort"><img src="/bygget/en/ureception.jpg" alt="" width="360" height="224" loading="lazy"><b>AI receptionist that screens inquiries</b><span>Takes every incoming call and passes the relevant ones on right away.</span></div></li><li><a href="https://www.agent360.dk/en#bygget-kundeportal" rel="noopener"><img src="/bygget/en/kundeportal.jpg" alt="" width="360" height="224" loading="lazy"><b>Customer portals</b><span>Meetings, booklets and tasks in one place.</span></a></li><li><a href="https://www.agent360.dk/en#bygget-forbrugeragenten" rel="noopener"><img src="/bygget/en/uforbruger.jpg" alt="" width="360" height="224" loading="lazy"><b>Forbrugeragenten</b><span>An AI agent writes to the providers and collects the offers in one place.</span></a></li></ul><p class="built-n">Images from the films and agent360.dk. Names and numbers in the images are examples. <a href="https://www.agent360.dk/en#bygget" rel="noopener">See more at agent360.dk ↗</a></p></div>
+      </article>
+      <article class="proj" id="p-forbrugeragenten" aria-labelledby="h-fa">
+        <div class="proj-top">
+          <div class="proj-id"><p class="proj-k">In Denmark · free</p><h3 id="h-fa">Forbrugeragenten</h3></div>
+          <p class="proj-d">A free app for people in Denmark that takes care of electricity, mobile and internet: it writes to all the providers in your categories, collects offers, gathers your bills in one place and helps you get money back from your old electricity company. You just say yes.</p>
+          <div class="pc"><a class="dl" href="https://forbrugeragenten.dk/start/?utm_source=gustavlouv.com&amp;utm_medium=referral" rel="noopener"><span class="dl-logos" aria-hidden="true"><svg class="dl-apple" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.92-.19 1.8-.86 3.05-.79 1.5.12 2.63.71 3.38 1.8-3.1 1.86-2.36 5.93.61 7.18-.57 1.5-1.31 2.99-2.12 3.98ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg><span class="dl-split"></span><span class="dl-play"></span></span><span class="dl-t"><span class="dl-k">iPhone and Android</span><span class="dl-n">Get the app for free</span></span></a></div>
+        </div>
+
+        <div class="proj-body">
+          <figure class="film"><div class="film-f"><video src="/film/gl-fa-en-v2.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Forbrugeragenten. You confirm with MitID, the agent writes to the providers in your categories and lines up the offers by price, terms and quality, and you say yes."></video><button class="film-btn" type="button" data-navn="Forbrugeragenten" aria-label="Play the film about Forbrugeragenten"><span aria-hidden="true">▶</span></button></div><figcaption>Film · no sound</figcaption></figure>
+          <article class="lane" id="l-fa" data-state="klar" tabindex="-1" aria-label="How it handles electricity, mobile and internet">
+            <div class="lane-h"><h4>How it handles electricity, mobile and internet</h4><span class="pill" data-s="klar">Ready</span></div>
+            <ol class="flow" aria-label="How it handles electricity, mobile and internet, step by step">
+              <li class="st du now"><span class="no" aria-hidden="true">1</span><span class="bd"><span class="who">You</span><b>Confirm with MitID</b><small>You confirm with MitID, Denmark’s digital ID, so the agent can write to the providers for you.</small></span><button class="approve" type="button">Start</button></li>
+              <li class="st ag"><span class="no" aria-hidden="true">2</span><span class="bd"><span class="who">The agent</span><b>Gathers your contracts and bills in one place</b><small>Electricity, mobile and internet: contracts, lock-in periods and bills in one app.</small></span></li>
+              <li class="st ag"><span class="no" aria-hidden="true">3</span><span class="bd"><span class="who">The agent</span><b>Writes to the providers and collects offers</b><small>To all the providers in your categories, so you don’t have to talk to a salesperson.</small></span></li>
+              <li class="st ag"><span class="no" aria-hidden="true">4</span><span class="bd"><span class="who">The agent</span><b>Lines up the offers by price, terms and quality</b><small>It compares the offers on price, terms and quality.</small></span></li>
+              <li class="st du"><span class="no" aria-hidden="true">5</span><span class="bd"><span class="who">You</span><b>Choose one of the offers</b><small>Forbrugeragenten isn’t owned by any provider and works only for you.</small></span><button class="approve" type="button">I choose</button></li>
+              <li class="st ag"><span class="no" aria-hidden="true">6</span><span class="bd"><span class="who">The agent</span><b>Handles contact with the providers afterwards</b><small>All communication is gathered in one inbox in the app. You order some offers yourself.</small></span></li>
+              <li class="st ag"><span class="no" aria-hidden="true">7</span><span class="bd"><span class="who">The agent</span><b>Gets money back from your old electricity company</b><small>If you’re owed money after a switch, it asks for it on your behalf. It costs you nothing.</small></span></li>
+            </ol>
+            <div class="lane-f"><p class="status" role="status" data-start="Press “Start” to see the process." data-slut="The agent did the rest.">Press “Start” to see the process.</p><button class="again" type="button" hidden>Watch again</button></div>
+          </article>
+        </div>
+
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="oss">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="oss">Open source</h2>
+        <p class="sub">Free tools I publish as open source, so everyone can use them and build on them. Agent360 OS is next.</p>
+      </div>
+      <div class="oss-cards">
+        <article class="oss-card" id="p-browsermcp">
+          <figure class="film"><div class="film-f"><video src="/film/gl-bmcp-en-v1.mp4#t=0.1" poster="/film/gl-bmcp-en-v1-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Browser MCP in your own Chrome. Up to 20 agents, each in its own tab group. It fetches the login code and asks you when it gets stuck."></video><button class="film-btn" type="button" data-navn="Browser MCP" aria-label="Play the film about Browser MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · no sound</figcaption></figure>
+          <div class="card-top"><h3>Browser MCP</h3><span class="yr">April 2026</span></div>
+          <p class="meta">Chrome extension · MIT</p>
+          <dl class="nums">
+            <div><dt>weekly users in Chrome</dt> <dd data-tal="cws">2,500</dd></div>
+            <div><dt>downloads from npm</dt> <dd data-tal="b-npm">19,971</dd></div>
+            <div><dt>stars on GitHub</dt> <dd data-tal="b-stj">64</dd></div>
+            <div><dt>forks</dt> <dd data-tal="b-forks">17</dd></div>
+          </dl>
+          <p class="desc">Lets your AI assistant use your own Chrome, where you’re already logged in. You install the extension and a small server on your computer. When a choice is yours, it asks you first.</p>
+          <p class="card-links"><a class="go" href="https://chromewebstore.google.com/detail/agent360-browser-mcp/jdehgalffmffhfhmmhaokfbfnafnmgcl" rel="noopener">Add to Chrome ↗</a><a class="go" href="https://browsermcp.dev" rel="noopener">browsermcp.dev ↗</a><a class="go" href="https://github.com/Agent360dk/browser-mcp" rel="noopener">The code on GitHub ↗</a></p>
+        </article>
+        <article class="oss-card" id="p-computermcp">
+          <figure class="film"><div class="film-f"><video src="/film/gl-cmcp-en-v1.mp4#t=0.1" poster="/film/gl-cmcp-en-v1-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Computer MCP. You talk to ChatGPT in your headset while you drive, walk or do the dishes, and your Mac does the work. You approve a new connection on the Mac, and one tap stops everything. Remote access comes with version 0.5.0."></video><button class="film-btn" type="button" data-navn="Computer MCP" aria-label="Play the film about Computer MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · no sound · remote access comes with version 0.5.0</figcaption></figure>
+          <div class="card-top"><h3>Computer MCP</h3><span class="yr">September 2026</span></div>
+          <p class="meta">macOS · MIT</p>
+          <dl class="nums">
+            <div><dt>downloads from npm</dt> <dd data-tal="c-npm">566</dd></div>
+            <div><dt>in the last 30 days</dt> <dd data-tal="c-30">228</dd></div>
+          </dl>
+          <p class="desc">Work while you drive, walk or do the dishes. You talk to ChatGPT in your headset, and your Mac does the work: it reads your projects, uses your programs and hands tasks to the AI agents you already have running. On the Mac, you decide what it’s allowed to do.</p>
+          <p class="cm-status">I use it myself today. Remote access from your phone comes with version 0.5.0. Until then, your AI agent can use the programs on your Mac.</p>
+          <p class="card-links"><a class="go" href="https://github.com/Agent360dk/computerMCP" rel="noopener">The code on GitHub ↗</a></p>
+        </article>
+        <article class="oss-card os-kort" id="p-agent360os">
+          <div class="card-top"><h3>Agent360 OS</h3><span class="yr">on the way</span></div>
+          <p class="meta">For companies · going open source</p>
+          <p class="os-lead">Your company’s new internal operating system.</p>
+          <p class="desc">Every company already has one: who the customer is, what was promised and what needs to happen next. Usually it’s scattered across emails, spreadsheets and people’s heads. We believe the company of the future gathers it in one place, so the AI knows the context and can prepare the work.</p>
+          <p class="os-lag-h">How it works</p>
+          <ol class="os-lag" aria-label="How it works, layer by layer, from the top">
+            <li><b>Your team</b><span>An overview across everything, and agents that prepare the work. A person says yes before anything is sent.</span></li>
+            <li class="os-midt"><b>Agent360 OS</b><span>Ties customers, email, meetings, knowledge and customer portals together. If you’re missing a tool, you should be able to describe it in plain Danish, and the system builds it.</span></li>
+            <li><b>Your tools</b><span>The email, CRM, phone system and documents you use today. You own your data.</span></li>
+          </ol>
+          <p class="desc">Agent360 uses it in-house today, and the code is going open source. People on the waiting list get early access.</p>
+          <p class="card-links"><a class="go" href="https://www.agent360.dk/en/platform#waitlist" rel="noopener">Join the waiting list ↗</a><a class="go" href="https://www.agent360.dk/en/platform" rel="noopener">See what it will be ↗</a></p>
+          <img class="os-billede" src="/bygget/en/agentos.jpg" alt="Agent360 OS: the work, calendar, knowledge, customer portals and approvals in one system. Illustration." width="720" height="460" loading="lazy">
+        </article>
+      </div>
+      <p class="src">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">15 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
+    </div>
+  </section>
+
+  <!-- foelg:start --><section class="sec" aria-labelledby="foelg">
+    <div class="wrap follow">
+      <div class="follow-a">
+        <h2 id="foelg">Get my emails about AI</h2>
+        <p class="sub">When I write about AI now and what’s coming, share tips and free tools or launch something new, you get it by email. No fixed schedule. Only when there’s something worth reading. The emails are in Danish for now.</p>
+        <ul class="topics" aria-label="What the emails are about"><li>AI now</li><li>What’s coming</li><li>Tips</li><li>Free tools</li><li>New launches</li></ul>
+      </div>
+      <form class="signup" id="tilmeld" action="https://api.agent360.dk/api/contacts" method="post" data-forbundet="ja" data-endpoint="https://api.agent360.dk/api/contacts" novalidate>
+        <label for="tm-mail">Your email</label>
+        <div class="row"><input id="tm-mail" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="name@company.com"><button class="pbtn" type="submit">Yes please, send me emails</button></div>
+        <p class="consent" id="tm-ja-tekst">When you press the button, you agree to emails from Gustav Louv about AI now and what’s coming, with tips, free tools and new launches. The emails are in Danish. Free. Unsubscribe whenever you like.</p>
+        <p class="msg" role="status"></p>
+        <details class="fold"><summary>How we handle your email address</summary>
+          <p class="fine">Your email address and the text you agreed to are stored by Agent360 Group ApS together with the time, and are used only for those emails. Your address is kept until you unsubscribe. You can always unsubscribe by writing to gustav@agent360.dk. <a href="https://www.agent360.dk/en/privacy-policy">Agent360’s privacy policy</a>.</p>
+        </details>
+      </form>
+      <form class="signup step2" id="ring" data-endpoint="https://api.agent360.dk/api/contacts" hidden novalidate>
+        <p class="s2-k">Optional</p>
+        <p class="s2-h">Would you like us to call you?</p>
+        <div class="row"><label class="sr" for="rg-navn">Name</label><input id="rg-navn" name="name" type="text" autocomplete="name" placeholder="Your name">
+          <label class="sr" for="rg-tlf">Phone</label><input id="rg-tlf" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="Phone number with country code"></div>
+        <button class="pbtn" type="submit">Please call me</button>
+        <p class="consent" id="rg-ja-tekst">When you press the button, you agree to Agent360 calling you about AI solutions for your company and AI mentoring. We’ll call in English.</p>
+        <p class="msg" role="status"></p>
+        <details class="fold"><summary>How we handle your number</summary>
+          <p class="fine">Your name, number and email are stored by Agent360 Group ApS together with the text you agreed to and the time. They’re used only to call you about it and kept until you withdraw your consent. You can withdraw it at any time by writing to gustav@agent360.dk. <a href="https://www.agent360.dk/en/privacy-policy">Agent360’s privacy policy</a>.</p>
+        </details>
+      </form>
+    </div>
+  </section><!-- foelg:slut -->
+
+  <section class="sec" aria-labelledby="hvem">
+    <div class="wrap who">
+      <div class="who-a">
+        <h2 id="hvem">Who is Gustav Louv?</h2>
+        <p class="answer">Gustav Louv (Gustav-Emil Leen Louv) is an entrepreneur in Copenhagen and the founder of Agent360, which builds AI infrastructure for Danish companies.</p>
+        <dl class="facts">
+          <div><dt>Full name</dt> <dd>Gustav-Emil Leen Louv</dd></div>
+          <div><dt>City</dt> <dd>Copenhagen</dd></div>
+          <div><dt>Role</dt> <dd>Founder of Agent360</dd></div>
+          <div><dt>Company</dt> <dd>Agent360 Group ApS · founded 2025</dd></div>
+          <div><dt>Team</dt> <dd>A team of five partners</dd></div>
+        </dl>
+      </div>
+      <div class="who-b">
+        <h3>Before Agent360</h3>
+        <p>I’ve been an entrepreneur since 2020 and have worked with tech and software: various webshops and, in 2023, EcommerceBot, an AI platform for Shopify stores with customer chat, ad testing and social media in one place. From 2021 to 2025 I ran my own consulting company, which I sold in July 2025.</p>
+        <details class="lesson fold">
+        <summary>What I learned from EcommerceBot</summary>
+        <p>I didn’t continue with EcommerceBot. I think tools for webshops will have a really hard time, because Shopify is, over time, building its own system of AI agents into the platform, so most of it will come from Shopify itself. There will still be room for tools that specialise in one specific thing. But a broad platform like EcommerceBot has no place in that market unless it becomes a competitor to Shopify.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="tidslinje">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="tidslinje">Timeline</h2>
+      </div>
+      <ol class="tl">
+        <li><span class="yr">2020</span><span class="dot" aria-hidden="true"></span><p class="tx">Entrepreneur<small>Tech, software and webshops</small></p></li>
+        <li><span class="yr">2021–2025</span><span class="dot" aria-hidden="true"></span><p class="tx">My own consulting company<small>Sold in July 2025</small></p></li>
+        <li><span class="yr">2023</span><span class="dot" aria-hidden="true"></span><p class="tx">EcommerceBot<small>AI platform for Shopify stores. Not continued</small></p></li>
+        <li><span class="yr">2025</span><span class="dot" aria-hidden="true"></span><p class="tx">Agent360 Group ApS</p></li>
+        <li class="now"><span class="yr">2026</span><span class="dot" aria-hidden="true"></span><p class="tx"><span>Forbrugeragenten (iPhone and Android)</span><span>Open source: Browser MCP (April) and Computer MCP (September)</span></p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="find">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="find">Find me</h2>
+      </div>
+      <ul class="links">
+        <li><a class="primary" href="https://www.linkedin.com/in/gustavlouv" rel="me noopener">LinkedIn ↗</a></li>
+        <li><a href="https://github.com/GLouv" rel="me noopener">GitHub</a></li>
+        <li><a href="https://www.instagram.com/gustav.louv/" rel="me noopener">Instagram</a></li>
+      </ul>
+      <p class="mailline">Email: <a href="mailto:gustav@agent360.dk">gustav@agent360.dk</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap"><span>Gustav Louv</span> <span>Gustav-Emil Leen Louv</span> <span>Copenhagen</span></div>
+</footer>
+
+<script>
+/* ---------- Hero: tegningens netværk ---------- */
+(() => {
+  const hero = document.querySelector('.hero');
+  const cv = hero.querySelector('canvas');
+  const ctx = cv.getContext && cv.getContext('2d');
+  const av = hero.querySelector('.avatar');
+  const intro = hero.querySelector('.intro');
+  const net = hero.querySelector('.net');
+  const btns = [...hero.querySelectorAll('.node')];
+  const oss = btns.map((b) => b.classList.contains('node--oss'));
+  const views = [...document.querySelectorAll('#panel .pv')];
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let W = 0, H = 0, mode = 'fan';
+  let pts = [], edges = [], paths = [], hub = { x: 0, y: 0 }, hubEdge = null;
+  let sel = 0, pulse0 = 0, avHot = false, inView = true, raf = 0;
+  /* Tegner kun, når toppen ses OG fanen er fremme: to uafhængige betingelser */
+  const running = () => inView && !document.hidden;
+  /* Samme brudpunkt som CSS'en (max-width:759px), målt på vinduet og ikke på toppens bredde */
+  const smal = window.matchMedia('(max-width: 759px)');
+
+  /* Valg af projekt (virker også uden canvas) */
+  function select(i) {
+    if (i === sel) return;
+    sel = i;
+    btns.forEach((b, j) => b.setAttribute('aria-pressed', j === i ? 'true' : 'false'));
+    views.forEach((v) => v.classList.toggle('off', v.dataset.p !== btns[i].dataset.p));
+    pulse0 = performance.now() / 1000;
+    kick();
+  }
+  btns.forEach((b, i) => {
+    b.addEventListener('mouseenter', () => select(i));
+    b.addEventListener('focus', () => select(i));
+    b.addEventListener('click', () => select(i));
+    b.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      btns[(i + d + btns.length) % btns.length].focus();
+    });
+  });
+  if (!ctx) return;
+
+  const box = (el) => {
+    const r = el.getBoundingClientRect(), h = hero.getBoundingClientRect();
+    return { x: r.left - h.left, y: r.top - h.top, w: r.width, h: r.height };
+  };
+  const inside = (p, b, m) => p.x > b.x - m && p.x < b.x + b.w + m && p.y > b.y - m && p.y < b.y + b.h + m;
+
+  /* Geometri: netværket vokser ud fra tegningens kanter */
+  function layout() {
+    const hr = hero.getBoundingClientRect();
+    W = hr.width; H = hr.height;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    mode = smal.matches ? 'list' : 'fan';
+    let s = 7331;
+    const R = () => (s = (s * 16807) % 2147483647) / 2147483647;
+    const a = box(av), t = box(intro), n = box(net);
+    const dimAt = (p) => inside(p, t, 18) || inside(p, n, 8);
+    pts = []; edges = [];
+
+    const cell = mode === 'fan' ? 112 : 84;
+    for (let gx = cell * 0.5; gx < W + cell * 0.4; gx += cell) {
+      for (let gy = cell * 0.5; gy < H + cell * 0.4; gy += cell) {
+        const p = { x: gx + (R() - 0.5) * cell * 0.85, y: gy + (R() - 0.5) * cell * 0.85 };
+        if (inside(p, a, 16)) continue;
+        p.dim = dimAt(p);
+        if (p.dim && R() < 0.5) continue;
+        Object.assign(p, { bx: p.x, by: p.y, ph: R() * 6.283, sp: 0.35 + R() * 0.45, r: 1.3 + R() * 2.1 });
+        pts.push(p);
+      }
+    }
+    const anchors = [
+      ...[0.27, 0.52, 0.78].map((f) => ({ x: a.x + 6, y: a.y + a.h * f, dx: -1 })),
+      ...[0.22, 0.40, 0.62, 0.80].map((f) => ({ x: a.x + a.w - 6, y: a.y + a.h * f, dx: 1 })),
+      ...[0.3, 0.72].map((f) => ({ x: a.x + a.w * f, y: a.y + 6, dy: -1 })),
+    ];
+    for (const an of anchors) {
+      const len = 48 + R() * 72;
+      const dx = an.dx ? an.dx : (R() - 0.5) * 0.9;
+      const dy = an.dy ? an.dy : (R() - 0.5) * 1.1;
+      const m = Math.hypot(dx, dy) || 1;
+      const sat = { x: an.x + (dx / m) * len, y: an.y + (dy / m) * len };
+      sat.dim = dimAt(sat);
+      Object.assign(sat, { bx: sat.x, by: sat.y, ph: R() * 6.283, sp: 0.35 + R() * 0.45, r: 2.2 + R() * 1.8 });
+      pts.push(sat);
+      edges.push({ a: an, b: sat, dim: sat.dim });
+    }
+    const maxD = cell * 1.55, seen = new Set();
+    pts.forEach((p, i) => {
+      const near = [];
+      pts.forEach((q, j) => {
+        if (j === i) return;
+        const d = Math.hypot(p.bx - q.bx, p.by - q.by);
+        if (d < maxD) near.push([j, d]);
+      });
+      near.sort((u, v) => u[1] - v[1]);
+      for (const [j] of near.slice(0, 2)) {
+        const k = i < j ? i + '-' + j : j + '-' + i;
+        if (seen.has(k)) continue;
+        seen.add(k);
+        edges.push({ a: p, b: pts[j], dim: p.dim || pts[j].dim });
+      }
+    });
+    const bx = btns.map(box);
+    const raw = [];
+    if (mode === 'fan') {
+      hub = { x: a.x + a.w + 28, y: a.y + a.h * 0.5 };
+      hubEdge = { x: a.x + a.w - 8, y: hub.y };
+      bx.forEach((b) => {
+        const end = { x: b.x - 12, y: b.y + b.h / 2 };
+        const mid = { x: hub.x + (end.x - hub.x) * 0.48, y: hub.y + (end.y - hub.y) * 0.72 };
+        raw.push([hub, mid, end]);
+      });
+    } else {
+      const sx = bx[0].x - 14;
+      hub = { x: sx, y: bx[0].y - 20 };
+      hubEdge = null;
+      bx.forEach((b) => raw.push([hub, { x: sx, y: b.y + b.h / 2 }]));
+    }
+    paths = raw.map((p) => {
+      const L = [0];
+      for (let i = 1; i < p.length; i++) L.push(L[i - 1] + Math.hypot(p[i].x - p[i - 1].x, p[i].y - p[i - 1].y));
+      return { pts: p, L };
+    });
+  }
+
+  function along(pa, u) {
+    const d = u * pa.L[pa.L.length - 1];
+    for (let i = 1; i < pa.pts.length; i++) {
+      if (d <= pa.L[i]) {
+        const f = (d - pa.L[i - 1]) / (pa.L[i] - pa.L[i - 1] || 1);
+        const A = pa.pts[i - 1], B = pa.pts[i];
+        return { x: A.x + (B.x - A.x) * f, y: A.y + (B.y - A.y) * f };
+      }
+    }
+    return pa.pts[pa.pts.length - 1];
+  }
+
+  function draw(now) {
+    raf = 0;
+    const t = now / 1000, still = mq.matches;
+    ctx.clearRect(0, 0, W, H);
+    if (!still) {
+      for (const p of pts) {
+        p.x = p.bx + Math.sin(t * p.sp + p.ph) * 3.2;
+        p.y = p.by + Math.cos(t * p.sp * 0.83 + p.ph) * 3.2;
+      }
+    }
+    for (const dim of [true, false]) {
+      ctx.beginPath();
+      for (const e of edges) if (e.dim === dim) { ctx.moveTo(e.a.x, e.a.y); ctx.lineTo(e.b.x, e.b.y); }
+      ctx.strokeStyle = dim ? 'rgba(47,107,255,.13)' : 'rgba(47,107,255,.44)';
+      ctx.lineWidth = dim ? 1 : 1.15;
+      ctx.stroke();
+    }
+    ctx.save();
+    ctx.shadowColor = 'rgba(47,107,255,.85)';
+    for (const p of pts) {
+      ctx.shadowBlur = p.dim ? 0 : 9;
+      ctx.fillStyle = p.dim ? 'rgba(47,107,255,.30)' : '#2F6BFF';
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.2832); ctx.fill();
+    }
+    ctx.restore();
+
+    /* Hovedprojekterne står klart; open source-grenene er tyndere, indtil man vælger dem */
+    const order = paths.map((_, i) => i).sort((i, j) => (i === sel) - (j === sel));
+    for (const i of order) {
+      const on = avHot || i === sel, pa = paths[i], side = oss[i];
+      ctx.beginPath();
+      pa.pts.forEach((q, j) => (j ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y)));
+      ctx.strokeStyle = on ? 'rgba(127,166,255,.95)' : side ? 'rgba(47,107,255,.3)' : 'rgba(47,107,255,.55)';
+      ctx.lineWidth = on ? 1.8 : side ? 1 : 1.3;
+      ctx.stroke();
+    }
+    ctx.save();
+    ctx.shadowColor = 'rgba(47,107,255,1)';
+    for (const i of order) {
+      const on = avHot || i === sel, pa = paths[i], side = oss[i];
+      for (let j = 1; j < pa.pts.length; j++) {
+        const q = pa.pts[j], last = j === pa.pts.length - 1;
+        ctx.shadowBlur = on ? 14 : side ? 3 : 6;
+        ctx.fillStyle = on ? '#8FB0FF' : side ? 'rgba(47,107,255,.6)' : '#2F6BFF';
+        ctx.beginPath(); ctx.arc(q.x, q.y, last ? (on ? 5 : side ? 3 : 4.5) : 2.4, 0, 6.2832); ctx.fill();
+      }
+    }
+    ctx.restore();
+
+    let flash = 0;
+    if (!still && paths[sel]) {
+      const per = 1.7, k = ((((t - pulse0) % per) + per) % per) / per;
+      const q = along(paths[sel], 1 - k);
+      ctx.save();
+      ctx.shadowColor = 'rgba(170,198,255,1)'; ctx.shadowBlur = 16; ctx.fillStyle = '#E2EAFF';
+      ctx.beginPath(); ctx.arc(q.x, q.y, 3.4, 0, 6.2832); ctx.fill();
+      ctx.restore();
+      flash = k > 0.9 ? (k - 0.9) / 0.1 : k < 0.18 ? 1 - k / 0.18 : 0;
+    }
+    if (hubEdge) {
+      ctx.beginPath(); ctx.moveTo(hubEdge.x, hubEdge.y); ctx.lineTo(hub.x, hub.y);
+      ctx.strokeStyle = 'rgba(232,168,119,.75)'; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+    ctx.save();
+    ctx.shadowColor = 'rgba(232,168,119,.95)'; ctx.shadowBlur = 12 + flash * 16;
+    ctx.fillStyle = '#E8A877';
+    ctx.beginPath(); ctx.arc(hub.x, hub.y, 5.5 + flash * 2.5 + (avHot ? 1.5 : 0), 0, 6.2832); ctx.fill();
+    ctx.restore();
+
+    if (!still && running()) raf = requestAnimationFrame(draw);
+  }
+  function kick() { if (ctx && !raf) raf = requestAnimationFrame(draw); }
+
+  ['mouseenter', 'focus'].forEach((ev) => av.addEventListener(ev, () => { avHot = true; kick(); }));
+  ['mouseleave', 'blur'].forEach((ev) => av.addEventListener(ev, () => { avHot = false; kick(); }));
+
+  if ('ResizeObserver' in window) new ResizeObserver(() => { layout(); kick(); }).observe(hero);
+  else window.addEventListener('resize', () => { layout(); kick(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => { inView = es[0].isIntersecting; if (running()) kick(); }).observe(hero);
+  }
+  document.addEventListener('visibilitychange', () => { if (running()) kick(); });
+  if (mq.addEventListener) mq.addEventListener('change', kick);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layout(); kick(); });
+  layout();
+  kick();
+})();
+
+/* ---------- Projekterne: du trykker dig igennem; agenten tager sine trin i fast takt og stopper ved dine valg ---------- */
+(() => {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TAKT = 1800; /* fast takt pr. agent-trin, så man kan nå at læse det. Ikke en målt hastighed */
+  const PILL = { klar: 'Ready', koer: 'The agent is working', vent: 'Waiting for you', faerdig: 'Done' };
+  const gange = (n) => n === 1 ? 'once' : n === 2 ? 'twice' : n === 3 ? 'three times' : n === 4 ? 'four times' : n + ' times';
+  document.querySelectorAll('.lane').forEach((el) => {
+    const st = [...el.querySelectorAll('.st')];
+    const pill = el.querySelector('.pill');
+    const status = el.querySelector('.status');
+    const again = el.querySelector('.again');
+    const nr = st.map((li) => li.querySelector('.no').textContent);
+    const titel = (li) => li.querySelector('b').textContent;
+    let pos = 0, tryk = 0, timer = 0;
+    const tilstand = (s, msg) => { el.dataset.state = s; pill.dataset.s = s; pill.textContent = PILL[s]; status.textContent = msg; };
+    const ok = (i) => { st[i].classList.remove('now', 'run'); st[i].classList.add('ok'); st[i].querySelector('.no').textContent = '✓'; };
+    function videre() {
+      if (pos >= st.length) {
+        tilstand('faerdig', 'Done. You pressed ' + gange(tryk) + '. ' + status.dataset.slut);
+        again.hidden = false;
+        if (el.contains(document.activeElement)) again.focus({ preventScroll: true });
+        return;
+      }
+      const li = st[pos];
+      if (li.classList.contains('du')) {
+        li.classList.add('now');
+        tilstand('vent', 'Waiting for you. Press “' + li.querySelector('.approve').textContent + '”.');
+        if (el.contains(document.activeElement)) li.querySelector('.approve').focus({ preventScroll: true });
+        return;
+      }
+      if (reduce) { ok(pos); pos++; videre(); return; }
+      li.classList.add('run');
+      tilstand('koer', 'The agent: ' + titel(li) + '.');
+      timer = setTimeout(() => { ok(pos); pos++; videre(); }, TAKT);
+    }
+    function nulstil() {
+      clearTimeout(timer); pos = 0; tryk = 0;
+      st.forEach((li, i) => { li.classList.remove('ok', 'now', 'run'); li.querySelector('.no').textContent = nr[i]; });
+      st[0].classList.add('now');
+      again.hidden = true;
+      tilstand('klar', status.dataset.start);
+    }
+    st.forEach((li, i) => {
+      const b = li.querySelector('.approve');
+      if (!b) return;
+      b.addEventListener('click', () => {
+        if (pos !== i) return;
+        tryk++; ok(i); pos++;
+        el.focus({ preventScroll: true });
+        videre();
+      });
+    });
+    again.addEventListener('click', () => { nulstil(); st[0].querySelector('.approve').focus({ preventScroll: true }); });
+    nulstil();
+  });
+})();
+
+/* ---------- Runde 18: tallene opdaterer sig selv (Gustav 15/11) ----------
+   /tal.json måles én gang i døgnet af GitHub (.github/workflows/tal.yml), også Chrome Web Store, som ikke kan hentes herfra.
+   npm og GitHub hentes desuden direkte, så de er friske. Fejler et kald, står det forrige tal. */
+(() => {
+  const MDR = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const dk = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const saet = (k, n) => {
+    if (!Number.isFinite(n) || n < 0) return false;
+    document.querySelectorAll(`[data-tal="${k}"]`).forEach((el) => { el.textContent = dk(n); });
+    return true;
+  };
+  const nu = (k) => { const el = document.querySelector(`[data-tal="${k}"]`); return el ? parseInt(el.textContent.replace(/\D/g, ''), 10) || 0 : 0; };
+  const op = (k, n) => Number.isFinite(n) && n >= nu(k) && saet(k, n);  // hentninger i alt kan kun vokse; et afkortet svar må aldrig vises
+  const over0 = (k, n) => Number.isFinite(n) && n > 0 && saet(k, n);
+  const dato = (d) => { const el = document.querySelector('[data-tal="dato"]'); if (el) el.textContent = `${d.getDate()} ${MDR[d.getMonth()]} ${d.getFullYear()}`; };
+  const hent = (u) => fetch(u, { cache: 'no-store' }).then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
+  const iso = (d) => d.toISOString().slice(0, 10);
+  const npmIalt = async (pakke, fra) => {  // npm svarer højst 18 måneder ad gangen: læg år for år sammen
+    let a = new Date(fra + 'T00:00:00Z'), dage = [];
+    const slut = new Date();
+    while (a <= slut) {
+      const b = new Date(Math.min(a.getTime() + 364 * 864e5, slut.getTime()));
+      const j = await hent(`https://api.npmjs.org/downloads/range/${iso(a)}:${iso(b)}/${pakke}`);
+      dage = dage.concat(j.downloads);
+      a = new Date(b.getTime() + 864e5);
+    }
+    return { sum: dage.reduce((s, x) => s + x.downloads, 0), dage };
+  };
+  const kor = async () => {
+    // Kun på sitet (og en lokal prøve). Forhåndsvisningen har ingen tal.json og må ikke hente udefra
+    if (!document.querySelector('[data-tal]') || !/^(gustavlouv\.com|www\.gustavlouv\.com|127\.0\.0\.1|localhost)$/.test(location.hostname)) return;
+    try {
+      const t = await hent('/tal.json');
+      over0('cws', t.cws); op('b-npm', t.browser.npm_i_alt); saet('b-stj', t.browser.stjerner); saet('b-forks', t.browser.forks);
+      op('c-npm', t.computer.npm_i_alt); over0('c-30', t.computer.npm_30_dage);
+      if (/^\d{4}-\d{2}-\d{2}$/.test(t.maalt || '')) dato(new Date(t.maalt + 'T12:00:00'));
+    } catch (e) { /* siden står med tallene fra udgivelsen */ }
+    const live = [
+      npmIalt('@agent360/browser-mcp', '2026-04-02').then((r) => op('b-npm', r.sum)),
+      npmIalt('@agent360/computer-mcp', '2026-09-18').then(async (r) => {
+        if (!op('c-npm', r.sum)) return false;
+        // 30-dages-tallet tages kun, når det stemmer med de samme dage i svaret ovenfor (et kort svar kan ikke skelnes fra et ægte fald)
+        const j = await hent('https://api.npmjs.org/downloads/point/last-month/@agent360/computer-mcp');
+        const tjek = r.dage.filter((x) => x.day >= j.start && x.day <= j.end).reduce((s, x) => s + x.downloads, 0);
+        return j.downloads === tjek && over0('c-30', j.downloads);
+      }),
+      hent('https://api.github.com/repos/Agent360dk/browser-mcp').then((j) => saet('b-stj', j.stargazers_count) && saet('b-forks', j.forks_count)),
+    ];
+    const res = await Promise.allSettled(live);
+    if (res.every((r) => r.status === 'fulfilled' && r.value)) dato(new Date());  // kun når alt er hentet nu
+  };
+  if (document.readyState === 'complete') kor(); else window.addEventListener('load', kor, { once: true });
+})();
+
+
+/* ---------- Runde 28: bookingvinduet (agent360.dk's kalender-API) ---------- */
+(() => {
+  const dlg = document.getElementById('book');
+  if (!dlg) return;
+  const aabnere = document.querySelectorAll('a[data-book]');
+  if (typeof dlg.showModal !== 'function') return;  // uden <dialog>: linket går til agent360.dk/kontakt
+  const API = dlg.dataset.endpoint, LIVE = dlg.dataset.forbundet === 'ja';
+  const SPROG = document.documentElement.lang === 'en' ? 'en' : 'da';
+  const T = {
+    tjeneste: 'Meeting via gustavlouv.com',
+    henter: 'Loading available times …',
+    ingen: 'There are no free times in the next three weeks. Write to gustav@agent360.dk and we’ll find a time.',
+    nede: 'The calendar isn’t answering right now. Try again in a moment, or write to gustav@agent360.dk.',
+    eksempel: 'Preview: example times. On gustavlouv.com it’s Gustav’s real calendar.',
+    tider: (n) => n === 1 ? '1 slot' : n + ' slots',
+    valgt: (d) => d + ' · 20 minutes on Teams',
+    navn: 'Enter your name.', mail: 'Enter an email address, for example name@company.com.',
+    sender: 'Booking …',
+    taget: 'Someone took that time just now. Choose another one.',
+    loft: 'We can’t book more meetings from here right now. Write to kontakt@agent360.dk and we’ll find a time.',
+    fejl: 'That didn’t go through. Try again in a moment, or write to gustav@agent360.dk.',
+    okTid: (d) => d + ' · Teams',
+    okMail: 'You’ll get an email with the Teams link.',
+    okLink: 'Teams link: ',
+    forh: 'Preview: this is where the meeting is booked in Gustav’s calendar. Nothing was sent.',
+  };
+  const LOC = SPROG === 'en' ? 'en-GB' : 'da-DK', TZ = 'Europe/Copenhagen';
+  const fDag = new Intl.DateTimeFormat(LOC, { timeZone: TZ, weekday: 'short' });
+  const fDato = new Intl.DateTimeFormat(LOC, { timeZone: TZ, day: 'numeric', month: 'short' });
+  const fLang = new Intl.DateTimeFormat(LOC, { timeZone: TZ, weekday: 'long', day: 'numeric', month: 'long' });
+  const fTid = new Intl.DateTimeFormat(LOC, { timeZone: TZ, hour: '2-digit', minute: '2-digit', hour12: false });
+  const fNoegle = new Intl.DateTimeFormat('sv-SE', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' });
+  const lang = (s) => { const d = new Date(s); return fLang.format(d) + ' ' + (SPROG === 'en' ? 'at' : 'kl.') + ' ' + fTid.format(d); };
+  const status = dlg.querySelector('.book-status'), dage = dlg.querySelector('.book-dage'), tider = dlg.querySelector('.book-tider');
+  const trinTid = tider.closest('.book-trin'), form = dlg.querySelector('#book-form'), ok = dlg.querySelector('.book-ok');
+  const fejl = form.querySelector('.book-fejl'), knap = form.querySelector('button[type="submit"]');
+  let perDag = new Map(), valgtDag = null, valgt = null, opener = null;
+
+  const eksempeltider = () => {
+    const ud = [], d = new Date();
+    for (let i = 1; ud.length < 18; i++) {
+      const x = new Date(d.getFullYear(), d.getMonth(), d.getDate() + i);
+      if (x.getDay() === 0 || x.getDay() === 6) continue;
+      for (const [h, m] of [[9, 0], [9, 30], [13, 0]]) { const s = new Date(x); s.setHours(h, m, 0, 0); ud.push({ start: s.toISOString(), end: new Date(+s + 20 * 60000).toISOString() }); }
+    }
+    return ud;
+  };
+  const hent = async () => {
+    if (!LIVE) return eksempeltider();
+    const nu = new Date(), slut = new Date(+nu + 21 * 86400000);
+    const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 20000);
+    try {
+      const r = await fetch(`${API}/api/calendar/availability?start_date=${encodeURIComponent(nu.toISOString())}&end_date=${encodeURIComponent(slut.toISOString())}`, { signal: ac.signal });
+      if (!r.ok) throw new Error(r.status);
+      const j = await r.json();
+      return (j.slots || []).filter((s) => new Date(s.start) > new Date(+nu + 30 * 60000));
+    } finally { clearTimeout(tm); }
+  };
+  const visDage = () => {
+    dage.textContent = '';
+    for (const [k, slots] of perDag) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'book-dag'; b.dataset.dag = k; b.setAttribute('aria-pressed', String(k === valgtDag));
+      const d = new Date(slots[0].start);
+      b.innerHTML = '<b></b><span></span><small></small>';
+      b.querySelector('b').textContent = fDag.format(d).replace('.', '');
+      b.querySelector('span').textContent = fDato.format(d).replace('.', '');
+      b.querySelector('small').textContent = T.tider(slots.length);
+      b.setAttribute('aria-label', fLang.format(d) + ', ' + T.tider(slots.length));
+      b.addEventListener('click', () => vaelgDag(k, true));
+      dage.appendChild(b);
+    }
+  };
+  const visTider = () => {
+    tider.textContent = '';
+    for (const s of perDag.get(valgtDag) || []) {
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'book-tid'; b.textContent = fTid.format(new Date(s.start));
+      b.setAttribute('aria-pressed', String(!!valgt && valgt.start === s.start));
+      b.setAttribute('aria-label', lang(s.start));
+      b.addEventListener('click', () => vaelgTid(s));
+      tider.appendChild(b);
+    }
+    trinTid.hidden = !valgtDag;
+  };
+  const vaelgDag = (k, fokus) => {
+    valgtDag = k; valgt = null; form.hidden = true;
+    dage.querySelectorAll('.book-dag').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.dag === k)));
+    visTider();
+    if (fokus) { const f = tider.querySelector('.book-tid'); if (f) f.focus(); }
+  };
+  const vaelgTid = (s) => {
+    valgt = s;
+    tider.querySelectorAll('.book-tid').forEach((b, i) => b.setAttribute('aria-pressed', String((perDag.get(valgtDag) || [])[i] === s)));
+    form.querySelector('.book-valgt').textContent = T.valgt(lang(s.start));
+    form.hidden = false; fejl.textContent = '';
+    const navn = form.querySelector('#bk-navn');
+    navn.focus({ preventScroll: true }); form.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
+  const indlaes = async () => {
+    status.textContent = T.henter; dage.textContent = ''; trinTid.hidden = true; form.hidden = true; valgt = null;
+    let slots;
+    try { slots = await hent(); } catch (e) { status.textContent = T.nede; return; }
+    perDag = new Map();
+    for (const s of slots) { const k = fNoegle.format(new Date(s.start)); if (!perDag.has(k)) perDag.set(k, []); perDag.get(k).push(s); }
+    if (!perDag.size) { status.textContent = T.ingen; return; }
+    status.textContent = LIVE ? '' : T.eksempel;
+    valgtDag = perDag.has(valgtDag) ? valgtDag : perDag.keys().next().value;
+    visDage(); vaelgDag(valgtDag, false);
+  };
+  const aabn = (e) => {
+    e.preventDefault(); opener = e.currentTarget;
+    ok.hidden = true; [dage.closest('.book-trin')].forEach((x) => { x.hidden = false; });
+    dlg.showModal();
+    indlaes().then(() => { const f = dage.querySelector('[aria-pressed="true"]') || dlg.querySelector('.book-luk'); if (f && dlg.open) f.focus(); });
+  };
+  aabnere.forEach((a) => a.addEventListener('click', aabn));
+  dlg.querySelectorAll('[data-luk]').forEach((b) => b.addEventListener('click', () => dlg.close()));
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });  // tryk på baggrunden lukker
+  dlg.addEventListener('close', () => { if (opener) opener.focus(); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const navn = form.querySelector('#bk-navn'), mail = form.querySelector('#bk-mail');
+    [navn, mail].forEach((x) => x.removeAttribute('aria-invalid'));
+    if (!navn.value.trim()) { fejl.textContent = T.navn; navn.setAttribute('aria-invalid', 'true'); navn.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) { fejl.textContent = T.mail; mail.setAttribute('aria-invalid', 'true'); mail.focus(); return; }
+    if (!valgt) return;
+    if (!LIVE) { fejl.textContent = T.forh; return; }
+    knap.disabled = true; fejl.textContent = T.sender;
+    const lead = { name: navn.value.trim(), email: mail.value.trim(), phone: form.querySelector('#bk-tlf').value.trim(),
+      company: form.querySelector('#bk-firma').value.trim(), message: form.querySelector('#bk-emne').value.trim(),
+      service_label: T.tjeneste, source_context: 'agent360',
+      side: SPROG === 'en' ? 'gustavlouv.com/en' : 'gustavlouv.com', sprog: SPROG };
+    const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 30000);
+    try {
+      const r = await fetch(`${API}/api/calendar/book`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ac.signal,
+        body: JSON.stringify({ start_time: valgt.start, source: 'agent360', lead_info: lead }) });
+      if (r.status === 409) { fejl.textContent = ''; await indlaes(); status.textContent = T.taget; return; }  // beskeden i statuslinjen: formularen skjules, mens tiderne hentes igen
+      if (r.status === 429) { fejl.textContent = T.loft; return; }
+      if (!r.ok) { fejl.textContent = T.fejl; return; }
+      const j = await r.json().catch(() => ({}));
+      ok.querySelector('.book-ok-tid').textContent = T.okTid(lang(j.start_time || valgt.start));
+      const mailP = ok.querySelector('.book-ok-mail');
+      mailP.textContent = '';
+      if (j.bekraeftelse_sendt) mailP.textContent = T.okMail;
+      else if (j.meeting_link) { mailP.append(T.okLink); const a = document.createElement('a'); a.href = j.meeting_link; a.textContent = j.meeting_link; a.rel = 'noopener'; mailP.append(a); }
+      [dage.closest('.book-trin'), trinTid, form].forEach((x) => { x.hidden = true; });
+      status.textContent = ''; ok.hidden = false; fejl.textContent = '';
+      ok.querySelector('.book-knap').focus();
+    } catch (err) {
+      fejl.textContent = T.fejl;
+    } finally { clearTimeout(tm); knap.disabled = false; }
+  });
+})();
+
+/* ---------- Runde 26: sprogskifteren husker valget (head-scriptet på gustavlouv.com læser det) ---------- */
+document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListener('click', () => { try { localStorage.setItem('gl-sprog', a.dataset.sprog); } catch (e) {} }));
+
+/* ---------- Runde 6: film starter uden lyd, når man når dem, og kan sættes på pause · tilmelding ---------- */
+(() => {
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.film').forEach((fig) => {
+    const v = fig.querySelector('video'), btn = fig.querySelector('.film-btn');
+    const slut = parseFloat(v.dataset.slut || '0');
+    let brugerPause = false;
+    const vis = () => { const spiller = !v.paused; btn.querySelector('span').textContent = spiller ? '❚❚' : '▶'; const om = btn.dataset.navn ? ' about ' + btn.dataset.navn : ''; btn.setAttribute('aria-label', spiller ? 'Pause the film' + om : 'Play the film' + om); };
+    if (slut) v.addEventListener('timeupdate', () => { if (v.currentTime >= slut) v.currentTime = 0; });
+    v.addEventListener('play', vis); v.addEventListener('pause', vis);
+    btn.addEventListener('click', () => { if (v.paused) { brugerPause = false; v.play().catch(() => {}); } else { brugerPause = true; v.pause(); } });
+    if (v.hasAttribute('data-klik')) {  // starter først, når man trykker (Gustav 15/11); et tryk på billedet virker også
+      v.addEventListener('click', () => btn.click());
+      v.addEventListener('play', () => { fig.dataset.spiller = '1'; });
+      return;
+    }
+    if (reduce || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && !brugerPause) v.play().catch(() => {});
+      else if (!e.isIntersecting) v.pause();
+    }), { threshold: 0.35 }).observe(v);
+  });
+  // Gustav 15/11: et anker glider langsomt (1-1,6 s), til målet står midt på skærmen; er målet højere end skærmen, står toppen 16 px under
+  // kanten. Målet måles i hvert billede (billeder og skrifter, der indlæses undervejs, flytter ikke slutpunktet). Rører man selv siden,
+  // stopper rulningen. html har scroll-behavior: smooth, så hvert skridt skrives med auto, ellers bliver hvert skridt selv blødt.
+  const hop = (y) => { const s = document.documentElement.style, f = s.scrollBehavior; s.scrollBehavior = 'auto'; window.scrollTo(0, y); s.scrollBehavior = f; };
+  const midt = (el) => {
+    const r = el.getBoundingClientRect(), h = window.innerHeight, top = window.scrollY + r.top;
+    const y = r.height + 32 <= h ? top - (h - r.height) / 2 : top - 16;
+    return Math.max(0, Math.min(Math.round(y), document.documentElement.scrollHeight - h));
+  };
+  const blid = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+  // Ruller den besøgende selv? Et tryk, et klik eller en tast i et felt er ikke en rulning (V37-review på agent360.dk, 15/11)
+  const RUL = ['wheel', 'touchstart', 'touchmove', 'keydown', 'mousedown'], TASTER = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '];
+  let finger = null;
+  const egenRul = (e) => {
+    const t = e.touches && e.touches[0];
+    if (e.type === 'touchstart') { finger = t ? [t.clientX, t.clientY] : null; return false; }
+    if (e.type === 'touchmove') return !t || !finger || Math.abs(t.clientX - finger[0]) + Math.abs(t.clientY - finger[1]) > 10;
+    if (e.type === 'keydown') { const m = e.target || {}; return !(m.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(m.tagName || '')) && TASTER.includes(e.key); }
+    if (e.type === 'mousedown') return e.target === document.documentElement;
+    return true;
+  };
+  const rul = (el, efter) => {
+    if (reduce) { hop(midt(el)); if (efter) efter(); return; }
+    const fra = window.scrollY, tid = Math.min(1600, Math.max(1000, 800 + Math.abs(midt(el) - fra) * 0.2));
+    let t0 = -1, slut = false, id = 0, sidstY = -1, sidstTop = 0;
+    const stop = (faerdig) => { if (slut) return; slut = true; cancelAnimationFrame(id); RUL.forEach((n) => window.removeEventListener(n, egen)); window.removeEventListener('scroll', fremmed); document.removeEventListener('click', klik, true); window.removeEventListener('hashchange', andet); window.removeEventListener('popstate', andet); if (faerdig && efter) efter(); };
+    // Et klik på et link, tilbage/frem eller et nyt anker: den besøgende vil et andet sted hen (browserens bløde rulning må ikke skæres af)
+    const klik = (e) => { if (e.target && e.target.closest && e.target.closest('a[href]')) stop(false); };
+    const andet = () => stop(false);
+    const egen = (e) => { if (egenRul(e)) stop(false); };
+    // En rulning, vi ikke selv har lavet (scrollY anden end vores sidste skridt, og målet flyttet på skærmen), stopper glidningen;
+    // Chromes scroll anchoring flytter scrollY sammen med indholdet, så målet står stille: det stopper ikke
+    const fremmed = () => { if (sidstY >= 0 && Math.abs(window.scrollY - sidstY) > 2 && Math.abs(el.getBoundingClientRect().top - sidstTop) > 2) stop(false); };
+    RUL.forEach((n) => window.addEventListener(n, egen, { passive: true }));
+    window.addEventListener('scroll', fremmed, { passive: true });
+    document.addEventListener('click', klik, true); window.addEventListener('hashchange', andet); window.addEventListener('popstate', andet);
+    const skridt = (nu) => {
+      if (slut) return;
+      if (t0 < 0) t0 = nu;
+      const p = Math.min(1, (nu - t0) / tid);
+      hop(Math.round(fra + (midt(el) - fra) * blid(p)));
+      sidstY = window.scrollY; sidstTop = el.getBoundingClientRect().top;
+      if (p < 1) id = requestAnimationFrame(skridt); else stop(true);
+    };
+    id = requestAnimationFrame(skridt);
+  };
+  // #foelg peger på overskriften; målet er hele tilmeldingen (.follow)
+  const maalFor = (h) => {
+    const el = /^#[a-z][a-z0-9-]*$/.test(h || '') && document.getElementById(h.slice(1));
+    if (!el) return null;
+    return (h === '#foelg' && el.closest('section') && el.closest('section').querySelector('.follow')) || el;
+  };
+  // «Få mine mails om AI ↓»: rul langsomt, så hele tilmeldingen står midt på skærmen, og sæt markøren i mailfeltet (Gustav 14/11)
+  document.querySelectorAll('a[href="#foelg"]').forEach((a) => a.addEventListener('click', (e) => {
+    const maal = maalFor('#foelg');
+    if (!maal) return;
+    e.preventDefault();
+    const felt = document.getElementById('tm-mail');
+    rul(maal, () => { if (felt) felt.focus({ preventScroll: true }); });
+    if (history.replaceState) history.replaceState(null, '', '#foelg');
+  }));
+  // Et link udefra med et anker: <head> holdt browserens spring tilbage (byg-site.py, ANKOMST); ankeret sættes tilbage, og siden glider derned
+  if (window.__ankomst) {
+    const h = window.__ankomst;
+    delete window.__ankomst;
+    // Ankeret kommer først tilbage efter load: står det i adressen, mens siden indlæses, springer Chrome til det (målt 15/11)
+    const tilbage = () => setTimeout(() => { if (history.replaceState && !location.hash) history.replaceState(null, '', location.pathname + location.search + h); }, 0);
+    if (document.readyState === 'complete') tilbage(); else window.addEventListener('load', tilbage, { once: true });
+    const m = maalFor(h);
+    // Ruller den besøgende selv, før glidningen starter, bliver siden, hvor den besøgende er; efter glidningen får ankeret fokus
+    let roert = !!window.__ankomstRoert;
+    const merk = (e) => { if (egenRul(e)) roert = true; };
+    RUL.forEach((n) => window.addEventListener(n, merk, { passive: true }));
+    const fri = () => !document.activeElement || document.activeElement === document.body;
+    const fokus = () => { const a = document.getElementById(h.slice(1)); if (!a || !fri()) return; if (!a.hasAttribute('tabindex')) { a.setAttribute('tabindex', '-1'); a.style.outline = 'none'; } a.focus({ preventScroll: true }); };
+    if (m) setTimeout(() => { RUL.forEach((n) => window.removeEventListener(n, merk)); if (!roert && !window.__ankomstRoert && window.scrollY <= 2 && fri()) rul(m, fokus); }, 350);
+  }
+  const f = document.getElementById('tilmeld');
+  if (!f) return;
+  const ring = document.getElementById('ring');
+  const msg = f.querySelector('.msg'), mail = f.querySelector('input[type="email"]');
+  const knap = f.querySelector('button[type="submit"]');
+  const send = (data) => fetch(f.dataset.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+    .then((r) => { if (!r.ok) throw new Error(r.status); });
+  let adresse = '';
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!mail.checkValidity()) { msg.textContent = 'Enter an email address, for example name@company.com.'; mail.focus(); return; }
+    adresse = mail.value.trim();
+    const visTrin2 = () => { if (ring) { ring.hidden = false; ring.querySelector('#rg-navn').focus({ preventScroll: true }); } };
+    if (f.dataset.forbundet !== 'ja') { msg.textContent = 'Preview: this is where your email is stored with Agent360 once the page is live. Nothing was sent.'; visTrin2(); return; }
+    knap.disabled = true; msg.textContent = 'Saving …';
+    try {
+      // Gemmes i Agent360's eget system (samme indgang som kontaktformularen på agent360.dk), med samtykketeksten ordret
+      await send({ email: adresse, source: 'gustavlouv_foelg_med',
+        form_data: { type: 'nyhedsbrev', sprog: 'en', samtykke: document.getElementById('tm-ja-tekst').textContent, side: location.href, tidspunkt: new Date().toISOString() } });
+      msg.textContent = 'Thanks, you’re signed up. The first email will come when I have something worth sending. It’s in Danish for now.'; mail.value = '';
+      visTrin2();
+    } catch (err) {
+      msg.textContent = 'That didn’t go through. Write to gustav@agent360.dk and I’ll sign you up.';
+    } finally { knap.disabled = false; }
+  });
+  if (!ring) return;
+  const rmsg = ring.querySelector('.msg'), tlf = ring.querySelector('#rg-tlf'), navn = ring.querySelector('#rg-navn'), rknap = ring.querySelector('button[type="submit"]');
+  ring.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!/^(\+|00)[0-9 ()-]{7,19}$/.test(tlf.value.trim())) { rmsg.textContent = 'Enter a phone number with the country code, for example +44 20 7946 0000.'; tlf.focus(); return; }
+    if (f.dataset.forbundet !== 'ja') { rmsg.textContent = 'Preview: this is where your name and number are stored together with your email. Nothing was sent.'; return; }
+    rknap.disabled = true; rmsg.textContent = 'Saving …';
+    try {
+      await send({ email: adresse, name: navn.value.trim() || undefined, phone: tlf.value.trim(), source: 'gustavlouv_ring_mig',
+        form_data: { type: 'ring-mig', sprog: 'en', samtykke: document.getElementById('rg-ja-tekst').textContent, side: location.href, tidspunkt: new Date().toISOString() } });
+      rmsg.textContent = 'Thanks. We’ll call you.'; ring.querySelectorAll('input').forEach((i) => { i.value = ''; });
+    } catch (err) {
+      rmsg.textContent = 'That didn’t go through. Send your number to kontakt@agent360.dk.';
+    } finally { rknap.disabled = false; }
+  });
+})();
+</script>
+</body>
+</html>
