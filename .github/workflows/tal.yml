@@ -1,0 +1,35 @@
+# Måler tallene til forsiden én gang i døgnet: brugere i Chrome Web Store, hentninger på npm, stjerner og forks på GitHub.
+# Skriver tal.json, som forsiden læser ved hvert besøg. Kan også startes i hånden under Actions → Tal → Run workflow.
+name: Tal
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: tal
+  cancel-in-progress: false
+jobs:
+  maal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Mål Chrome Web Store, npm og GitHub
+        run: python3 .github/scripts/maal-tal.py
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Gem tal.json, hvis noget har flyttet sig
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- tal.json; then echo "Ingen ændring"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tal.json
+          git commit -m "tal.json: målt $(date -u +%F)"
+          git push
+          # Sitet bygges fra grenen; bed GitHub Pages bygge med det samme
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "::warning::Pages-bygget kunne ikke bestilles; tal.json kommer med ved næste bygning"
