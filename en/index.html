@@ -688,9 +688,9 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     <div class="book-felter">
       <label for="bk-navn">Name</label><input id="bk-navn" name="navn" autocomplete="name" required>
       <label for="bk-mail">Email</label><input id="bk-mail" name="mail" type="email" autocomplete="email" required>
-      <label for="bk-tlf">Phone <span class="book-valgfri">optional</span></label><input id="bk-tlf" name="tlf" type="tel" autocomplete="tel">
+      <label for="bk-tlf">Phone</label><input id="bk-tlf" name="tlf" type="tel" autocomplete="tel" placeholder="Phone number with country code" required>
       <label for="bk-firma">Company <span class="book-valgfri">optional</span></label><input id="bk-firma" name="firma" autocomplete="organization">
-      <label for="bk-emne">What would you like to talk about? <span class="book-valgfri">optional</span></label><textarea id="bk-emne" name="emne" rows="3" maxlength="1500"></textarea>
+      <label for="bk-emne">What would you like to talk about?</label><textarea id="bk-emne" name="emne" rows="3" maxlength="1500" required></textarea>
     </div>
     <p class="book-fejl" aria-live="polite"></p>
     <button type="submit" class="book-knap">Book the meeting</button>
@@ -779,8 +779,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Browser MCP</h3><span class="yr">April 2026</span></div>
           <p class="meta">Chrome extension · MIT</p>
           <dl class="nums">
-            <div><dt>weekly users in Chrome</dt> <dd data-tal="cws">2,500</dd></div>
-            <div><dt>downloads from npm</dt> <dd data-tal="b-npm">19,971</dd></div>
+            <div><dt>weekly users in Chrome</dt> <dd data-tal="cws">2,776</dd></div>
+            <div><dt>downloads from npm</dt> <dd data-tal="b-npm">20,090</dd></div>
             <div><dt>stars on GitHub</dt> <dd data-tal="b-stj">64</dd></div>
             <div><dt>forks</dt> <dd data-tal="b-forks">17</dd></div>
           </dl>
@@ -792,8 +792,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Computer MCP</h3><span class="yr">September 2026</span></div>
           <p class="meta">macOS · MIT</p>
           <dl class="nums">
-            <div><dt>downloads from npm</dt> <dd data-tal="c-npm">566</dd></div>
-            <div><dt>in the last 30 days</dt> <dd data-tal="c-30">228</dd></div>
+            <div><dt>downloads from npm</dt> <dd data-tal="c-npm">585</dd></div>
+            <div><dt>in the last 30 days</dt> <dd data-tal="c-30">241</dd></div>
           </dl>
           <p class="desc">Work while you drive, walk or do the dishes. You talk to ChatGPT in your headset, and your Mac does the work: it reads your projects, uses your programs and hands tasks to the AI agents you already have running. On the Mac, you decide what it’s allowed to do.</p>
           <p class="cm-status">I use it myself today. Remote access from your phone comes with version 0.5.0. Until then, your AI agent can use the programs on your Mac.</p>
@@ -815,7 +815,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <img class="os-billede" src="/bygget/en/agentos.jpg" alt="Agent360 OS: the work, calendar, knowledge, customer portals and approvals in one system. Illustration." width="720" height="460" loading="lazy">
         </article>
       </div>
-      <p class="src">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">15 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
+      <p class="src">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">17 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
     </div>
   </section>
 
@@ -1257,6 +1257,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
   if (typeof dlg.showModal !== 'function') return;  // uden <dialog>: linket går til agent360.dk/kontakt
   const API = dlg.dataset.endpoint, LIVE = dlg.dataset.forbundet === 'ja';
   const SPROG = document.documentElement.lang === 'en' ? 'en' : 'da';
+  // Telefon og emne er påkrævede; den engelske side kræver landekode
+  const TLF = /^(\+|00)[0-9 ()-]{7,19}$/;
   const T = {
     tjeneste: 'Meeting via gustavlouv.com',
     henter: 'Loading available times …',
@@ -1266,10 +1268,12 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     tider: (n) => n === 1 ? '1 slot' : n + ' slots',
     valgt: (d) => d + ' · 20 minutes on Teams',
     navn: 'Enter your name.', mail: 'Enter an email address, for example name@company.com.',
+    tlf: 'Enter your phone number with the country code, for example +44 20 7946 0000.', emne: 'Write a line about what you’d like to talk about.',
     sender: 'Booking …',
     taget: 'Someone took that time just now. Choose another one.',
     loft: 'We can’t book more meetings from here right now. Write to kontakt@agent360.dk and we’ll find a time.',
     fejl: 'That didn’t go through. Try again in a moment, or write to gustav@agent360.dk.',
+    tid: 'The booking didn’t answer in time. Check your email for an invitation before you try again, or write to gustav@agent360.dk.',
     okTid: (d) => d + ' · Teams',
     okMail: 'You’ll get an email with the Teams link.',
     okLink: 'Teams link: ',
@@ -1376,6 +1380,10 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     [navn, mail].forEach((x) => x.removeAttribute('aria-invalid'));
     if (!navn.value.trim()) { fejl.textContent = T.navn; navn.setAttribute('aria-invalid', 'true'); navn.focus(); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail.value.trim())) { fejl.textContent = T.mail; mail.setAttribute('aria-invalid', 'true'); mail.focus(); return; }
+    const tlfF = form.querySelector('#bk-tlf'), emneF = form.querySelector('#bk-emne');
+    [tlfF, emneF].forEach((x) => x.removeAttribute('aria-invalid'));
+    if (!TLF.test(tlfF.value.trim())) { fejl.textContent = T.tlf; tlfF.setAttribute('aria-invalid', 'true'); tlfF.focus(); return; }
+    if (emneF.value.trim().length < 3) { fejl.textContent = T.emne; emneF.setAttribute('aria-invalid', 'true'); emneF.focus(); return; }
     if (!valgt) return;
     if (!LIVE) { fejl.textContent = T.forh; return; }
     knap.disabled = true; fejl.textContent = T.sender;
@@ -1384,6 +1392,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
       service_label: T.tjeneste, source_context: 'agent360',
       side: SPROG === 'en' ? 'gustavlouv.com/en' : 'gustavlouv.com', sprog: SPROG };
     const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 30000);
+    let laast = false;
     try {
       const r = await fetch(`${API}/api/calendar/book`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ac.signal,
         body: JSON.stringify({ start_time: valgt.start, source: 'agent360', lead_info: lead }) });
@@ -1400,8 +1409,9 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
       status.textContent = ''; ok.hidden = false; fejl.textContent = '';
       ok.querySelector('.book-knap').focus();
     } catch (err) {
-      fejl.textContent = T.fejl;
-    } finally { clearTimeout(tm); knap.disabled = false; }
+      // Tidsgrænsen afbryder kun browseren: mødet kan være booket, så knappen forbliver låst
+      if (err && err.name === 'AbortError') { fejl.textContent = T.tid; laast = true; } else fejl.textContent = T.fejl;
+    } finally { clearTimeout(tm); knap.disabled = laast; }
   });
 })();
 
@@ -1513,7 +1523,8 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
   const msg = f.querySelector('.msg'), mail = f.querySelector('input[type="email"]');
   const knap = f.querySelector('button[type="submit"]');
   const send = (data) => fetch(f.dataset.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-    .then((r) => { if (!r.ok) throw new Error(r.status); });
+    // 409 = adressen er kendt i forvejen: henvendelsen er gemt under kontakten, så det er ikke en fejl.
+    .then((r) => { if (r.status === 409) return 'findes'; if (!r.ok) throw new Error(r.status); return 'ny'; });
   let adresse = '';
   f.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1524,9 +1535,11 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     knap.disabled = true; msg.textContent = 'Saving …';
     try {
       // Gemmes i Agent360's eget system (samme indgang som kontaktformularen på agent360.dk), med samtykketeksten ordret
-      await send({ email: adresse, source: 'gustavlouv_foelg_med',
+      const svar = await send({ email: adresse, source: 'gustavlouv_foelg_med',
         form_data: { type: 'nyhedsbrev', sprog: 'en', samtykke: document.getElementById('tm-ja-tekst').textContent, side: location.href, tidspunkt: new Date().toISOString() } });
-      msg.textContent = 'Thanks, you’re signed up. The first email will come when I have something worth sending. It’s in Danish for now.'; mail.value = '';
+      msg.textContent = svar === 'findes' ? 'You’re already signed up. The first email will come when I have something worth sending. It’s in Danish for now.'
+        : 'Thanks, you’re signed up. The first email will come when I have something worth sending. It’s in Danish for now.';
+      mail.value = '';
       visTrin2();
     } catch (err) {
       msg.textContent = 'That didn’t go through. Write to gustav@agent360.dk and I’ll sign you up.';
