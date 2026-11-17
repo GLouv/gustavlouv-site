@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """maal-tal.py: måler tallene til gustavlouv.com én gang i døgnet (.github/workflows/tal.yml) og skriver tal.json.
 Forsiden læser tal.json ved hvert besøg og henter desuden npm og GitHub direkte. Chrome Web Store kan kun måles her.
-Fejler en kilde, beholdes det forrige tal for netop den kilde, og kørslen siger det. Fejler alle, ændres intet (exit 1)."""
-import datetime, json, os, pathlib, re, sys, urllib.request
+Fejler en kilde, beholdes det forrige tal for netop den kilde, og kørslen siger det. Fejler alle, ændres intet (exit 1).
+Chrome-tallet (16/11-2026, Gustav valgte «ugentlige brugere»): users-7d fra Googles Chrome Web Store API v2 med en læsenøgle
+(repoets hemmeligheder CWS_*). Svarer API'et ikke, står det forrige tal, og arbejdsgangen bliver rød til sidst (chrome_fejl=1)."""
+import datetime, json, os, pathlib, re, sys, urllib.error, urllib.parse, urllib.request
 
 ROD = pathlib.Path(__file__).resolve().parents[2]
 FIL = ROD / "tal.json"
@@ -10,9 +12,51 @@ UA = {"User-Agent": "gustavlouv-tal/1.0 (+https://gustavlouv.com)", "Accept-Lang
 BUTIK = "https://chromewebstore.google.com/detail/agent360-browser-mcp/jdehgalffmffhfhmmhaokfbfnafnmgcl?hl=en"
 PAKKER = {"browser": ("@agent360/browser-mcp", "2026-04-02", "Agent360dk/browser-mcp"),
           "computer": ("@agent360/computer-mcp", "2026-09-18", "Agent360dk/computerMCP")}
-# Gustav 15/11-2026: ca. 2.500 faste brugere om ugen. Butikkens side runder ned til hele tusinder og viste «2,000 users».
-# Så længe den viser 2.000, står Gustavs 2.500; går butikkens tal op eller ned, står butikkens eget. (Samme regel som tal.py lokalt.)
-CWS_GUSTAV, CWS_SPAND = 2500, 2000
+CWS_NOEGLER = ("CWS_CLIENT_ID", "CWS_CLIENT_SECRET", "CWS_REFRESH_TOKEN", "CWS_PUBLISHER_ID", "CWS_EXTENSION_ID")
+TOKEN_URL = "https://oauth2.googleapis.com/token"
+CWS_API = "https://chromewebstore.googleapis.com"
+
+
+def ugentlige_brugere(n, idag):
+    """users-7d (aktive brugere de seneste 7 dage) for den nyeste dag med tal. n: de fem CWS_*-nøgler. Giver (tal, dato) eller fejler.
+    Målt mod Google 16/11: rækkerne kommer nyeste først og bærer dimensionValues ["total"]; en opdeling (land, OS) tælles aldrig med."""
+    mangler = [k for k in CWS_NOEGLER if not n.get(k)]
+    if mangler:
+        raise RuntimeError("mangler " + ", ".join(mangler))
+    krop = urllib.parse.urlencode({"client_id": n["CWS_CLIENT_ID"], "client_secret": n["CWS_CLIENT_SECRET"],
+                                   "refresh_token": n["CWS_REFRESH_TOKEN"], "grant_type": "refresh_token"}).encode()
+    try:
+        with urllib.request.urlopen(urllib.request.Request(TOKEN_URL, data=krop, method="POST",
+                                    headers={"Content-Type": "application/x-www-form-urlencoded"}), timeout=30) as r:
+            tok = json.loads(r.read().decode())["access_token"]
+    except urllib.error.HTTPError as e:  # Googles svar bærer «error» (fx invalid_grant = nøglen er udløbet/tilbagekaldt), aldrig nøglen
+        try:
+            grund = json.loads(e.read().decode("utf-8", "replace")).get("error")
+        except Exception:
+            grund = None
+        raise RuntimeError(f"nøglen blev afvist (HTTP {e.code}, {grund})") from None
+    fra = idag - datetime.timedelta(days=14)
+    q = [("metrics", "users-7d"), ("timeSpec.firstDate.year", fra.year), ("timeSpec.firstDate.month", fra.month),
+         ("timeSpec.firstDate.day", fra.day), ("timeSpec.lastDate.year", idag.year), ("timeSpec.lastDate.month", idag.month),
+         ("timeSpec.lastDate.day", idag.day), ("pageSize", 100)]
+    navn = urllib.parse.quote(f"publishers/{n['CWS_PUBLISHER_ID']}/items/{n['CWS_EXTENSION_ID']}")
+    try:
+        with urllib.request.urlopen(urllib.request.Request(f"{CWS_API}/v2/{navn}:queryMetrics?{urllib.parse.urlencode(q)}",
+                                    headers={"Authorization": "Bearer " + tok}), timeout=30) as r:
+            j = json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"queryMetrics svarede HTTP {e.code}") from None
+    bedst = None
+    for row in j.get("metricRows", []):
+        if row.get("dimensionValues") not in (None, [], ["total"]):
+            continue
+        d = datetime.date(int(row["date"]["year"]), int(row["date"]["month"]), int(row["date"]["day"]))
+        for mv in row.get("metricValues", []):
+            if mv.get("metric") == "users-7d" and mv.get("value") is not None and (bedst is None or d > bedst[1]):
+                bedst = (int(mv["value"]), d)
+    if not bedst or bedst[0] <= 0:
+        raise RuntimeError("svaret havde intet users-7d-tal")
+    return bedst
 
 
 def hent(url, json_=True):
@@ -27,15 +71,22 @@ def hent(url, json_=True):
 def main():
     gl = json.loads(FIL.read_text(encoding="utf-8")) if FIL.exists() else {}
     idag = datetime.date.today()
-    ny = {"maalt": idag.isoformat(), "cws": gl.get("cws"), "cws_butik": gl.get("cws_butik")}
-    ok, fejl = 0, []
+    ny = {"maalt": idag.isoformat(), "cws": gl.get("cws"), "cws_dato": gl.get("cws_dato"), "cws_butik": gl.get("cws_butik")}
+    ok, fejl, chrome_fejl = 0, [], None
     try:
-        m = re.search(r"([\d,]+)\+?\s+users", hent(BUTIK, json_=False))
-        butik = int(m.group(1).replace(",", ""))
-        ny["cws_butik"], ny["cws"] = butik, (CWS_GUSTAV if butik == CWS_SPAND else butik)
+        ny["cws"], d = ugentlige_brugere({k: os.environ.get(k, "") for k in CWS_NOEGLER}, idag)
+        ny["cws_dato"] = d.isoformat()
         ok += 1
     except Exception as e:
-        fejl.append(f"Chrome Web Store: {e!r}")
+        chrome_fejl = f"Chrome Web Store API: {e}"
+        fejl.append(chrome_fejl + "; det forrige tal beholdes")
+    try:  # butikkens offentlige, afrundede tal gemmes til sammenligning; det bruges kun, hvis der aldrig har været et API-tal
+        m = re.search(r"([\d,]+)\+?\s+users", hent(BUTIK, json_=False))
+        ny["cws_butik"] = int(m.group(1).replace(",", ""))
+        if ny["cws"] is None:
+            ny["cws"] = ny["cws_butik"]
+    except Exception as e:
+        fejl.append(f"Chrome Web Store-siden: {e!r}")
     for navn, (pakke, foerste, repo) in PAKKER.items():
         g = gl.get(navn, {})
         d = {k: g.get(k) for k in ("npm_i_alt", "npm_30_dage", "stjerner", "forks")}
@@ -76,6 +127,11 @@ def main():
         print("::error::Chrome-tallet mangler, og der er intet forrige. tal.json er ikke ændret."); sys.exit(1)
     FIL.write_text(json.dumps(ny, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(ny, ensure_ascii=False))
+    if chrome_fejl:  # tal.json gemmes stadig med de andre tal; arbejdsgangens sidste trin bliver rødt, så fejlen ikke går i stå i stilhed
+        print(f"::error::{chrome_fejl}. Siden viser det forrige Chrome-tal ({ny['cws']}).")
+        if os.environ.get("GITHUB_OUTPUT"):
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as f:
+                f.write("chrome_fejl=1\n")
 
 
 if __name__ == "__main__":
