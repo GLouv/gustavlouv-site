@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <!-- SPROG (runde 26): en browser uden dansk blandt sine sprog går til /en/ (ikke søgemaskiner og forhåndsvisninger); skifterens valg vinder -->
 <script>(function(){try{var q=location.search,s=null;try{s=localStorage.getItem('gl-sprog')}catch(e){}if(/[?&]sprog=da(&|$)/.test(q)){try{localStorage.setItem('gl-sprog','da')}catch(e){}var r=q.replace(/([?&])sprog=da(&|$)/,'$1').replace(/[?&]$/,'');if(history.replaceState)history.replaceState(null,'',location.pathname+r+location.hash);return}if(s==='da')return;if(/bot|crawl|spider|slurp|google|bing|yandex|duckduck|baidu|applebot|facebookexternalhit|linkedin|twitter|slack|whatsapp|telegram|discord|skype|embedly|preview|lighthouse|semrush|ahrefs|petal/i.test(navigator.userAgent))return;if(s!=='en'){var l=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||''];for(var i=0;i<l.length;i++)if(/^da(-|$)/i.test(l[i]))return}location.replace('/en/'+q+location.hash)}catch(e){}})();</script>
-<!-- ANKOMST (runde 25): et anker udefra springes ikke til; siden glider langsomt derned (runde6.py) -->
+<!-- ANKOMST (runde 25): et anker udefra springes ikke til; siden glider langsomt derned -->
 <script>(function(){try{var h=location.hash;if(!/^#[a-z][a-z0-9-]*$/.test(h)||!history.replaceState)return;window.__ankomst=h;history.replaceState(null,'',location.pathname+location.search);var k={ArrowDown:1,ArrowUp:1,PageDown:1,PageUp:1,Home:1,End:1,' ':1};var s=null;['wheel','touchstart','touchmove','keydown'].forEach(function(n){addEventListener(n,function(e){var m=e.target||{},t=e.touches&&e.touches[0];if(e.type==='touchstart'){s=t?[t.clientX,t.clientY]:null;return}if(e.type==='touchmove'&&t&&s&&Math.abs(t.clientX-s[0])+Math.abs(t.clientY-s[1])<=10)return;if(e.type==='keydown'&&(!k[e.key]||m.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(m.tagName||'')))return;window.__ankomstRoert=true},{passive:true})})}catch(e){}})();</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://gustavlouv.com/">
@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#011128">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap"></noscript>
 <style>
 /* Layout: hero-bånd i avatarens navy, hvor tegningens netværk forbinder Gustav med Agent360, Forbrugeragenten og de to open source-projekter;
    lige under står Agent360 og Forbrugeragenten som en illustration i samme navy på lyst blueprint-papir, der stopper ved valget. Resten er roligt papir. */
@@ -172,7 +172,7 @@ h1{font-size:clamp(3rem,5.4vw,5rem);font-weight:700;line-height:.94;letter-spaci
 .fullname{font-family:var(--mono);font-size:.8125rem;color:var(--hero-ink);display:flex;flex-wrap:wrap;gap:4px 10px}
 .fullname span{color:var(--hero-muted)}
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;padding-top:6px}
-/* Hovedfokus (Gustav 13/11): Agent360 til virksomheder og Forbrugeragenten til dig, over LinkedIn */
+/* Hovedfokus: Agent360 til virksomheder og Forbrugeragenten til dig, over LinkedIn */
 .focus{display:grid;gap:10px;width:100%;max-width:460px;padding-top:4px}
 .fbtn{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;padding:14px 16px 14px 18px;border:1px solid var(--hero-line);border-radius:16px;background:var(--hero-surface)}
 .fbtn .ft{display:grid;gap:3px;min-width:9.5rem}
@@ -470,7 +470,7 @@ footer .wrap{padding-block:28px 40px;display:flex;flex-wrap:wrap;gap:6px 18px;fo
 .film.klik:not([data-spiller]) .film-btn{right:auto;bottom:auto;left:50%;top:74%;transform:translate(-50%,-50%);width:72px;height:72px;font-size:1.4rem;background:rgba(1,17,40,.86);border-color:rgba(255,255,255,.7)}
 @media (max-width:560px){.film.klik:not([data-spiller]) .film-btn{width:52px;height:52px;top:84%;font-size:1.1rem}}
 /* ---------- Runde 6: én blok pr. projekt med film og forløb · Følg med ---------- */
-/* Blød rulning, når en knap fører længere ned på siden (Gustav 14/11). Ikke ved reduceret bevægelse */
+/* Blød rulning, når en knap fører længere ned på siden. Ikke ved reduceret bevægelse */
 @media (prefers-reduced-motion: no-preference){html{scroll-behavior:smooth}}
 section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
 .projs{display:grid;gap:20px}
@@ -783,8 +783,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Browser MCP</h3><span class="yr">april 2026</span></div>
           <p class="meta">Chrome-udvidelse · MIT</p>
           <dl class="nums">
-            <div><dt>ugentlige brugere i Chrome</dt> <dd data-tal="cws">2.776</dd></div>
-            <div><dt>hentninger fra npm</dt> <dd data-tal="b-npm">20.090</dd></div>
+            <div><dt>ugentlige brugere i Chrome</dt> <dd data-tal="cws">2.798</dd></div>
+            <div><dt>hentninger fra npm</dt> <dd data-tal="b-npm">20.169</dd></div>
             <div><dt>stjerner på GitHub</dt> <dd data-tal="b-stj">64</dd></div>
             <div><dt>forks</dt> <dd data-tal="b-forks">17</dd></div>
           </dl>
@@ -796,8 +796,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Computer MCP</h3><span class="yr">september 2026</span></div>
           <p class="meta">macOS · MIT</p>
           <dl class="nums">
-            <div><dt>hentninger fra npm</dt> <dd data-tal="c-npm">585</dd></div>
-            <div><dt>heraf de sidste 30 dage</dt> <dd data-tal="c-30">241</dd></div>
+            <div><dt>hentninger fra npm</dt> <dd data-tal="c-npm">596</dd></div>
+            <div><dt>heraf de sidste 30 dage</dt> <dd data-tal="c-30">247</dd></div>
           </dl>
           <p class="desc">Arbejd, mens du kører, går en tur eller vasker op. Du taler med ChatGPT i dit headset, og din Mac gør arbejdet: læser dine projekter, bruger dine programmer og giver opgaver videre til de AI-agenter, du allerede har kørende. Du bestemmer på Mac'en, hvad den må.</p>
           <p class="cm-status">Jeg bruger det selv i dag. Fjernadgangen fra telefonen kommer med version 0.5.0. Indtil da kan din AI-agent bruge programmerne på din Mac.</p>
@@ -819,7 +819,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <img class="os-billede" src="/bygget/agentos.jpg" alt="Agent360 OS: arbejdet samlet, kalender, viden, kundeportaler og godkendelser i ét system. Illustration." width="720" height="460" loading="lazy">
         </article>
       </div>
-      <p class="src">Tallene fra npm og GitHub opdaterer sig selv: hentninger siden første udgivelse, stjerner og forks. Senest målt <span data-tal="dato">17. november 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">Koden på GitHub ↗</a></p>
+      <p class="src">Tallene fra npm og GitHub opdaterer sig selv: hentninger siden første udgivelse, stjerner og forks. Senest målt <span data-tal="dato">18. november 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">Koden på GitHub ↗</a></p>
     </div>
   </section>
 
@@ -1137,6 +1137,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
   document.addEventListener('visibilitychange', () => { if (running()) kick(); });
   if (mq.addEventListener) mq.addEventListener('change', kick);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { layout(); kick(); });
+  if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', () => { layout(); kick(); });
   layout();
   kick();
 })();
@@ -1198,7 +1199,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
   });
 })();
 
-/* ---------- Runde 18: tallene opdaterer sig selv (Gustav 15/11) ----------
+/* ---------- Runde 18: tallene opdaterer sig selv ----------
    /tal.json måles én gang i døgnet af GitHub (.github/workflows/tal.yml), også Chrome Web Store, som ikke kan hentes herfra.
    npm og GitHub hentes desuden direkte, så de er friske. Fejler et kald, står det forrige tal. */
 (() => {
@@ -1429,7 +1430,9 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
   const raekke = document.querySelector('.built-g');
   if (raekke) raekke.addEventListener('focusin', (e) => {
     const li = e.target.closest('.built-g>li');
-    if (li && getComputedStyle(raekke).overflowX === 'auto') li.scrollIntoView({ inline: 'start', block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+    // kun fokus fra tastaturet: ved klik og tryk ville rækken rulle væk under fingeren, og linket åbnede ikke
+    let tast = true; try { tast = e.target.matches(':focus-visible'); } catch (_) {}
+    if (li && tast && getComputedStyle(raekke).overflowX === 'auto') li.scrollIntoView({ inline: 'start', block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
   });
   document.querySelectorAll('.film').forEach((fig) => {
     const v = fig.querySelector('video'), btn = fig.querySelector('.film-btn');
@@ -1442,7 +1445,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     if (slut) v.addEventListener('timeupdate', () => { if (v.currentTime >= slut) v.currentTime = 0; });
     v.addEventListener('play', vis); v.addEventListener('pause', vis);
     btn.addEventListener('click', () => { if (v.paused) { brugerPause = false; v.play().catch(() => {}); } else { brugerPause = true; v.pause(); } });
-    if (v.hasAttribute('data-klik')) {  // starter først, når man trykker (Gustav 15/11); et tryk på billedet virker også
+    if (v.hasAttribute('data-klik')) {  // starter først, når man trykker; et tryk på billedet virker også
       v.addEventListener('click', () => btn.click());
       v.addEventListener('play', () => { fig.dataset.spiller = '1'; });
       return;
@@ -1453,7 +1456,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
       else if (!e.isIntersecting) v.pause();
     }), { threshold: 0.35 }).observe(v);
   });
-  // Gustav 15/11: et anker glider langsomt (1-1,6 s), til målet står midt på skærmen; er målet højere end skærmen, står toppen 16 px under
+  // Et anker glider langsomt (1-1,6 s), til målet står midt på skærmen; er målet højere end skærmen, står toppen 16 px under
   // kanten. Målet måles i hvert billede (billeder og skrifter, der indlæses undervejs, flytter ikke slutpunktet). Rører man selv siden,
   // stopper rulningen. html har scroll-behavior: smooth, så hvert skridt skrives med auto, ellers bliver hvert skridt selv blødt.
   const hop = (y) => { const s = document.documentElement.style, f = s.scrollBehavior; s.scrollBehavior = 'auto'; window.scrollTo(0, y); s.scrollBehavior = f; };
@@ -1463,7 +1466,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     return Math.max(0, Math.min(Math.round(y), document.documentElement.scrollHeight - h));
   };
   const blid = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
-  // Ruller den besøgende selv? Et tryk, et klik eller en tast i et felt er ikke en rulning (V37-review på agent360.dk, 15/11)
+  // Ruller den besøgende selv? Et tryk, et klik eller en tast i et felt er ikke en rulning
   const RUL = ['wheel', 'touchstart', 'touchmove', 'keydown', 'mousedown'], TASTER = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '];
   let finger = null;
   const egenRul = (e) => {
@@ -1505,7 +1508,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     if (!el) return null;
     return (h === '#foelg' && el.closest('section') && el.closest('section').querySelector('.follow')) || el;
   };
-  // «Få mine mails om AI ↓»: rul langsomt, så hele tilmeldingen står midt på skærmen, og sæt markøren i mailfeltet (Gustav 14/11)
+  // «Få mine mails om AI ↓»: rul langsomt, så hele tilmeldingen står midt på skærmen, og sæt markøren i mailfeltet
   document.querySelectorAll('a[href="#foelg"]').forEach((a) => a.addEventListener('click', (e) => {
     const maal = maalFor('#foelg');
     if (!maal) return;
@@ -1518,7 +1521,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
   if (window.__ankomst) {
     const h = window.__ankomst;
     delete window.__ankomst;
-    // Ankeret kommer først tilbage efter load: står det i adressen, mens siden indlæses, springer Chrome til det (målt 15/11)
+    // Ankeret kommer først tilbage efter load: står det i adressen, mens siden indlæses, springer Chrome til det
     const tilbage = () => setTimeout(() => { if (history.replaceState && !location.hash) history.replaceState(null, '', location.pathname + location.search + h); }, 0);
     if (document.readyState === 'complete') tilbage(); else window.addEventListener('load', tilbage, { once: true });
     const m = maalFor(h);
