@@ -1,5 +1,7 @@
-# Måler tallene til forsiden én gang i døgnet: brugere i Chrome Web Store, hentninger på npm, stjerner og forks på GitHub.
+# Måler tallene til forsiden én gang i døgnet: ugentlige brugere i Chrome Web Store (Googles API), hentninger på npm, stjerner og forks på GitHub.
 # Skriver tal.json, som forsiden læser ved hvert besøg. Kan også startes i hånden under Actions → Tal → Run workflow.
+# Chrome-tallet kræver repoets hemmeligheder CWS_* (læsenøgle, scope chromewebstore.readonly). Svarer API'et ikke, gemmes de
+# andre tal, Chrome-tallet bliver stående, og sidste trin går rødt, så GitHub sender en mail.
 name: Tal
 on:
   schedule:
@@ -18,9 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Mål Chrome Web Store, npm og GitHub
+        id: maal
         run: python3 .github/scripts/maal-tal.py
         env:
           GH_TOKEN: ${{ github.token }}
+          CWS_CLIENT_ID: ${{ secrets.CWS_CLIENT_ID }}
+          CWS_CLIENT_SECRET: ${{ secrets.CWS_CLIENT_SECRET }}
+          CWS_REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
+          CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
+          CWS_EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
       - name: Gem tal.json, hvis noget har flyttet sig
         env:
           GH_TOKEN: ${{ github.token }}
@@ -33,3 +41,8 @@ jobs:
           git push
           # Sitet bygges fra grenen; bed GitHub Pages bygge med det samme
           gh api -X POST "repos/${{ github.repository }}/pages/builds" --silent || echo "::warning::Pages-bygget kunne ikke bestilles; tal.json kommer med ved næste bygning"
+      - name: Rødt, hvis Chrome-tallet ikke kom fra Googles API
+        if: steps.maal.outputs.chrome_fejl == '1'
+        run: |
+          echo "::error::Chrome-tallet kunne ikke måles i nat. tal.json har de andre tal, og siden viser det forrige Chrome-tal. Se fejlen i trinnet «Mål»."
+          exit 1
