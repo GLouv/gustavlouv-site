@@ -22,10 +22,11 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="description" content="Gustav Louv (Gustav-Emil Leen Louv) is an entrepreneur in Copenhagen and the founder of Agent360, which builds AI infrastructure for Danish companies.">
 <meta name="theme-color" content="#011128">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&family=Azeret+Mono:wght@400;500&display=swap"></noscript>
 <style>
+/* Skrifterne ligger på sitet selv (licens: /skrift/OFL-*.txt) og kommer over samme forbindelse som siden.
+   De forudindlæses ikke: så står teksten hurtigere frem på en langsom telefon, og skriften skifter ind lige efter */
+@font-face{font-family:"Host Grotesk";font-style:normal;font-weight:300 800;font-display:swap;src:url(/skrift/host-grotesk-latin.woff2) format("woff2")}
+@font-face{font-family:"Azeret Mono";font-style:normal;font-weight:400 500;font-display:swap;src:url(/skrift/azeret-mono-latin.woff2) format("woff2")}
 /* Layout: hero-bånd i avatarens navy, hvor tegningens netværk forbinder Gustav med Agent360, Forbrugeragenten og de to open source-projekter;
    lige under står Agent360 og Forbrugeragenten som en illustration i samme navy på lyst blueprint-papir, der stopper ved valget. Resten er roligt papir. */
 :root{
@@ -122,18 +123,18 @@ a{color:inherit}
 .book-trin{padding-block:12px;border-top:1px solid var(--line)}
 .book-trin:last-child{padding-bottom:22px}
 .book h3{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:1rem}
-.book-nr{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:999px;background:var(--accent);color:#fff;font-size:.8rem;font-family:var(--mono)}
+.book-nr{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:999px;background:#2B63F5;color:#fff;font-size:.8rem;font-family:var(--mono)}
 .book-tz{margin-left:auto;font-weight:400;font-size:.8rem;color:var(--muted);font-family:var(--mono)}
 .book-dage{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scroll-snap-type:x proximity}
 .book-dag{flex:none;scroll-snap-align:start;display:grid;gap:2px;min-width:74px;padding:10px 10px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;text-align:center;cursor:pointer}
 .book-dag b{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .book-dag span{font-size:1.05rem;font-weight:600}
 .book-dag small{font-size:.75rem;color:var(--muted)}
-.book-dag[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
-.book-dag[aria-pressed="true"] b,.book-dag[aria-pressed="true"] small{color:rgba(255,255,255,.85)}
+.book-dag[aria-pressed="true"]{border-color:#2B63F5;background:#2B63F5;color:#fff}
+.book-dag[aria-pressed="true"] b,.book-dag[aria-pressed="true"] small{color:#fff}
 .book-tider{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px}
 .book-tid{min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit;font-family:var(--mono);font-size:.95rem;cursor:pointer}
-.book-tid[aria-pressed="true"]{border-color:var(--accent);background:var(--accent);color:#fff}
+.book-tid[aria-pressed="true"]{border-color:#2B63F5;background:#2B63F5;color:#fff}
 .book-dag:hover:not([aria-pressed="true"]),.book-tid:hover:not([aria-pressed="true"]){border-color:var(--accent)}
 .book-valgt{margin:0 0 12px;font-weight:600}
 .book-felter{display:grid;gap:6px}
@@ -144,8 +145,8 @@ a{color:inherit}
 .book-felter [aria-invalid="true"]{border-color:#C5221F}
 .book-fejl{margin:10px 0 0;color:#C5221F;font-size:.92rem}
 .book-fejl:empty{display:none}
-:root:not([data-theme="light"]) .book-fejl,:root[data-theme="dark"] .book-fejl{color:#FF8A80}
-.book-knap{margin-top:14px;width:100%;min-height:48px;border:0;border-radius:999px;background:var(--accent);color:#fff;font:inherit;font-weight:600;font-size:1rem;cursor:pointer}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .book-fejl{color:#FF8A80}}:root[data-theme="dark"] .book-fejl{color:#FF8A80}
+.book-knap{margin-top:14px;width:100%;min-height:48px;border:0;border-radius:999px;background:#2B63F5;color:#fff;font:inherit;font-weight:600;font-size:1rem;cursor:pointer}
 .book-knap:disabled{opacity:.6;cursor:progress}
 .book-fine{margin:12px 0 0;font-size:.82rem;color:var(--muted);line-height:1.5}
 .book-ok-h{font-family:var(--display);font-size:1.3rem;font-weight:600;margin:0 0 6px}
@@ -483,7 +484,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
 @media (max-width:900px){.doors{grid-template-columns:minmax(0,1fr)}}
 @media (min-width:901px){.built .built-g{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .built-swipe{display:none}
-@media (max-width:640px){.built-h{display:flex;justify-content:space-between;gap:12px}.built-swipe{display:inline;white-space:nowrap;letter-spacing:.06em;color:var(--hero-link)}.built .built-g{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:6px;overscroll-behavior-x:contain;padding:6px 6px 10px;scrollbar-width:none}.built .built-g::-webkit-scrollbar{display:none}.built .built-g>li{flex:0 0 84%;scroll-snap-align:start}.built .built-g a:hover{transform:none}.actions .mail,.pc .go2{display:inline-flex;align-items:center;min-height:44px}}
+@media (max-width:640px){.built-h{display:flex;justify-content:space-between;gap:12px}.built-swipe{display:inline;white-space:nowrap;letter-spacing:.06em;color:var(--hero-link)}.built .built-g{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:6px;overscroll-behavior-x:contain;padding:6px 6px 10px;scrollbar-width:none}.built .built-g::-webkit-scrollbar{display:none}.built .built-g>li{flex:0 0 84%;scroll-snap-align:start}.built .built-g a:hover{transform:none}.actions .mail,.actions .to-foelg,.pc .go2,.card-links .go{display:inline-flex;align-items:center;min-height:44px}}
 .built-g .kort{display:grid;gap:4px;height:100%;padding:8px 8px 12px;border:1px solid rgba(96,140,255,.2);border-radius:12px;background:var(--hero-surface);color:var(--hero-ink)}
 .built-g .kort img{display:block;width:100%;height:auto;aspect-ratio:360 / 223;object-fit:cover;object-position:top;border-radius:8px;background:#fff;margin-bottom:6px}
 .built-g .kort b{font-weight:600;font-size:.92rem;line-height:1.3}
@@ -523,7 +524,6 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
 .film figcaption{font-family:var(--mono);font-size:.7rem;line-height:1.4;color:var(--hero-muted)}
 .oss-card .film figcaption{color:var(--muted)}
 .oss-card .film-f{border-color:var(--line)}
-.oss-card .film video{aspect-ratio:auto}
 .film.lodret{justify-self:center;width:100%;max-width:300px}
 .film.lodret video{aspect-ratio:9 / 16;object-fit:cover}
 .proj-body:has(.film.lodret){grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px}
@@ -817,7 +817,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <img class="os-billede" src="/bygget/en/agentos.jpg" alt="Agent360 OS: the work, calendar, knowledge, customer portals and approvals in one system. Illustration." width="720" height="460" loading="lazy">
         </article>
       </div>
-      <p class="src">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">18 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
+      <p class="src" data-maalt="2026-11-18" data-cws-dato="2026-11-16">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">18 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
     </div>
   </section>
 
@@ -940,10 +940,14 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     pulse0 = performance.now() / 1000;
     kick();
   }
+  // Musen vælger først, når den hviler på et projekt (180 ms): på vej ned til knappen i panelet skifter panelet ikke undervejs.
+  // Én fælles ventetid; fokus og klik vælger straks og afbryder den, så musen aldrig overtrumfer tastaturet
+  let hvil = 0;
   btns.forEach((b, i) => {
-    b.addEventListener('mouseenter', () => select(i));
-    b.addEventListener('focus', () => select(i));
-    b.addEventListener('click', () => select(i));
+    b.addEventListener('mouseenter', () => { clearTimeout(hvil); hvil = setTimeout(() => select(i), 180); });
+    b.addEventListener('mouseleave', () => clearTimeout(hvil));
+    b.addEventListener('focus', () => { clearTimeout(hvil); select(i); });
+    b.addEventListener('click', () => { clearTimeout(hvil); select(i); });
     b.addEventListener('keydown', (e) => {
       const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
       if (!d) return;
@@ -1230,9 +1234,15 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     if (!document.querySelector('[data-tal]') || !/^(gustavlouv\.com|www\.gustavlouv\.com|127\.0\.0\.1|localhost)$/.test(location.hostname)) return;
     try {
       const t = await hent('/tal.json');
-      over0('cws', t.cws); op('b-npm', t.browser.npm_i_alt); saet('b-stj', t.browser.stjerner); saet('b-forks', t.browser.forks);
-      op('c-npm', t.computer.npm_i_alt); over0('c-30', t.computer.npm_30_dage);
-      if (/^\d{4}-\d{2}-\d{2}$/.test(t.maalt || '')) dato(new Date(t.maalt + 'T12:00:00'));
+      // tal.json bruges kun, når den er mindst lige så ny som tallene i siden: siden kan være bygget efter den daglige måling
+      const bagt = (document.querySelector('[data-maalt]') || { dataset: {} }).dataset;
+      const nyNok = (d, b) => !b || (/^\d{4}-\d{2}-\d{2}$/.test(d || '') && d >= b);
+      if (nyNok(t.cws_dato, bagt.cwsDato)) over0('cws', t.cws);
+      if (nyNok(t.maalt, bagt.maalt)) {
+        op('b-npm', t.browser.npm_i_alt); saet('b-stj', t.browser.stjerner); saet('b-forks', t.browser.forks);
+        op('c-npm', t.computer.npm_i_alt); over0('c-30', t.computer.npm_30_dage);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(t.maalt || '')) dato(new Date(t.maalt + 'T12:00:00'));
+      }
     } catch (e) { /* siden står med tallene fra udgivelsen */ }
     const live = [
       npmIalt('@agent360/browser-mcp', '2026-04-02').then((r) => op('b-npm', r.sum)),
@@ -1399,7 +1409,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     try {
       const r = await fetch(`${API}/api/calendar/book`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ac.signal,
         body: JSON.stringify({ start_time: valgt.start, source: 'agent360', lead_info: lead }) });
-      if (r.status === 409) { fejl.textContent = ''; await indlaes(); status.textContent = T.taget; return; }  // beskeden i statuslinjen: formularen skjules, mens tiderne hentes igen
+      if (r.status === 409) { fejl.textContent = ''; await indlaes(); status.textContent = T.taget; const d = dage.querySelector('[aria-pressed="true"]'); if (d && dlg.open) d.focus(); return; }  // beskeden i statuslinjen: formularen skjules, mens tiderne hentes igen
       if (r.status === 429) { fejl.textContent = T.loft; return; }
       if (!r.ok) { fejl.textContent = T.fejl; return; }
       const j = await r.json().catch(() => ({}));
@@ -1414,7 +1424,11 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
     } catch (err) {
       // Tidsgrænsen afbryder kun browseren: mødet kan være booket, så knappen forbliver låst
       if (err && err.name === 'AbortError') { fejl.textContent = T.tid; laast = true; } else fejl.textContent = T.fejl;
-    } finally { clearTimeout(tm); knap.disabled = laast; }
+    } finally {
+      clearTimeout(tm); knap.disabled = laast;
+      // knappen mistede fokus, da den blev låst: fokus tilbage, hvor den besøgende kan handle
+      if (dlg.open && !form.hidden && (!document.activeElement || document.activeElement === document.body)) { if (laast) { fejl.tabIndex = -1; fejl.focus(); } else knap.focus(); }
+    }
   });
 })();
 
@@ -1478,15 +1492,15 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
   const rul = (el, efter) => {
     if (reduce) { hop(midt(el)); if (efter) efter(); return; }
     const fra = window.scrollY, tid = Math.min(1600, Math.max(1000, 800 + Math.abs(midt(el) - fra) * 0.2));
-    let t0 = -1, slut = false, id = 0, sidstY = -1, sidstTop = 0;
+    let t0 = -1, slut = false, id = 0, sidstY = -1, sidstAbs = 0;
     const stop = (faerdig) => { if (slut) return; slut = true; cancelAnimationFrame(id); RUL.forEach((n) => window.removeEventListener(n, egen)); window.removeEventListener('scroll', fremmed); document.removeEventListener('click', klik, true); window.removeEventListener('hashchange', andet); window.removeEventListener('popstate', andet); if (faerdig && efter) efter(); };
     // Et klik på et link, tilbage/frem eller et nyt anker: den besøgende vil et andet sted hen (browserens bløde rulning må ikke skæres af)
     const klik = (e) => { if (e.target && e.target.closest && e.target.closest('a[href]')) stop(false); };
     const andet = () => stop(false);
     const egen = (e) => { if (egenRul(e)) stop(false); };
-    // En rulning, vi ikke selv har lavet (scrollY anden end vores sidste skridt, og målet flyttet på skærmen), stopper glidningen;
-    // Chromes scroll anchoring flytter scrollY sammen med indholdet, så målet står stille: det stopper ikke
-    const fremmed = () => { if (sidstY >= 0 && Math.abs(window.scrollY - sidstY) > 2 && Math.abs(el.getBoundingClientRect().top - sidstTop) > 2) stop(false); };
+    // En rulning, vi ikke selv har lavet, stopper glidningen: scrollY er en anden end vores sidste skridt, mens målet står samme sted i siden.
+    // Flytter indholdet sig (en skrift eller film, der kommer sent, og Chromes scroll anchoring), flytter målet med, og glidningen fortsætter derhen
+    const fremmed = () => { if (sidstY >= 0 && Math.abs(window.scrollY - sidstY) > 2 && Math.abs(window.scrollY + el.getBoundingClientRect().top - sidstAbs) <= 2) stop(false); };
     RUL.forEach((n) => window.addEventListener(n, egen, { passive: true }));
     window.addEventListener('scroll', fremmed, { passive: true });
     document.addEventListener('click', klik, true); window.addEventListener('hashchange', andet); window.addEventListener('popstate', andet);
@@ -1495,7 +1509,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
       if (t0 < 0) t0 = nu;
       const p = Math.min(1, (nu - t0) / tid);
       hop(Math.round(fra + (midt(el) - fra) * blid(p)));
-      sidstY = window.scrollY; sidstTop = el.getBoundingClientRect().top;
+      sidstY = window.scrollY; sidstAbs = window.scrollY + el.getBoundingClientRect().top;
       if (p < 1) id = requestAnimationFrame(skridt); else stop(true);
     };
     id = requestAnimationFrame(skridt);
@@ -1528,17 +1542,38 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     const merk = (e) => { if (egenRul(e)) roert = true; };
     RUL.forEach((n) => window.addEventListener(n, merk, { passive: true }));
     const fri = () => !document.activeElement || document.activeElement === document.body;
-    const fokus = () => { const a = document.getElementById(h.slice(1)); if (!a || !fri()) return; if (!a.hasAttribute('tabindex')) { a.setAttribute('tabindex', '-1'); a.style.outline = 'none'; } a.focus({ preventScroll: true }); };
-    if (m) setTimeout(() => { RUL.forEach((n) => window.removeEventListener(n, merk)); if (!roert && !window.__ankomstRoert && window.scrollY <= 2 && fri()) rul(m, fokus); }, 350);
+    // Kommer skriften først efter landingen, flytter teksten sig: har den besøgende ikke selv rørt siden, lægges målet på plads igen (inden for 6 s)
+    const efterSkrift = () => {
+      let selv = false, aaben = true;
+      const merk2 = (e) => { if (egenRul(e)) selv = true; };
+      RUL.forEach((n) => window.addEventListener(n, merk2, { passive: true }));
+      // kun når fokus står på ankeret, i målet eller ingen steder: har den besøgende tabbet videre, bliver siden, hvor fokus er
+      const fokusHer = () => { const a = document.activeElement; return !a || a === document.body || a.id === h.slice(1) || m.contains(a); };
+      const paaPlads = () => requestAnimationFrame(() => { if (aaben && !selv && fokusHer() && Math.abs(midt(m) - window.scrollY) > 4) hop(midt(m)); });
+      const fonte = document.fonts && document.fonts.addEventListener ? document.fonts : null;
+      if (fonte) fonte.addEventListener('loadingdone', paaPlads);
+      setTimeout(() => { aaben = false; RUL.forEach((n) => window.removeEventListener(n, merk2)); if (fonte) fonte.removeEventListener('loadingdone', paaPlads); }, 6000);
+    };
+    const fokus = () => { efterSkrift(); const a = document.getElementById(h.slice(1)); if (!a || !fri()) return; if (!a.hasAttribute('tabindex')) { a.setAttribute('tabindex', '-1'); a.style.outline = 'none'; } a.focus({ preventScroll: true }); };
+    // Glidningen venter på de to skrifter (højst 1 s), så teksten ikke skifter midt i bevægelsen; kommer de senere, lander den alligevel rigtigt
+    const skrift = () => (document.fonts && document.fonts.load ? Promise.race([
+      Promise.all(['1em "Host Grotesk"', '1em "Azeret Mono"'].map((s) => document.fonts.load(s))).catch(() => {}),
+      new Promise((ok) => setTimeout(ok, 1000)),
+    ]) : Promise.resolve());
+    if (m) setTimeout(() => skrift().then(() => { RUL.forEach((n) => window.removeEventListener(n, merk)); if (!roert && !window.__ankomstRoert && window.scrollY <= 2 && fri()) rul(m, fokus); }), 350);
   }
   const f = document.getElementById('tilmeld');
   if (!f) return;
   const ring = document.getElementById('ring');
   const msg = f.querySelector('.msg'), mail = f.querySelector('input[type="email"]');
   const knap = f.querySelector('button[type="submit"]');
-  const send = (data) => fetch(f.dataset.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+  // Svarer API'et ikke inden 15 s, afbrydes kaldet og fejlbeskeden vises (ellers stod der «Gemmer …» for evigt)
+  const send = (data) => { const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 15000);
+    return fetch(f.dataset.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data), signal: ac.signal })
     // 409 = adressen er kendt i forvejen: henvendelsen er gemt under kontakten, så det er ikke en fejl.
-    .then((r) => { if (r.status === 409) return 'findes'; if (!r.ok) throw new Error(r.status); return 'ny'; });
+    .then((r) => { if (r.status === 409) return 'findes'; if (!r.ok) throw new Error(r.status); return 'ny'; }).finally(() => clearTimeout(tm)); };
+  // Knappen mister fokus, når den låses under afsendelsen: fokus tilbage på den, hvis intet andet har fået det
+  const fokusTilbage = (k) => { if (!document.activeElement || document.activeElement === document.body) k.focus(); };
   let adresse = '';
   f.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -1557,7 +1592,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
       visTrin2();
     } catch (err) {
       msg.textContent = 'That didn’t go through. Write to gustav@agent360.dk and I’ll sign you up.';
-    } finally { knap.disabled = false; }
+    } finally { knap.disabled = false; fokusTilbage(knap); }
   });
   if (!ring) return;
   const rmsg = ring.querySelector('.msg'), tlf = ring.querySelector('#rg-tlf'), navn = ring.querySelector('#rg-navn'), rknap = ring.querySelector('button[type="submit"]');
@@ -1572,7 +1607,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
       rmsg.textContent = 'Thanks. We’ll call you.'; ring.querySelectorAll('input').forEach((i) => { i.value = ''; });
     } catch (err) {
       rmsg.textContent = 'That didn’t go through. Send your number to kontakt@agent360.dk.';
-    } finally { rknap.disabled = false; }
+    } finally { rknap.disabled = false; fokusTilbage(rknap); }
   });
 })();
 </script>
