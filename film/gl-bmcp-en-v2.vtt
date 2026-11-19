@@ -1,0 +1,70 @@
+WEBVTT
+
+00:00:00.350 --> 00:00:03.564
+Browser MCP: your AI assistant in your own Chrome.
+
+00:00:03.564 --> 00:00:07.035
+It inherits your logins, because it's your own Chrome.
+
+00:00:07.885 --> 00:00:10.727
+It works in the Chrome you're already signed into,
+
+00:00:10.727 --> 00:00:14.137
+so your logins and two-factor codes work as they do for you.
+
+00:00:14.137 --> 00:00:15.387
+If it meets a CAPTCHA,
+
+00:00:15.387 --> 00:00:18.683
+it tries the checkbox and asks you if the page wants more.
+
+00:00:21.219 --> 00:00:24.819
+Task one: log in, even when the code comes by email.
+
+00:00:29.969 --> 00:00:32.778
+Task two: export last month's invoices.
+
+00:00:32.778 --> 00:00:36.235
+If it needs a code from your phone, it asks you.
+
+00:00:38.719 --> 00:00:41.929
+Task three: get the shipping rates behind a CAPTCHA.
+
+00:00:47.469 --> 00:00:52.142
+Task four: numbers from a dashboard into a table – no API needed.
+
+00:00:56.219 --> 00:00:58.837
+Task five: test your sign-up as a new user,
+
+00:00:58.837 --> 00:01:00.604
+and find out where it breaks.
+
+00:01:04.969 --> 00:01:07.818
+Task six: ask about numbers behind a login.
+
+00:01:07.818 --> 00:01:10.667
+You're already signed into your own Chrome.
+
+00:01:13.719 --> 00:01:17.380
+Task seven: it tells you if a form didn't take the text.
+
+00:01:23.302 --> 00:01:26.073
+Up to twenty agents while you keep working.
+
+00:01:26.073 --> 00:01:29.810
+One for research, one for testing and one for monitoring –
+
+00:01:29.810 --> 00:01:31.550
+side by side in one Chrome.
+
+00:01:35.094 --> 00:01:37.096
+It all runs on your own computer.
+
+00:01:37.096 --> 00:01:40.312
+Nothing is sent to us, and you don't need an account.
+
+00:01:45.927 --> 00:01:48.344
+Browser MCP is free and open source.
+
+00:01:48.344 --> 00:01:51.702
+Add it to Chrome and connect it to the AI you use.
