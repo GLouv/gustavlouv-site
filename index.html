@@ -520,9 +520,20 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
 .proj .film{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
 .film-f{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(96,140,255,.2);background:#000}
 .film video{display:block;width:100%;height:auto;aspect-ratio:16 / 10;object-fit:cover;background:#000}
-.film-btn{position:absolute;right:10px;bottom:10px;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(1,17,40,.78);color:#fff;font-size:.85rem;cursor:pointer}
+.film-btn{position:absolute;right:10px;bottom:10px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(1,17,40,.78);color:#fff;font-size:.85rem;cursor:pointer}
 .film-btn:hover{background:rgba(1,17,40,.92)}
 .film-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.film-lyd,.film-cc{position:absolute;bottom:10px;width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.45);background:rgba(1,17,40,.78);color:#fff;cursor:pointer}
+.film-lyd{right:62px}
+.film-cc{right:114px;font:600 .72rem/1 var(--mono);letter-spacing:.04em}
+.film-lyd:hover,.film-cc:hover{background:rgba(1,17,40,.92)}
+.film-lyd:focus-visible,.film-cc:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.film-lyd[aria-pressed="true"],.film-cc[aria-pressed="true"]{background:#2B63F5;border-color:#2B63F5}
+.film-lyd .lyd-paa,.film-lyd[aria-pressed="true"] .lyd-fra{display:none}
+.film-lyd[aria-pressed="true"] .lyd-paa{display:inline}
+.film-tekst{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 24px);margin:0;padding:5px 12px;border-radius:8px;background:rgba(1,17,40,.88);color:#fff;font:500 .95rem/1.4 var(--display);text-align:center;text-wrap:balance;pointer-events:none}
+.film-tekst:empty{display:none}
+@media (max-width:560px){.film-tekst{font-size:.8rem;bottom:60px;padding:4px 10px}}
 .film figcaption{font-family:var(--mono);font-size:.7rem;line-height:1.4;color:var(--hero-muted)}
 .oss-card .film figcaption{color:var(--muted)}
 .oss-card .film-f{border-color:var(--line)}
@@ -724,7 +735,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
         </div>
 
         <div class="proj-body">
-          <figure class="film"><div class="film-f"><video src="/film/gl-a360-v11.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Agent360 bygger AI-løsninger til virksomheder og lærer folk at bygge selv. Et lille udpluk af det, vi har bygget, og vores AI-mentorforløb."></video><button class="film-btn" type="button" data-navn="Agent360" aria-label="Afspil filmen om Agent360"><span aria-hidden="true">▶</span></button></div><figcaption>Et lille udpluk · film uden lyd</figcaption></figure>
+          <figure class="film"><div class="film-f"><video src="/film/gl-a360-v12.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Agent360 bygger AI-løsninger til virksomheder og lærer folk at bygge selv. Et lille udpluk af det, vi har bygget, og vores AI-mentorforløb."><track kind="captions" srclang="da" label="Dansk" src="/film/gl-a360-v12.vtt"></video><button class="film-cc" type="button" aria-pressed="false" aria-label="CC, undertekster i filmen om Agent360"><span aria-hidden="true">CC</span></button><button class="film-lyd" type="button" aria-pressed="false" aria-label="Lyd i filmen om Agent360"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="lyd-paa" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="lyd-fra" d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="film-btn" type="button" data-navn="Agent360" aria-label="Afspil filmen om Agent360"><span aria-hidden="true">▶</span></button></div><figcaption>Et lille udpluk · film med lyd og undertekster</figcaption></figure>
           <article class="lane" id="l-a360" data-state="klar" tabindex="-1" aria-label="Sådan bygger vi">
             <div class="lane-h"><h4>Sådan bygger vi</h4><span class="pill" data-s="klar">Klar</span></div>
             <ol class="flow" aria-label="Sådan bygger vi, trin for trin">
@@ -750,7 +761,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
         </div>
 
         <div class="proj-body">
-          <figure class="film"><div class="film-f"><video src="/film/gl-fa-v8.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Forbrugeragenten. Du bekræfter med MitID, agenten skriver til selskaberne i dine kategorier og stiller tilbuddene op efter pris, vilkår og kvalitet, og du siger ja."></video><button class="film-btn" type="button" data-navn="Forbrugeragenten" aria-label="Afspil filmen om Forbrugeragenten"><span aria-hidden="true">▶</span></button></div><figcaption>Film · uden lyd</figcaption></figure>
+          <figure class="film"><div class="film-f"><video src="/film/gl-fa-v9.mp4#t=0.1" muted playsinline loop preload="metadata" aria-label="Film: Forbrugeragenten. Du bekræfter med MitID, agenten skriver til selskaberne i dine kategorier og stiller tilbuddene op efter pris, vilkår og kvalitet, og du siger ja."><track kind="captions" srclang="da" label="Dansk" src="/film/gl-fa-v9.vtt"></video><button class="film-cc" type="button" aria-pressed="false" aria-label="CC, undertekster i filmen om Forbrugeragenten"><span aria-hidden="true">CC</span></button><button class="film-lyd" type="button" aria-pressed="false" aria-label="Lyd i filmen om Forbrugeragenten"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="lyd-paa" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="lyd-fra" d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="film-btn" type="button" data-navn="Forbrugeragenten" aria-label="Afspil filmen om Forbrugeragenten"><span aria-hidden="true">▶</span></button></div><figcaption>Film · med lyd og undertekster</figcaption></figure>
           <article class="lane" id="l-fa" data-state="klar" tabindex="-1" aria-label="Sådan klarer den el, mobil og internet">
             <div class="lane-h"><h4>Sådan klarer den el, mobil og internet</h4><span class="pill" data-s="klar">Klar</span></div>
             <ol class="flow" aria-label="Sådan klarer den el, mobil og internet, trin for trin">
@@ -779,25 +790,25 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
       </div>
       <div class="oss-cards">
         <article class="oss-card" id="p-browsermcp">
-          <figure class="film"><div class="film-f"><video src="/film/gl-bmcp-v8.mp4#t=0.1" poster="/film/gl-bmcp-v8-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Browser MCP i din egen Chrome. Op til 20 agenter i hver sin fanegruppe. Den henter login-koden og spørger dig, når den sidder fast."></video><button class="film-btn" type="button" data-navn="Browser MCP" aria-label="Afspil filmen om Browser MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · uden lyd</figcaption></figure>
+          <figure class="film"><div class="film-f"><video src="/film/gl-bmcp-v9.mp4#t=0.1" poster="/film/gl-bmcp-v9-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Browser MCP i din egen Chrome. Op til 20 agenter i hver sin fanegruppe. Den henter login-koden og spørger dig, når den sidder fast."><track kind="captions" srclang="da" label="Dansk" src="/film/gl-bmcp-v9.vtt"></video><button class="film-cc" type="button" aria-pressed="false" aria-label="CC, undertekster i filmen om Browser MCP"><span aria-hidden="true">CC</span></button><button class="film-lyd" type="button" aria-pressed="false" aria-label="Lyd i filmen om Browser MCP"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="lyd-paa" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="lyd-fra" d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="film-btn" type="button" data-navn="Browser MCP" aria-label="Afspil filmen om Browser MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · med lyd og undertekster</figcaption></figure>
           <div class="card-top"><h3>Browser MCP</h3><span class="yr">april 2026</span></div>
           <p class="meta">Chrome-udvidelse · MIT</p>
           <dl class="nums">
-            <div><dt>ugentlige brugere i Chrome</dt> <dd data-tal="cws">2.798</dd></div>
-            <div><dt>hentninger fra npm</dt> <dd data-tal="b-npm">20.169</dd></div>
-            <div><dt>stjerner på GitHub</dt> <dd data-tal="b-stj">64</dd></div>
+            <div><dt>ugentlige brugere i Chrome</dt> <dd data-tal="cws">2.816</dd></div>
+            <div><dt>hentninger fra npm</dt> <dd data-tal="b-npm">21.071</dd></div>
+            <div><dt>stjerner på GitHub</dt> <dd data-tal="b-stj">66</dd></div>
             <div><dt>forks</dt> <dd data-tal="b-forks">17</dd></div>
           </dl>
           <p class="desc">Lader din AI-assistent bruge din egen Chrome, hvor du allerede er logget ind. Du installerer udvidelsen og en lille server på din computer. Er et valg dit, spørger den dig først.</p>
           <p class="card-links"><a class="go" href="https://chromewebstore.google.com/detail/agent360-browser-mcp/jdehgalffmffhfhmmhaokfbfnafnmgcl" rel="noopener">Tilføj til Chrome ↗</a><a class="go" href="https://browsermcp.dev" rel="noopener">browsermcp.dev ↗</a><a class="go" href="https://github.com/Agent360dk/browser-mcp" rel="noopener">Koden på GitHub ↗</a></p>
         </article>
         <article class="oss-card" id="p-computermcp">
-          <figure class="film"><div class="film-f"><video src="/film/gl-cmcp-v8.mp4#t=0.1" poster="/film/gl-cmcp-v8-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Computer MCP. Du taler med ChatGPT i dit headset, mens du kører, går en tur eller vasker op, og din Mac gør arbejdet. En ny forbindelse godkender du på Mac&#x27;en, og ét tryk stopper alt. Fjernadgangen kommer med version 0.5.0."></video><button class="film-btn" type="button" data-navn="Computer MCP" aria-label="Afspil filmen om Computer MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · uden lyd · fjernadgangen kommer med version 0.5.0</figcaption></figure>
+          <figure class="film"><div class="film-f"><video src="/film/gl-cmcp-v9.mp4#t=0.1" poster="/film/gl-cmcp-v9-forside.jpg" muted playsinline loop preload="metadata" aria-label="Film: Computer MCP. Du taler med ChatGPT i dit headset, mens du kører, går en tur eller vasker op, og din Mac gør arbejdet. En ny forbindelse godkender du på Mac&#x27;en, og ét tryk stopper alt. Fjernadgangen kommer med version 0.5.0."><track kind="captions" srclang="da" label="Dansk" src="/film/gl-cmcp-v9.vtt"></video><button class="film-cc" type="button" aria-pressed="false" aria-label="CC, undertekster i filmen om Computer MCP"><span aria-hidden="true">CC</span></button><button class="film-lyd" type="button" aria-pressed="false" aria-label="Lyd i filmen om Computer MCP"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path class="lyd-paa" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="lyd-fra" d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button><button class="film-btn" type="button" data-navn="Computer MCP" aria-label="Afspil filmen om Computer MCP"><span aria-hidden="true">▶</span></button></div><figcaption>Film · med lyd og undertekster · fjernadgangen kommer med version 0.5.0</figcaption></figure>
           <div class="card-top"><h3>Computer MCP</h3><span class="yr">september 2026</span></div>
           <p class="meta">macOS · MIT</p>
           <dl class="nums">
-            <div><dt>hentninger fra npm</dt> <dd data-tal="c-npm">596</dd></div>
-            <div><dt>heraf de sidste 30 dage</dt> <dd data-tal="c-30">247</dd></div>
+            <div><dt>hentninger fra npm</dt> <dd data-tal="c-npm">617</dd></div>
+            <div><dt>heraf de sidste 30 dage</dt> <dd data-tal="c-30">265</dd></div>
           </dl>
           <p class="desc">Arbejd, mens du kører, går en tur eller vasker op. Du taler med ChatGPT i dit headset, og din Mac gør arbejdet: læser dine projekter, bruger dine programmer og giver opgaver videre til de AI-agenter, du allerede har kørende. Du bestemmer på Mac'en, hvad den må.</p>
           <p class="cm-status">Jeg bruger det selv i dag. Fjernadgangen fra telefonen kommer med version 0.5.0. Indtil da kan din AI-agent bruge programmerne på din Mac.</p>
@@ -819,7 +830,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <img class="os-billede" src="/bygget/agentos.jpg" alt="Agent360 OS: arbejdet samlet, kalender, viden, kundeportaler og godkendelser i ét system. Illustration." width="720" height="460" loading="lazy">
         </article>
       </div>
-      <p class="src" data-maalt="2026-11-18" data-cws-dato="2026-11-16">Tallene fra npm og GitHub opdaterer sig selv: hentninger siden første udgivelse, stjerner og forks. Senest målt <span data-tal="dato">18. november 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">Koden på GitHub ↗</a></p>
+      <p class="src" data-maalt="2026-11-19" data-cws-dato="2026-11-17">Tallene fra npm og GitHub opdaterer sig selv: hentninger siden første udgivelse, stjerner og forks. Senest målt <span data-tal="dato">19. november 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">Koden på GitHub ↗</a></p>
     </div>
   </section>
 
@@ -1451,10 +1462,23 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
   document.querySelectorAll('.film').forEach((fig) => {
     const v = fig.querySelector('video'), btn = fig.querySelector('.film-btn');
     const slut = parseFloat(v.dataset.slut || '0');
-    // De tre lange film spilles 20 % hurtigere; Forbrugeragentens film er kort og spilles i normal fart
-    const fart = /\/gl-(a360|bmcp|cmcp)-/.test(v.getAttribute('src') || '') ? 1.2 : 1;
-    v.defaultPlaybackRate = fart; v.playbackRate = fart;
+    // Runde 35: tempoet ligger i filerne (hver scene højst det tempo, siden viste filmen i før), så de spilles i normal fart.
+    // Lyd: én film ad gangen; slår man lyden til, starter filmen forfra, så speaken følger billedet.
+    // CC: underteksterne (filmens .vtt) vises i sidens eget felt over knapperne; sporet står altid på «hidden», så det sender cuechange.
     let brugerPause = false;
+    const lyd = fig.querySelector('.film-lyd'), cc = fig.querySelector('.film-cc'), spor = v.textTracks && v.textTracks[0];
+    const tekst = document.createElement('p'); tekst.className = 'film-tekst'; tekst.hidden = true; tekst.setAttribute('aria-hidden', 'true');
+    fig.querySelector('.film-f').appendChild(tekst);
+    if (spor) { spor.mode = 'hidden'; spor.addEventListener('cuechange', () => { tekst.textContent = [...(spor.activeCues || [])].map((c) => c.text).join(' '); }); }
+    if (cc && spor) cc.addEventListener('click', () => { const til = cc.getAttribute('aria-pressed') !== 'true'; tekst.hidden = !til; cc.setAttribute('aria-pressed', String(til)); });
+    if (lyd) lyd.addEventListener('click', () => {
+      const til = v.muted;
+      if (til) document.querySelectorAll('.film video').forEach((a) => { if (a !== v && !a.muted) { a.muted = true; const b = a.closest('.film').querySelector('.film-lyd'); if (b) b.setAttribute('aria-pressed', 'false'); } });
+      v.muted = !til; lyd.setAttribute('aria-pressed', String(til));
+      if (til) { v.currentTime = 0; brugerPause = false; v.play().catch(() => { v.muted = true; lyd.setAttribute('aria-pressed', 'false'); }); }
+    });
+    // En film med lyd stopper, når den rulles helt ud af syne - også med «reducer bevægelse», hvor rulningen ellers ikke styrer filmen
+    if ('IntersectionObserver' in window) new IntersectionObserver((es) => es.forEach((e) => { if (!e.isIntersecting && !v.muted) v.pause(); }), { threshold: 0 }).observe(v);
     const vis = () => { const spiller = !v.paused; btn.querySelector('span').textContent = spiller ? '❚❚' : '▶'; const om = btn.dataset.navn ? ' om ' + btn.dataset.navn : ''; btn.setAttribute('aria-label', spiller ? 'Sæt filmen' + om + ' på pause' : 'Afspil filmen' + om); };
     if (slut) v.addEventListener('timeupdate', () => { if (v.currentTime >= slut) v.currentTime = 0; });
     v.addEventListener('play', vis); v.addEventListener('pause', vis);
@@ -1466,7 +1490,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     }
     if (reduce || !('IntersectionObserver' in window)) return;
     new IntersectionObserver((es) => es.forEach((e) => {
-      if (e.isIntersecting && !brugerPause) v.play().catch(() => {});
+      if (e.isIntersecting && !brugerPause) v.play().catch(() => { if (!v.muted && lyd) { v.muted = true; lyd.setAttribute('aria-pressed', 'false'); } });
       else if (!e.isIntersecting) v.pause();
     }), { threshold: 0.35 }).observe(v);
   });
