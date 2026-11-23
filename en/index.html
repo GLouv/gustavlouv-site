@@ -400,8 +400,8 @@ h2{font-size:clamp(1.75rem,3.2vw,2.625rem);font-weight:680;letter-spacing:-.025e
 .oss-card .desc{max-width:62ch;color:var(--muted)}
 .card-links{display:flex;flex-wrap:wrap;gap:8px 24px}
 .src{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;font-family:var(--mono);font-size:.75rem;line-height:1.6;color:var(--muted)}
-.go{font-weight:600;color:var(--accent-ink);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
-.go:hover{border-bottom-color:currentColor}
+.go{font-weight:600;color:var(--accent-ink);text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;border-bottom:1px solid transparent;transition:text-decoration-color .2s}
+.go:hover{text-decoration-color:currentColor}
 .src .go{font-family:var(--display);font-size:.9rem}
 
 /* Find mig */
@@ -416,6 +416,8 @@ h2{font-size:clamp(1.75rem,3.2vw,2.625rem);font-weight:680;letter-spacing:-.025e
 
 footer{border-top:1px solid var(--line)}
 footer .wrap{padding-block:28px 40px;display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+footer .wrap{align-items:baseline}
+footer a{text-underline-offset:3px;padding-block:4px}
 
 @media (max-width:900px){
   .who,.oss-cards{grid-template-columns:minmax(0,1fr)}
@@ -740,7 +742,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
               <li class="st du now"><span class="no" aria-hidden="true">1</span><span class="bd"><span class="who">The company</span><b>Tells us where things stand</b><small>Describe the task or the idea. You don’t need to know the solution.</small></span><button class="approve" type="button">Start</button></li>
               <li class="st ag"><span class="no" aria-hidden="true">2</span><span class="bd"><span class="who">Agent360</span><b>Finds the right place to start</b><small>We look at your work and the AI you use today, and point to what’s worth starting with.</small></span></li>
               <li class="st du"><span class="no" aria-hidden="true">3</span><span class="bd"><span class="who">The company</span><b>Gets a quote before you commit</b><small>The task, success criteria and price are agreed in advance.</small></span><button class="approve" type="button">Say yes</button></li>
-              <li class="st ag"><span class="no" aria-hidden="true">4</span><span class="bd"><span class="who">Agent360</span><b>Builds on what you already have</b><small>We build the first solution around your data and workflow.</small></span></li>
+              <li class="st ag"><span class="no" aria-hidden="true">4</span><span class="bd"><span class="who">Agent360</span><b>Builds on what you already have</b><small>We build the first solution around your data and workflow. If it has to stay with you, the AI model and data can run on your own servers.</small></span></li>
               <li class="st du"><span class="no" aria-hidden="true">5</span><span class="bd"><span class="who">The company</span><b>Decides what the AI is allowed to do</b><small>It acts only on what you’ve said yes to. You approve customer contact, money and changes to agreements.</small></span><button class="approve" type="button">Approve</button></li>
               <li class="st ag"><span class="no" aria-hidden="true">6</span><span class="bd"><span class="who">Agent360</span><b>Tries it in your everyday work</b><small>We test the solution with your people. They learn to use it along the way.</small></span></li>
               <li class="st ag"><span class="no" aria-hidden="true">7</span><span class="bd"><span class="who">Agent360</span><b>Keeps it under control</b><small>Tested, reviewed and in line with your rules for data. By arrangement, we maintain it and keep supporting your people.</small></span></li>
@@ -754,7 +756,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
       <article class="proj" id="p-forbrugeragenten" aria-labelledby="h-fa">
         <div class="proj-top">
           <div class="proj-id"><p class="proj-k">In Denmark · free</p><h3 id="h-fa">Forbrugeragenten</h3></div>
-          <p class="proj-d">A free app for people in Denmark that takes care of electricity, mobile and internet: it writes to all the providers in your categories, collects offers, gathers your bills in one place and helps you get money back from your old electricity company. You just say yes.</p>
+          <p class="proj-d">A free app for people in Denmark that takes care of electricity, mobile and internet: it writes to all the providers in your categories, collects offers and lists them from cheapest to most expensive, gathers your bills in one place and helps you get money back from your old electricity company. You just say yes.</p>
           <div class="pc"><a class="dl" href="https://forbrugeragenten.dk/start/?utm_source=gustavlouv.com&amp;utm_medium=referral" rel="noopener"><span class="dl-logos" aria-hidden="true"><svg class="dl-apple" viewBox="0 0 24 24"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8.92-.19 1.8-.86 3.05-.79 1.5.12 2.63.71 3.38 1.8-3.1 1.86-2.36 5.93.61 7.18-.57 1.5-1.31 2.99-2.12 3.98ZM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25Z"/></svg><span class="dl-split"></span><span class="dl-play"></span></span><span class="dl-t"><span class="dl-k">iPhone and Android</span><span class="dl-n">Get the app for free</span></span></a></div>
         </div>
 
@@ -792,10 +794,10 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Browser MCP</h3><span class="yr">April 2026</span></div>
           <p class="meta">Chrome extension · MIT</p>
           <dl class="nums">
-            <div><dt>weekly users in Chrome</dt> <dd data-tal="cws">2,816</dd></div>
-            <div><dt>downloads from npm</dt> <dd data-tal="b-npm">21,071</dd></div>
+            <div><dt>weekly users in Chrome</dt> <dd data-tal="cws">2,893</dd></div>
+            <div><dt>downloads from npm</dt> <dd data-tal="b-npm">21,583</dd></div>
             <div><dt>stars on GitHub</dt> <dd data-tal="b-stj">66</dd></div>
-            <div><dt>forks</dt> <dd data-tal="b-forks">17</dd></div>
+            <div><dt>forks</dt> <dd data-tal="b-forks">18</dd></div>
           </dl>
           <p class="desc">Lets your AI assistant use your own Chrome, where you’re already logged in. You install the extension and a small server on your computer. When a choice is yours, it asks you first.</p>
           <p class="card-links"><a class="go" href="https://chromewebstore.google.com/detail/agent360-browser-mcp/jdehgalffmffhfhmmhaokfbfnafnmgcl" rel="noopener">Add to Chrome ↗</a><a class="go" href="https://browsermcp.dev" rel="noopener">browsermcp.dev ↗</a><a class="go" href="https://github.com/Agent360dk/browser-mcp" rel="noopener">The code on GitHub ↗</a></p>
@@ -805,8 +807,8 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <div class="card-top"><h3>Computer MCP</h3><span class="yr">September 2026</span></div>
           <p class="meta">macOS · MIT</p>
           <dl class="nums">
-            <div><dt>downloads from npm</dt> <dd data-tal="c-npm">617</dd></div>
-            <div><dt>in the last 30 days</dt> <dd data-tal="c-30">265</dd></div>
+            <div><dt>downloads from npm</dt> <dd data-tal="c-npm">659</dd></div>
+            <div><dt>in the last 30 days</dt> <dd data-tal="c-30">294</dd></div>
           </dl>
           <p class="desc">Work while you drive, walk or do the dishes. You talk to ChatGPT in your headset, and your Mac does the work: it reads your projects, uses your programs and hands tasks to the AI agents you already have running. On the Mac, you decide what it’s allowed to do.</p>
           <p class="cm-status">I use it myself today. Remote access from your phone comes with version 0.5.0. Until then, your AI agent can use the programs on your Mac.</p>
@@ -828,7 +830,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
           <img class="os-billede" src="/bygget/en/agentos.jpg" alt="Agent360 OS: the work, calendar, knowledge, customer portals and approvals in one system. Illustration." width="720" height="460" loading="lazy">
         </article>
       </div>
-      <p class="src" data-maalt="2026-11-19" data-cws-dato="2026-11-17">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">19 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
+      <p class="src" data-maalt="2026-11-23" data-cws-dato="2026-11-21">The numbers from npm and GitHub update automatically: downloads since the first release, stars and forks. Last measured <span data-tal="dato">23 November 2026</span>. <a class="go" href="https://github.com/Agent360dk" rel="noopener">The code on GitHub ↗</a></p>
     </div>
   </section>
 
@@ -845,7 +847,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
         <p class="consent" id="tm-ja-tekst">When you press the button, you agree to emails from Gustav Louv about AI now and what’s coming, with tips, free tools and new launches. The emails are in Danish. Free. Unsubscribe whenever you like.</p>
         <p class="msg" role="status"></p>
         <details class="fold"><summary>How we handle your email address</summary>
-          <p class="fine">Your email address and the text you agreed to are stored by Agent360 Group ApS together with the time, and are used only for those emails. Your address is kept until you unsubscribe. You can always unsubscribe by writing to gustav@agent360.dk. <a href="https://www.agent360.dk/en/privacy-policy">Agent360’s privacy policy</a>.</p>
+          <p class="fine">Your email address and the text you agreed to are stored by Agent360 Group ApS together with the time, and are used only for those emails. Your address is used until you unsubscribe, then kept for two years only as proof of your consent. You can always unsubscribe by writing to gustav@agent360.dk. <a href="https://www.agent360.dk/en/privacy-policy">Agent360’s privacy policy</a>.</p>
         </details>
       </form>
       <form class="signup step2" id="ring" data-endpoint="https://api.agent360.dk/api/contacts" hidden novalidate>
@@ -918,7 +920,7 @@ section[id],[id="foelg"],[id="projekter"]{scroll-margin-top:24px}
 </main>
 
 <footer>
-  <div class="wrap"><span>Gustav Louv</span> <span>Gustav-Emil Leen Louv</span> <span>Copenhagen</span></div>
+  <div class="wrap"><span>Gustav Louv</span> <span>Gustav-Emil Leen Louv</span> <span>Copenhagen</span> <a href="https://www.agent360.dk/en/privacy-policy">Privacy policy</a></div>
 </footer>
 
 <script>
@@ -1615,7 +1617,7 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
       mail.value = '';
       visTrin2();
     } catch (err) {
-      msg.textContent = 'That didn’t go through. Write to gustav@agent360.dk and I’ll sign you up.';
+      msg.textContent = err && err.name === 'AbortError' ? 'It didn’t answer in time. Try again in a moment; if you’re already signed up, it will say so.' : 'That didn’t go through. Write to gustav@agent360.dk and I’ll sign you up.';
     } finally { knap.disabled = false; fokusTilbage(knap); }
   });
   if (!ring) return;
@@ -1626,11 +1628,11 @@ document.querySelectorAll('.sprog a[data-sprog]').forEach((a) => a.addEventListe
     if (f.dataset.forbundet !== 'ja') { rmsg.textContent = 'Preview: this is where your name and number are stored together with your email. Nothing was sent.'; return; }
     rknap.disabled = true; rmsg.textContent = 'Saving …';
     try {
-      await send({ email: adresse, name: navn.value.trim() || undefined, phone: tlf.value.trim(), source: 'gustavlouv_ring_mig',
+      await send({ email: adresse, name: navn.value.trim() || undefined, phone: tlf.value.trim(), source: 'agent360_gustavlouv_ring_mig',
         form_data: { type: 'ring-mig', sprog: 'en', samtykke: document.getElementById('rg-ja-tekst').textContent, side: location.href, tidspunkt: new Date().toISOString() } });
       rmsg.textContent = 'Thanks. We’ll call you.'; ring.querySelectorAll('input').forEach((i) => { i.value = ''; });
     } catch (err) {
-      rmsg.textContent = 'That didn’t go through. Send your number to kontakt@agent360.dk.';
+      rmsg.textContent = err && err.name === 'AbortError' ? 'It didn’t answer in time. We may already have your number: write to kontakt@agent360.dk instead of trying again.' : 'That didn’t go through. Send your number to kontakt@agent360.dk.';
     } finally { rknap.disabled = false; fokusTilbage(rknap); }
   });
 })();
