@@ -1,15 +1,24 @@
 # Måler tallene til forsiden én gang i døgnet: ugentlige brugere i Chrome Web Store (Googles API), hentninger på npm, stjerner og forks på GitHub.
 # Skriver tal.json, som forsiden læser ved hvert besøg. Kan også startes i hånden under Actions → Tal → Run workflow.
 # Chrome-tallet kræver repoets hemmeligheder CWS_* (læsenøgle, scope chromewebstore.readonly). Svarer API'et ikke, gemmes de
-# andre tal, Chrome-tallet bliver stående, og sidste trin går rødt, så GitHub sender en mail.
+# andre tal, Chrome-tallet bliver stående, og kørslen går rød.
+# 24/11: en rød kørsel bliver en issue tildelt GLouv (det er tildelingen, der sender mailen); en grøn kørsel lukker den igen.
+# Samme vagt som browser-mcp (scripts/vagt-besked.sh). Prøv beskeden e2e: Run workflow → proeve: roed (lukkes af næste grønne kørsel).
 name: Tal
 on:
   schedule:
     - cron: "17 4 * * *"
   workflow_dispatch:
+    inputs:
+      proeve:
+        description: "roed = send en prøvebesked (issue), så du ser, at den når frem"
+        type: choice
+        options: [nej, roed]
+        default: nej
 permissions:
   contents: write
   pages: write
+  issues: write
 concurrency:
   group: tal
   cancel-in-progress: false
@@ -30,6 +39,7 @@ jobs:
           CWS_PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
           CWS_EXTENSION_ID: ${{ secrets.CWS_EXTENSION_ID }}
       - name: Gem tal.json, hvis noget har flyttet sig
+        id: gem
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -46,3 +56,25 @@ jobs:
         run: |
           echo "::error::Chrome-tallet kunne ikke måles i nat. tal.json har de andre tal, og siden viser det forrige Chrome-tal. Se fejlen i trinnet «Mål»."
           exit 1
+      - name: Besked til Gustav ved rødt, luk ved grønt
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VAGT_EJER: GLouv
+          JOB_STATUS: ${{ job.status }}
+          MAAL: ${{ steps.maal.outcome }}
+          CHROME_FEJL: ${{ steps.maal.outputs.chrome_fejl }}
+          GEM: ${{ steps.gem.outcome }}
+          PROEVE: ${{ inputs.proeve }}
+        run: |
+          : > fund.txt
+          [ "$MAAL" = success ] || echo "Målingen stoppede (trinnet «Mål»: $MAAL). tal.json er ikke målt i nat." >> fund.txt
+          [ "$CHROME_FEJL" = 1 ] && echo "Chrome-tallet kom ikke fra Googles API. Siden viser det forrige Chrome-tal." >> fund.txt
+          [ "$GEM" = failure ] && echo "tal.json kunne ikke gemmes (trinnet «Gem»)." >> fund.txt
+          [ "$PROEVE" = roed ] && echo "PRØVE: bestilt i hånden under Actions → Tal. Lukker sig selv ved næste grønne kørsel." >> fund.txt
+          if [ "$JOB_STATUS" = success ] && [ ! -s fund.txt ]; then
+            bash .github/scripts/vagt-besked.sh tal ok
+          else
+            [ -s fund.txt ] || echo "Kørslen blev ikke grøn (job: $JOB_STATUS)." >> fund.txt
+            bash .github/scripts/vagt-besked.sh tal roed fund.txt
+          fi
