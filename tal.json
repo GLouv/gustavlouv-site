@@ -1,17 +1,17 @@
 {
- "maalt": "2026-11-27",
- "cws": 2968,
- "cws_dato": "2026-11-25",
+ "maalt": "2026-11-28",
+ "cws": 2990,
+ "cws_dato": "2026-11-26",
  "cws_butik": 2000,
  "browser": {
-  "npm_i_alt": 23670,
-  "npm_30_dage": 4898,
+  "npm_i_alt": 24870,
+  "npm_30_dage": 5884,
   "stjerner": 68,
   "forks": 19
  },
  "computer": {
-  "npm_i_alt": 716,
-  "npm_30_dage": 301,
+  "npm_i_alt": 727,
+  "npm_30_dage": 302,
   "stjerner": 1,
   "forks": 0
  }
